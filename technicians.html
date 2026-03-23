@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>اختر فنيّك - صيانةبلس</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #0a1628; --navy-mid: #112240; --navy-light: #1a3258;
+      --gold: #c9a84c; --gold-light: #e8c97a; --white: #fff;
+      --text-body: #d1c9b8; --text-muted: #8a8070;
+      --green: #2ecc71; --red: #e8534a; --blue: #3b82f6;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Cairo', sans-serif; background: var(--navy); color: var(--white); min-height: 100vh; }
+
+    /* NAV */
+    .emergency-bar { background: var(--red); text-align: center; padding: 0.5rem; font-size: 0.8rem; font-weight: 700; }
+    .emergency-bar a { color: #fff; }
+    nav { position: sticky; top: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1rem 5%; background: rgba(10,22,40,0.97); backdrop-filter: blur(16px); border-bottom: 1px solid rgba(201,168,76,0.15); }
+    .logo { font-family: 'Tajawal', sans-serif; font-size: 1.4rem; font-weight: 800; color: var(--gold); text-decoration: none; }
+    .logo span { color: var(--white); }
+    .back-btn { display: flex; align-items: center; gap: 0.5rem; color: var(--text-body); text-decoration: none; font-size: 0.88rem; font-weight: 600; border: 1px solid rgba(255,255,255,0.1); padding: 0.4rem 1rem; border-radius: 6px; transition: all 0.2s; }
+    .back-btn:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* PAGE HERO */
+    .page-hero { background: linear-gradient(135deg, var(--navy-mid), var(--navy-light)); padding: 2.5rem 5% 2rem; position: relative; overflow: hidden; border-bottom: 1px solid rgba(201,168,76,0.1); }
+    .page-hero::before { content: ''; position: absolute; inset: 0; background-image: linear-gradient(rgba(201,168,76,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(201,168,76,0.04) 1px, transparent 1px); background-size: 50px 50px; }
+    .page-hero-content { position: relative; z-index: 1; }
+    .page-hero h1 { font-family: 'Tajawal', sans-serif; font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 800; margin-bottom: 0.3rem; }
+    .page-hero h1 span { color: var(--gold); }
+    .page-hero p { color: var(--text-body); font-size: 0.92rem; }
+
+    /* FILTER BAR */
+    .filter-bar { display: flex; gap: 0.6rem; flex-wrap: wrap; align-items: center; padding: 1.2rem 5%; background: var(--navy-mid); border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .filter-label { font-size: 0.78rem; color: var(--text-muted); font-weight: 700; letter-spacing: 1px; }
+    .fbtn { display: flex; align-items: center; gap: 0.4rem; padding: 0.5rem 1.1rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); background: transparent; color: var(--text-body); font-family: 'Cairo', sans-serif; font-size: 0.82rem; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+    .fbtn:hover { border-color: rgba(201,168,76,0.4); color: var(--white); }
+    .fbtn.active { background: rgba(201,168,76,0.12); border-color: var(--gold); color: var(--gold); }
+    .fbtn .cnt { background: rgba(255,255,255,0.08); border-radius: 20px; padding: 0.05rem 0.45rem; font-size: 0.7rem; color: var(--text-muted); }
+    .fbtn.active .cnt { background: rgba(201,168,76,0.2); color: var(--gold); }
+
+    /* GRID */
+    .cards-wrap { padding: 2rem 3%; }
+    .results-info { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.2rem; }
+    .results-info span { color: var(--gold); font-weight: 700; }
+    .cards-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2rem; }
+
+    /* CARD */
+    .tech-card { background: linear-gradient(145deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01)); border: 1px solid rgba(255,255,255,0.08); border-radius: 20px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s; animation: cardIn 0.4s ease both; }
+    .tech-card:hover { transform: translateY(-6px); box-shadow: 0 20px 56px rgba(0,0,0,0.45); border-color: rgba(201,168,76,0.25); }
+    .tech-card.hidden { display: none; }
+    @keyframes cardIn { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* CARD TOP */
+    .card-top { position: relative; padding: 1.8rem 1.5rem 0; display: flex; flex-direction: column; align-items: center; }
+    .avail-badge { position: absolute; top: 1rem; right: 1rem; font-size: 0.68rem; font-weight: 700; padding: 0.2rem 0.7rem; border-radius: 20px; }
+    .avail-badge.on  { background: rgba(46,204,113,0.12); color: var(--green); border: 1px solid rgba(46,204,113,0.25); }
+    .avail-badge.off { background: rgba(232,83,74,0.1); color: #e8a07a; border: 1px solid rgba(232,83,74,0.2); }
+
+    /* AVATAR */
+    .avatar-ring { width: 100px; height: 100px; border-radius: 50%; border: 3px solid rgba(201,168,76,0.3); padding: 4px; background: rgba(201,168,76,0.06); position: relative; flex-shrink: 0; }
+    .avatar-ring svg { width: 100%; height: 100%; border-radius: 50%; display: block; }
+    .verified-badge { position: absolute; bottom: 2px; left: 2px; width: 22px; height: 22px; border-radius: 50%; background: var(--gold); border: 2px solid var(--navy); display: flex; align-items: center; justify-content: center; font-size: 0.55rem; color: var(--navy); font-weight: 900; }
+
+    .tech-name { font-family: 'Tajawal', sans-serif; font-size: 1rem; font-weight: 800; margin-top: 0.8rem; text-align: center; }
+    .tech-tag { display: inline-flex; align-items: center; gap: 0.3rem; font-size: 0.7rem; color: var(--gold); background: rgba(201,168,76,0.1); border-radius: 4px; padding: 0.15rem 0.55rem; font-weight: 700; margin-top: 0.35rem; }
+    .stars-row { display: flex; align-items: center; gap: 0.4rem; margin-top: 0.6rem; flex-wrap: wrap; justify-content: center; }
+    .stars { color: var(--gold); font-size: 0.8rem; }
+    .rating-val { font-size: 0.82rem; font-weight: 700; }
+    .review-ct { font-size: 0.7rem; color: var(--text-muted); }
+
+    /* STATS */
+    .card-stats { display: flex; margin-top: 1rem; border-top: 1px solid rgba(255,255,255,0.06); border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .cstat { flex: 1; text-align: center; padding: 0.65rem 0.3rem; }
+    .cstat:not(:last-child) { border-left: 1px solid rgba(255,255,255,0.06); }
+    .cstat-val { font-family: 'Tajawal', sans-serif; font-size: 0.92rem; font-weight: 800; color: var(--white); display: block; }
+    .cstat-lbl { font-size: 0.6rem; color: var(--text-muted); }
+
+    /* ACTIONS */
+    .card-actions { padding: 0.9rem 1rem 1rem; display: flex; flex-direction: column; gap: 0.5rem; }
+    .btn-book { width: 100%; padding: 0.65rem; background: linear-gradient(135deg, var(--gold), var(--gold-light)); color: var(--navy); border: none; border-radius: 8px; font-family: 'Cairo', sans-serif; font-size: 0.82rem; font-weight: 700; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+    .btn-book:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(201,168,76,0.4); }
+    .btn-book:disabled { background: rgba(255,255,255,0.07); color: var(--text-muted); cursor: not-allowed; box-shadow: none; transform: none; }
+    .btn-chat { width: 100%; padding: 0.6rem; background: rgba(59,130,246,0.1); color: #60a5fa; border: 1px solid rgba(59,130,246,0.25); border-radius: 8px; font-family: 'Cairo', sans-serif; font-size: 0.82rem; font-weight: 700; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 0.4rem; }
+    .btn-chat:hover { background: rgba(59,130,246,0.2); border-color: rgba(59,130,246,0.5); }
+    .busy-note { text-align: center; font-size: 0.72rem; color: var(--text-muted); padding: 0.4rem; background: rgba(232,83,74,0.05); border-radius: 6px; }
+
+    /* OVERLAY */
+    .overlay { position: fixed; inset: 0; z-index: 200; background: rgba(0,0,0,0.75); backdrop-filter: blur(10px); display: flex; align-items: center; justify-content: center; padding: 1rem; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+    .overlay.open { opacity: 1; pointer-events: all; }
+
+    /* BOOKING MODAL */
+    .modal { background: var(--navy-mid); border: 1px solid rgba(201,168,76,0.2); border-radius: 20px; padding: 2rem; width: 100%; max-width: 460px; transform: translateY(28px) scale(0.96); transition: transform 0.3s; position: relative; }
+    .overlay.open .modal { transform: translateY(0) scale(1); }
+    .modal-close { position: absolute; top: 1rem; left: 1rem; background: rgba(255,255,255,0.05); border: none; color: var(--text-muted); width: 30px; height: 30px; border-radius: 50%; cursor: pointer; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; }
+    .modal-close:hover { background: rgba(255,255,255,0.1); color: var(--white); }
+    .modal-head { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; padding-bottom: 1.2rem; border-bottom: 1px solid rgba(255,255,255,0.07); }
+    .modal-avatar-sm { width: 46px; height: 46px; border-radius: 12px; overflow: hidden; flex-shrink: 0; }
+    .modal-avatar-sm svg { width: 100%; height: 100%; display: block; }
+    .modal h2 { font-family: 'Tajawal', sans-serif; font-size: 1.15rem; font-weight: 800; margin-bottom: 0.9rem; }
+    .modal h2 em { font-style: normal; color: var(--gold); }
+    .fg { margin-bottom: 0.9rem; }
+    .fg label { display: block; font-size: 0.75rem; font-weight: 700; color: var(--text-muted); margin-bottom: 0.35rem; }
+    .fg input, .fg textarea { width: 100%; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 0.7rem 1rem; color: var(--white); font-family: 'Cairo', sans-serif; font-size: 0.88rem; outline: none; transition: border-color 0.2s; }
+    .fg input:focus, .fg textarea:focus { border-color: var(--gold); }
+    .fg textarea { resize: none; height: 75px; }
+    .fgrow { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+    .btn-submit { width: 100%; padding: 0.95rem; background: linear-gradient(135deg, var(--gold), var(--gold-light)); color: var(--navy); border: none; border-radius: 10px; font-family: 'Cairo', sans-serif; font-size: 0.95rem; font-weight: 800; cursor: pointer; margin-top: 0.3rem; transition: transform 0.2s; }
+    .btn-submit:hover { transform: translateY(-2px); }
+
+    /* SUCCESS */
+    .success-state { text-align: center; padding: 2rem 0; display: none; }
+    .success-icon { width: 68px; height: 68px; border-radius: 50%; background: rgba(46,204,113,0.1); border: 2px solid var(--green); display: flex; align-items: center; justify-content: center; font-size: 1.8rem; margin: 0 auto 1rem; }
+    .success-state h3 { font-family: 'Tajawal', sans-serif; font-size: 1.3rem; font-weight: 800; margin-bottom: 0.5rem; }
+    .success-state p { font-size: 0.85rem; color: var(--text-body); line-height: 1.7; }
+
+    /* CHAT MODAL */
+    .chat-modal { background: var(--navy-mid); border: 1px solid rgba(59,130,246,0.2); border-radius: 20px; width: 100%; max-width: 420px; height: 560px; display: flex; flex-direction: column; transform: translateY(28px) scale(0.96); transition: transform 0.3s; overflow: hidden; }
+    .overlay.open .chat-modal { transform: translateY(0) scale(1); }
+    .chat-header { display: flex; align-items: center; gap: 0.8rem; padding: 1rem 1.2rem; border-bottom: 1px solid rgba(255,255,255,0.07); background: rgba(59,130,246,0.05); flex-shrink: 0; }
+    .chat-avatar { width: 40px; height: 40px; border-radius: 10px; overflow: hidden; flex-shrink: 0; }
+    .chat-avatar svg { width: 100%; height: 100%; display: block; }
+    .chat-info h4 { font-size: 0.92rem; font-weight: 700; }
+    .chat-info span { font-size: 0.72rem; color: var(--green); }
+    .chat-close { margin-right: auto; margin-left: 0; background: rgba(255,255,255,0.05); border: none; color: var(--text-muted); width: 30px; height: 30px; border-radius: 50%; cursor: pointer; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; }
+    .chat-close:hover { color: var(--white); background: rgba(255,255,255,0.1); }
+    .privacy-note { display: flex; align-items: center; gap: 0.5rem; background: rgba(59,130,246,0.07); border-bottom: 1px solid rgba(59,130,246,0.1); padding: 0.6rem 1.2rem; font-size: 0.72rem; color: #93c5fd; flex-shrink: 0; }
+    .chat-messages { flex: 1; overflow-y: auto; padding: 1rem 1.2rem; display: flex; flex-direction: column; gap: 0.7rem; }
+    .msg { max-width: 80%; padding: 0.65rem 0.9rem; border-radius: 14px; font-size: 0.84rem; line-height: 1.5; }
+    .msg.from-tech { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.08); align-self: flex-end; border-radius: 14px 14px 4px 14px; }
+    .msg.from-me { background: rgba(201,168,76,0.15); border: 1px solid rgba(201,168,76,0.2); align-self: flex-start; border-radius: 14px 14px 14px 4px; color: var(--gold-light); }
+    .msg-time { font-size: 0.63rem; color: var(--text-muted); margin-top: 0.25rem; }
+    .typing { display: flex; gap: 0.3rem; align-items: center; padding: 0.5rem; }
+    .typing span { width: 7px; height: 7px; border-radius: 50%; background: var(--text-muted); animation: blink 1.2s infinite; }
+    .typing span:nth-child(2) { animation-delay: 0.2s; }
+    .typing span:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes blink { 0%, 80%, 100% { opacity: 0.3; } 40% { opacity: 1; } }
+    .chat-input-area { padding: 0.8rem 1rem; border-top: 1px solid rgba(255,255,255,0.07); display: flex; gap: 0.6rem; flex-shrink: 0; }
+    .chat-input { flex: 1; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 0.65rem 1rem; color: var(--white); font-family: 'Cairo', sans-serif; font-size: 0.85rem; outline: none; resize: none; height: 42px; transition: border-color 0.2s; }
+    .chat-input:focus { border-color: rgba(59,130,246,0.5); }
+    .send-btn { background: var(--blue); border: none; border-radius: 10px; width: 42px; height: 42px; cursor: pointer; font-size: 1rem; color: white; display: flex; align-items: center; justify-content: center; transition: background 0.2s; flex-shrink: 0; }
+    .send-btn:hover { background: #2563eb; }
+
+    /* RESPONSIVE */
+    @media (max-width: 1100px) { .cards-grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 800px)  { .cards-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 500px)  { .cards-grid { grid-template-columns: 1fr; } .fgrow { grid-template-columns: 1fr; } .chat-modal { height: 90vh; } }
+  </style>
+</head>
+<body>
+
+<div class="emergency-bar">🚨 طوارئ 24/7 — <a href="tel:19777">19777</a></div>
+
+<nav>
+  <a href="index.html" class="logo">صيانة<span>بلس</span></a>
+  <a href="index.html" class="back-btn">← الرئيسية</a>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-content">
+    <h1>اختر <span>فنيّك</span> المعتمد</h1>
+    <p>8 فنيين خبراء معتمدون — اختر خدمتك وتواصل بخصوصية تامة</p>
+  </div>
+</div>
+
+<div class="filter-bar">
+  <span class="filter-label">تصفية:</span>
+  <button class="fbtn active" data-f="all">🏠 الكل <span class="cnt">8</span></button>
+  <button class="fbtn" data-f="electric">🔌 كهرباء <span class="cnt">2</span></button>
+  <button class="fbtn" data-f="plumbing">🔧 سباكة <span class="cnt">2</span></button>
+  <button class="fbtn" data-f="ac">❄️ تكييفات <span class="cnt">2</span></button>
+  <button class="fbtn" data-f="appliances">🏠 أجهزة <span class="cnt">2</span></button>
+  <button class="fbtn" data-f="available">🟢 المتاحون فقط <span class="cnt">6</span></button>
+</div>
+
+<div class="cards-wrap">
+  <p class="results-info">يُعرض <span id="shown">8</span> فني</p>
+  <div class="cards-grid" id="grid">
+
+    <!-- كهرباء - متاح -->
+    <div class="tech-card" data-svc="electric" data-avail="true" data-id="1">
+      <div class="card-top">
+        <span class="avail-badge on">● متاح الآن</span>
+        <div class="avatar-ring">
+          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <rect width="100" height="100" fill="#1a2c4a"/>
+            <rect x="28" y="62" width="44" height="30" rx="8" fill="#f97316"/>
+            <polygon points="50,62 40,72 50,68 60,72" fill="#1a3258"/>
+            <rect x="43" y="54" width="14" height="12" rx="4" fill="#fbbf7a"/>
+            <ellipse cx="50" cy="46" rx="20" ry="19" fill="#fbbf7a"/>
+            <ellipse cx="50" cy="27" rx="24" ry="10" fill="#f59e0b"/>
+            <rect x="26" y="31" width="48" height="6" rx="3" fill="#d97706"/>
+            <ellipse cx="43" cy="47" rx="3" ry="3.5" fill="#1e293b"/>
+            <ellipse cx="57" cy="47" rx="3" ry="3.5" fill="#1e293b"/>
+            <circle cx="44" cy="46" r="1" fill="#fff"/>
+            <circle cx="58" cy="46" r="1" fill="#fff"/>
+            <path d="M44 54 Q50 58 56 54" stroke="#c2855a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+            <polygon points="68,58 64,66 67,66 63,74 71,63 68,63" fill="#fbbf24"/>
+          </svg>
+          <div class="verified-badge">✓</div>
+        </div>
+        <div class="tech-name">أحمد محمود</div>
+        <span class="tech-tag">🔌 كهرباء معتمد</span>
+        <div class="stars-row">
+          <span class="stars">★★★★★</span>
+          <span class="rating-val">4.9</span>
+          <span class="review-ct">(234)</span>
+        </div>
+      </div>
+      <div class="card-stats">
+        <div class="cstat"><span class="cstat-val">12</span><span class="cstat-lbl">سنة خبرة</span></div>
+        <div class="cstat"><span class="cstat-val">80ج</span><span class="cstat-lbl">الزيارة</span></div>
+        <div class="cstat"><span class="cstat-val">+500</span><span class="cstat-lbl">مكتمل</span></div>
+      </div>
+      <div class="card-actions">
+        <button class="btn-book" onclick="openBook('أحمد محمود','🔌 كهرباء',1)">📅 احجز موعد</button>
+        <button class="btn-chat" onclick="openChat('أحمد محمود','🔌 كهرباء',1)">💬 تواصل بخصوصية</button>
+      </div>
+    </div>
+
+    <!-- كهرباء - مشغول -->
+    <div class="tech-card" data-svc="electric" data-avail="false" data-id="2">
+      <div class="card-top">
+        <span class="avail-badge off">● مشغول حالياً</span>
+        <div class="avatar-ring">
+          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <rect width="100" height="100" fill="#1e1a2e"/>
+            <rect x="28" y="62" width="44" height="30" rx="8" fill="#6d28d9"/>
+            <polygon points="50,62 40,72 50,68 60,72" fill="#4c1d95"/>
+            <rect x="43" y="54" width="14" height="12" rx="4" fill="#fcd5b0"/>
+            <ellipse cx="50" cy="46" rx="20" ry="19" fill="#fcd5b0"/>
+            <rect x="30" y="27" width="40" height="12" rx="4" fill="#2d1f5e"/>
+            <ellipse cx="43" cy="48" rx="4" ry="3.5" fill="#fff" opacity=".9"/>
+            <ellipse cx="57" cy="48" rx="4" ry="3.5" fill="#fff" opacity=".9"/>
+            <ellipse cx="43" cy="48" rx="2.5" ry="2.5" fill="#1e293b"/>
+            <ellipse cx="57" cy="48" rx="2.5" ry="2.5" fill="#1e293b"/>
+            <circle cx="44" cy="47" r=".8" fill="#fff"/>
+            <circle cx="58" cy="47" r=".8" fill="#fff"/>
+            <path d="M44 54 Q50 57 56 54" stroke="#b8896a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+            <polygon points="68,58 64,66 67,66 63,74 71,63 68,63" fill="#a78bfa"/>
+          </svg>
+          <div class="verified-badge">✓</div>
+        </div>
+        <div class="tech-name">كريم عبدالله</div>
+        <span class="tech-tag">🔌 كهرباء معتمد</span>
+        <div class="stars-row">
+          <span class="stars">★★★★★</span>
+          <span class="rating-val">4.7</span>
+          <span class="rev
