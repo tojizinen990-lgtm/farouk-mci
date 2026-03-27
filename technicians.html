@@ -1,621 +1,584 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>اختر فنيّك - صيانةبلس</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet" />
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --navy: #0a1628; --navy-mid: #112240; --navy-light: #1a3258;
-      --gold: #c9a84c; --gold-light: #e8c97a; --white: #fff;
-      --text-body: #d1c9b8; --text-muted: #8a8070;
-      --green: #2ecc71; --red: #e8534a; --blue: #3b82f6;
-    }
-    html { scroll-behavior: smooth; }
-    body { font-family: 'Cairo', sans-serif; background: var(--navy); color: var(--white); min-height: 100vh; }
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>اختر فنيّك — صيانةبلس</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Tajawal:wght@400;700;800;900&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="shared.css"/>
+<style>
+/* PAGE HERO */
+.page-hero{background:linear-gradient(135deg,var(--navy-mid),var(--navy-light));padding:2.2rem 5% 1.8rem;position:relative;overflow:hidden;border-bottom:1px solid rgba(201,168,76,.1)}
+.page-hero::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(201,168,76,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,.04) 1px,transparent 1px);background-size:48px 48px}
+.page-hero-c{position:relative;z-index:1}
+.page-hero h1{font-family:'Tajawal',sans-serif;font-size:clamp(1.4rem,3vw,2.1rem);font-weight:800;margin-bottom:.3rem}
+.page-hero h1 span{color:var(--gold)}
+.page-hero p{color:var(--body-text);font-size:.9rem}
 
-    /* NAV */
-    .emergency-bar { background: var(--red); text-align: center; padding: 0.5rem; font-size: 0.8rem; font-weight: 700; }
-    .emergency-bar a { color: #fff; }
-    nav { position: sticky; top: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1rem 5%; background: rgba(10,22,40,0.97); backdrop-filter: blur(16px); border-bottom: 1px solid rgba(201,168,76,0.15); }
-    .logo { font-family: 'Tajawal', sans-serif; font-size: 1.4rem; font-weight: 800; color: var(--gold); text-decoration: none; }
-    .logo span { color: var(--white); }
-    .back-btn { display: flex; align-items: center; gap: 0.5rem; color: var(--text-body); text-decoration: none; font-size: 0.88rem; font-weight: 600; border: 1px solid rgba(255,255,255,0.1); padding: 0.4rem 1rem; border-radius: 6px; transition: all 0.2s; }
-    .back-btn:hover { border-color: var(--gold); color: var(--gold); }
+/* FILTER BAR */
+.fbar{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center;padding:1rem 5%;background:var(--navy-mid);border-bottom:1px solid rgba(255,255,255,.05);position:sticky;top:64px;z-index:50}
+body.has-ebar .fbar{top:100px}
+.flbl{font-size:.72rem;color:var(--muted);font-weight:700;letter-spacing:1px;white-space:nowrap}
+.fbtn{display:flex;align-items:center;gap:.35rem;padding:.45rem .9rem;border-radius:8px;border:1px solid rgba(255,255,255,.1);background:transparent;color:var(--body-text);font-family:'Cairo',sans-serif;font-size:.8rem;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap}
+.fbtn:hover{border-color:rgba(201,168,76,.4);color:var(--white)}
+.fbtn.active{background:rgba(201,168,76,.12);border-color:var(--gold);color:var(--gold)}
+.fcnt{background:rgba(255,255,255,.08);border-radius:20px;padding:.04rem .38rem;font-size:.67rem;color:var(--muted)}
+.fbtn.active .fcnt{background:rgba(201,168,76,.2);color:var(--gold)}
 
-    /* PAGE HERO */
-    .page-hero { background: linear-gradient(135deg, var(--navy-mid), var(--navy-light)); padding: 2.5rem 5% 2rem; position: relative; overflow: hidden; border-bottom: 1px solid rgba(201,168,76,0.1); }
-    .page-hero::before { content: ''; position: absolute; inset: 0; background-image: linear-gradient(rgba(201,168,76,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(201,168,76,0.04) 1px, transparent 1px); background-size: 50px 50px; }
-    .page-hero-content { position: relative; z-index: 1; }
-    .page-hero h1 { font-family: 'Tajawal', sans-serif; font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 800; margin-bottom: 0.3rem; }
-    .page-hero h1 span { color: var(--gold); }
-    .page-hero p { color: var(--text-body); font-size: 0.92rem; }
+/* GRID */
+.wrap{padding:1.8rem 3%;max-width:1400px;margin:0 auto}
+.rinfo{font-size:.82rem;color:var(--muted);margin-bottom:1rem}
+.rinfo span{color:var(--gold);font-weight:700}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.1rem}
 
-    /* FILTER BAR */
-    .filter-bar { display: flex; gap: 0.6rem; flex-wrap: wrap; align-items: center; padding: 1.2rem 5%; background: var(--navy-mid); border-bottom: 1px solid rgba(255,255,255,0.05); }
-    .filter-label { font-size: 0.78rem; color: var(--text-muted); font-weight: 700; letter-spacing: 1px; }
-    .fbtn { display: flex; align-items: center; gap: 0.4rem; padding: 0.5rem 1.1rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); background: transparent; color: var(--text-body); font-family: 'Cairo', sans-serif; font-size: 0.82rem; font-weight: 600; cursor: pointer; transition: all 0.2s; }
-    .fbtn:hover { border-color: rgba(201,168,76,0.4); color: var(--white); }
-    .fbtn.active { background: rgba(201,168,76,0.12); border-color: var(--gold); color: var(--gold); }
-    .fbtn .cnt { background: rgba(255,255,255,0.08); border-radius: 20px; padding: 0.05rem 0.45rem; font-size: 0.7rem; color: var(--text-muted); }
-    .fbtn.active .cnt { background: rgba(201,168,76,0.2); color: var(--gold); }
+/* CARD */
+.card{background:linear-gradient(145deg,rgba(255,255,255,.04),rgba(255,255,255,.01));border:1px solid rgba(255,255,255,.08);border-radius:18px;overflow:hidden;transition:transform .3s,box-shadow .3s,border-color .3s;animation:cin .4s ease both}
+.card:hover{transform:translateY(-5px);box-shadow:0 18px 50px rgba(0,0,0,.4);border-color:rgba(201,168,76,.22)}
+.card.hidden{display:none}
+@keyframes cin{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.ctop{position:relative;padding:1.6rem 1.2rem 0;display:flex;flex-direction:column;align-items:center}
+.abadge{position:absolute;top:.9rem;right:.9rem;font-size:.65rem;font-weight:700;padding:.18rem .62rem;border-radius:20px}
+.abadge.on{background:rgba(46,204,113,.12);color:var(--green);border:1px solid rgba(46,204,113,.25)}
+.abadge.off{background:rgba(232,83,74,.1);color:#e8a07a;border:1px solid rgba(232,83,74,.2)}
+.aring{width:92px;height:92px;border-radius:50%;border:3px solid rgba(201,168,76,.28);padding:3px;background:rgba(201,168,76,.05);position:relative;flex-shrink:0}
+.aring svg{width:100%;height:100%;border-radius:50%;display:block}
+.vbadge{position:absolute;bottom:2px;left:2px;width:20px;height:20px;border-radius:50%;background:var(--gold);border:2px solid var(--navy);display:flex;align-items:center;justify-content:center;font-size:.52rem;color:var(--navy);font-weight:900}
+.tname{font-family:'Tajawal',sans-serif;font-size:.95rem;font-weight:800;margin-top:.75rem;text-align:center}
+.ttag{display:inline-flex;align-items:center;gap:.28rem;font-size:.68rem;color:var(--gold);background:rgba(201,168,76,.1);border-radius:4px;padding:.12rem .5rem;font-weight:700;margin-top:.3rem}
+.srow{display:flex;align-items:center;gap:.35rem;margin-top:.5rem;flex-wrap:wrap;justify-content:center}
+.stars-r{color:var(--gold);font-size:.75rem}
+.rval{font-size:.78rem;font-weight:700}
+.rct{font-size:.65rem;color:var(--muted)}
+.cstats{display:flex;margin-top:.9rem;border-top:1px solid rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.06)}
+.cs{flex:1;text-align:center;padding:.58rem .25rem}
+.cs:not(:last-child){border-left:1px solid rgba(255,255,255,.06)}
+.csv{font-family:'Tajawal',sans-serif;font-size:.88rem;font-weight:800;display:block}
+.csl{font-size:.58rem;color:var(--muted)}
+.cact{padding:.8rem .9rem .9rem;display:flex;flex-direction:column;gap:.45rem}
+.bbk{width:100%;padding:.62rem;background:linear-gradient(135deg,var(--gold),var(--gold-light));color:var(--navy);border:none;border-radius:8px;font-family:'Cairo',sans-serif;font-size:.8rem;font-weight:700;cursor:pointer;transition:transform .2s,box-shadow .2s}
+.bbk:hover{transform:translateY(-2px);box-shadow:0 5px 16px rgba(201,168,76,.4)}
+.bbk:disabled{background:rgba(255,255,255,.07);color:var(--muted);cursor:not-allowed;box-shadow:none;transform:none}
+.bch{width:100%;padding:.55rem;background:rgba(59,130,246,.1);color:#60a5fa;border:1px solid rgba(59,130,246,.22);border-radius:8px;font-family:'Cairo',sans-serif;font-size:.8rem;font-weight:700;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:.35rem}
+.bch:hover{background:rgba(59,130,246,.18);border-color:rgba(59,130,246,.5)}
+.bnote{text-align:center;font-size:.68rem;color:var(--muted);padding:.35rem;background:rgba(232,83,74,.05);border-radius:6px}
 
-    /* GRID */
-    .cards-wrap { padding: 2rem 3%; }
-    .results-info { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.2rem; }
-    .results-info span { color: var(--gold); font-weight: 700; }
-    .cards-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2rem; }
+/* CHAT MODAL */
+.chat-modal{background:var(--navy-mid);border:1px solid rgba(59,130,246,.2);border-radius:18px;width:100%;max-width:400px;height:540px;display:flex;flex-direction:column;transform:translateY(24px) scale(.96);transition:transform .3s;overflow:hidden}
+.overlay.open .chat-modal{transform:translateY(0) scale(1)}
+.ch-head{display:flex;align-items:center;gap:.75rem;padding:.9rem 1.1rem;border-bottom:1px solid rgba(255,255,255,.07);background:rgba(59,130,246,.05);flex-shrink:0}
+.ch-av{width:38px;height:38px;border-radius:9px;overflow:hidden;flex-shrink:0}
+.ch-av svg{width:100%;height:100%;display:block}
+.ch-info h4{font-size:.88rem;font-weight:700}
+.ch-info span{font-size:.68rem;color:var(--green)}
+.ch-cl{margin-right:auto;margin-left:0;background:rgba(255,255,255,.05);border:none;color:var(--muted);width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:.85rem;display:flex;align-items:center;justify-content:center}
+.ch-cl:hover{color:var(--white);background:rgba(255,255,255,.1)}
+.pnote{display:flex;align-items:center;gap:.45rem;background:rgba(59,130,246,.07);border-bottom:1px solid rgba(59,130,246,.1);padding:.55rem 1.1rem;font-size:.68rem;color:#93c5fd;flex-shrink:0}
+.msgs{flex:1;overflow-y:auto;padding:.9rem 1.1rem;display:flex;flex-direction:column;gap:.6rem;scrollbar-width:thin}
+.msg{max-width:82%;padding:.6rem .85rem;border-radius:13px;font-size:.82rem;line-height:1.5}
+.msg.ft{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);align-self:flex-end;border-radius:13px 13px 4px 13px}
+.msg.fm{background:rgba(201,168,76,.14);border:1px solid rgba(201,168,76,.2);align-self:flex-start;border-radius:13px 13px 13px 4px;color:var(--gold-light)}
+.mtime{font-size:.6rem;color:var(--muted);margin-top:.22rem}
+.typing{display:flex;gap:.28rem;align-items:center;padding:.4rem}
+.typing span{width:6px;height:6px;border-radius:50%;background:var(--muted);animation:blink 1.2s infinite}
+.typing span:nth-child(2){animation-delay:.2s}
+.typing span:nth-child(3){animation-delay:.4s}
+@keyframes blink{0%,80%,100%{opacity:.3}40%{opacity:1}}
+.cinput{padding:.7rem .9rem;border-top:1px solid rgba(255,255,255,.07);display:flex;gap:.55rem;flex-shrink:0}
+.ci{flex:1;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:9px;padding:.58rem .9rem;color:var(--white);font-family:'Cairo',sans-serif;font-size:.82rem;outline:none;resize:none;height:40px;transition:border-color .2s}
+.ci:focus{border-color:rgba(59,130,246,.5)}
+.send-btn{background:var(--blue);border:none;border-radius:9px;width:40px;height:40px;cursor:pointer;color:white;display:flex;align-items:center;justify-content:center;font-size:.95rem;flex-shrink:0;transition:background .2s}
+.send-btn:hover{background:#2563eb}
 
-    /* CARD */
-    .tech-card { background: linear-gradient(145deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01)); border: 1px solid rgba(255,255,255,0.08); border-radius: 20px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s; animation: cardIn 0.4s ease both; display: flex; flex-direction: column; justify-content: space-between;}
-    .tech-card:hover { transform: translateY(-6px); box-shadow: 0 20px 56px rgba(0,0,0,0.45); border-color: rgba(201,168,76,0.25); }
-    .tech-card.hidden { display: none; }
-    @keyframes cardIn { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
-
-    /* CARD TOP */
-    .card-top { position: relative; padding: 1.8rem 1.5rem 0; display: flex; flex-direction: column; align-items: center; }
-    .avail-badge { position: absolute; top: 1rem; right: 1rem; font-size: 0.68rem; font-weight: 700; padding: 0.2rem 0.7rem; border-radius: 20px; }
-    .avail-badge.on  { background: rgba(46,204,113,0.12); color: var(--green); border: 1px solid rgba(46,204,113,0.25); }
-    .avail-badge.off { background: rgba(232,83,74,0.1); color: #e8a07a; border: 1px solid rgba(232,83,74,0.2); }
-
-    /* AVATAR */
-    .avatar-ring { width: 100px; height: 100px; border-radius: 50%; border: 3px solid rgba(201,168,76,0.3); padding: 4px; background: rgba(201,168,76,0.06); position: relative; flex-shrink: 0; }
-    .avatar-ring svg { width: 100%; height: 100%; border-radius: 50%; display: block; }
-    .verified-badge { position: absolute; bottom: 2px; left: 2px; width: 22px; height: 22px; border-radius: 50%; background: var(--gold); border: 2px solid var(--navy); display: flex; align-items: center; justify-content: center; font-size: 0.55rem; color: var(--navy); font-weight: 900; }
-
-    .tech-name { font-family: 'Tajawal', sans-serif; font-size: 1rem; font-weight: 800; margin-top: 0.8rem; text-align: center; }
-    .tech-tag { display: inline-flex; align-items: center; gap: 0.3rem; font-size: 0.7rem; color: var(--gold); background: rgba(201,168,76,0.1); border-radius: 4px; padding: 0.15rem 0.55rem; font-weight: 700; margin-top: 0.35rem; }
-    .stars-row { display: flex; align-items: center; gap: 0.4rem; margin-top: 0.6rem; flex-wrap: wrap; justify-content: center; }
-    .stars { color: var(--gold); font-size: 0.8rem; }
-    .rating-val { font-size: 0.82rem; font-weight: 700; }
-    .review-ct { font-size: 0.7rem; color: var(--text-muted); }
-
-    /* STATS */
-    .card-stats { display: flex; margin-top: 1rem; border-top: 1px solid rgba(255,255,255,0.06); border-bottom: 1px solid rgba(255,255,255,0.06); }
-    .cstat { flex: 1; text-align: center; padding: 0.65rem 0.3rem; }
-    .cstat:not(:last-child) { border-left: 1px solid rgba(255,255,255,0.06); }
-    .cstat-val { font-family: 'Tajawal', sans-serif; font-size: 0.92rem; font-weight: 800; color: var(--white); display: block; }
-    .cstat-lbl { font-size: 0.6rem; color: var(--text-muted); }
-
-    /* ACTIONS */
-    .card-actions { padding: 0.9rem 1rem 1rem; display: flex; flex-direction: column; gap: 0.5rem; }
-    .btn-book { width: 100%; padding: 0.65rem; background: linear-gradient(135deg, var(--gold), var(--gold-light)); color: var(--navy); border: none; border-radius: 8px; font-family: 'Cairo', sans-serif; font-size: 0.82rem; font-weight: 700; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
-    .btn-book:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(201,168,76,0.4); }
-    .btn-book:disabled { background: rgba(255,255,255,0.07); color: var(--text-muted); cursor: not-allowed; box-shadow: none; transform: none; }
-    .btn-chat { width: 100%; padding: 0.6rem; background: rgba(59,130,246,0.1); color: #60a5fa; border: 1px solid rgba(59,130,246,0.25); border-radius: 8px; font-family: 'Cairo', sans-serif; font-size: 0.82rem; font-weight: 700; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 0.4rem; }
-    .btn-chat:hover:not(:disabled) { background: rgba(59,130,246,0.2); border-color: rgba(59,130,246,0.5); }
-    .btn-chat:disabled { opacity: 0.5; cursor: not-allowed; border-color: transparent; }
-    .busy-note { text-align: center; font-size: 0.72rem; color: var(--text-muted); padding: 0.4rem; background: rgba(232,83,74,0.05); border-radius: 6px; }
-
-    /* OVERLAY & MODALS */
-    .overlay { position: fixed; inset: 0; z-index: 200; background: rgba(0,0,0,0.75); backdrop-filter: blur(10px); display: flex; align-items: center; justify-content: center; padding: 1rem; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
-    .overlay.open { opacity: 1; pointer-events: all; }
-    .modal-container { display: none; width: 100%; max-width: 460px; }
-    .modal-container.active { display: block; }
-
-    /* BOOKING MODAL */
-    .modal { background: var(--navy-mid); border: 1px solid rgba(201,168,76,0.2); border-radius: 20px; padding: 2rem; width: 100%; transform: translateY(28px) scale(0.96); transition: transform 0.3s; position: relative; }
-    .overlay.open .modal { transform: translateY(0) scale(1); }
-    .modal-close { position: absolute; top: 1rem; left: 1rem; background: rgba(255,255,255,0.05); border: none; color: var(--text-muted); width: 30px; height: 30px; border-radius: 50%; cursor: pointer; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; }
-    .modal-close:hover { background: rgba(255,255,255,0.1); color: var(--white); }
-    .modal-head { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; padding-bottom: 1.2rem; border-bottom: 1px solid rgba(255,255,255,0.07); }
-    .modal-avatar-sm { width: 46px; height: 46px; border-radius: 12px; overflow: hidden; flex-shrink: 0; background: rgba(201,168,76,0.2); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
-    .modal h2 { font-family: 'Tajawal', sans-serif; font-size: 1.15rem; font-weight: 800; margin-bottom: 0.2rem; }
-    .modal h2 em { font-style: normal; color: var(--gold); }
-    
-    .fg { margin-bottom: 0.9rem; }
-    .fg label { display: block; font-size: 0.75rem; font-weight: 700; color: var(--text-muted); margin-bottom: 0.35rem; }
-    .fg input, .fg textarea { width: 100%; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 0.7rem 1rem; color: var(--white); font-family: 'Cairo', sans-serif; font-size: 0.88rem; outline: none; transition: border-color 0.2s; }
-    .fg input:focus, .fg textarea:focus { border-color: var(--gold); }
-    .fg textarea { resize: none; height: 75px; }
-    .fgrow { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; }
-    .btn-submit { width: 100%; padding: 0.95rem; background: linear-gradient(135deg, var(--gold), var(--gold-light)); color: var(--navy); border: none; border-radius: 10px; font-family: 'Cairo', sans-serif; font-size: 0.95rem; font-weight: 800; cursor: pointer; margin-top: 0.3rem; transition: transform 0.2s; }
-    .btn-submit:hover { transform: translateY(-2px); }
-
-    /* SUCCESS */
-    .success-state { text-align: center; padding: 2rem 0; display: none; }
-    .success-icon { width: 68px; height: 68px; border-radius: 50%; background: rgba(46,204,113,0.1); border: 2px solid var(--green); display: flex; align-items: center; justify-content: center; font-size: 1.8rem; margin: 0 auto 1rem; }
-    .success-state h3 { font-family: 'Tajawal', sans-serif; font-size: 1.3rem; font-weight: 800; margin-bottom: 0.5rem; }
-    .success-state p { font-size: 0.85rem; color: var(--text-body); line-height: 1.7; }
-
-    /* CHAT MODAL */
-    .chat-modal { background: var(--navy-mid); border: 1px solid rgba(59,130,246,0.2); border-radius: 20px; width: 100%; max-width: 420px; height: 560px; display: flex; flex-direction: column; transform: translateY(28px) scale(0.96); transition: transform 0.3s; overflow: hidden; margin: 0 auto; }
-    .overlay.open .chat-modal { transform: translateY(0) scale(1); }
-    .chat-header { display: flex; align-items: center; gap: 0.8rem; padding: 1rem 1.2rem; border-bottom: 1px solid rgba(255,255,255,0.07); background: rgba(59,130,246,0.05); flex-shrink: 0; }
-    .chat-avatar { width: 40px; height: 40px; border-radius: 10px; overflow: hidden; flex-shrink: 0; background: rgba(59,130,246,0.2); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
-    .chat-info h4 { font-size: 0.92rem; font-weight: 700; margin-bottom: 0.2rem;}
-    .chat-info span { font-size: 0.72rem; color: var(--green); }
-    .chat-close { margin-right: auto; margin-left: 0; background: rgba(255,255,255,0.05); border: none; color: var(--text-muted); width: 30px; height: 30px; border-radius: 50%; cursor: pointer; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; }
-    .chat-close:hover { color: var(--white); background: rgba(255,255,255,0.1); }
-    .privacy-note { display: flex; align-items: center; gap: 0.5rem; background: rgba(59,130,246,0.07); border-bottom: 1px solid rgba(59,130,246,0.1); padding: 0.6rem 1.2rem; font-size: 0.72rem; color: #93c5fd; flex-shrink: 0; justify-content: center;}
-    .chat-messages { flex: 1; overflow-y: auto; padding: 1rem 1.2rem; display: flex; flex-direction: column; gap: 0.7rem; }
-    .msg { max-width: 80%; padding: 0.65rem 0.9rem; border-radius: 14px; font-size: 0.84rem; line-height: 1.5; }
-    .msg.from-tech { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.08); align-self: flex-end; border-radius: 14px 14px 4px 14px; }
-    .msg.from-me { background: rgba(201,168,76,0.15); border: 1px solid rgba(201,168,76,0.2); align-self: flex-start; border-radius: 14px 14px 14px 4px; color: var(--gold-light); }
-    .msg-time { font-size: 0.63rem; color: var(--text-muted); margin-top: 0.25rem; display: block;}
-    .chat-input-area { padding: 0.8rem 1rem; border-top: 1px solid rgba(255,255,255,0.07); display: flex; gap: 0.6rem; flex-shrink: 0; }
-    .chat-input { flex: 1; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 0.65rem 1rem; color: var(--white); font-family: 'Cairo', sans-serif; font-size: 0.85rem; outline: none; transition: border-color 0.2s; }
-    .chat-input:focus { border-color: rgba(59,130,246,0.5); }
-    .send-btn { background: var(--blue); border: none; border-radius: 10px; width: 42px; height: 42px; cursor: pointer; font-size: 1rem; color: white; display: flex; align-items: center; justify-content: center; transition: background 0.2s; flex-shrink: 0; }
-    .send-btn:hover { background: #2563eb; }
-
-    /* RESPONSIVE */
-    @media (max-width: 1100px) { .cards-grid { grid-template-columns: repeat(3, 1fr); } }
-    @media (max-width: 800px)  { .cards-grid { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 500px)  { .cards-grid { grid-template-columns: 1fr; } .fgrow { grid-template-columns: 1fr; } .chat-modal { height: 90vh; } }
-  </style>
+/* RESPONSIVE */
+@media(max-width:1200px){.grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:860px){.grid{grid-template-columns:repeat(2,1fr)}.fbar{top:0!important;position:relative}}
+@media(max-width:500px){.grid{grid-template-columns:1fr}.fbar{gap:.4rem}.fbtn{font-size:.74rem;padding:.38rem .7rem}}
+@media(max-width:400px){.chat-modal{height:85vh}}
+</style>
 </head>
-<body>
+<body class="has-ebar">
 
-<div class="emergency-bar">🚨 طوارئ 24/7 — <a href="tel:19777">19777</a></div>
+<div class="ebar">🚨 طوارئ 24/7 — <a href="tel:19777">19777</a></div>
+<div class="navbar-offset"></div>
 
-<nav>
-  <a href="#" class="logo">صيانة<span>بلس</span></a>
-  <a href="index.html" class="back-btn">← الرئيسية</a>
+<nav class="navbar">
+  <a href="index.html" class="nav-logo">صيانة<span>بلس</span></a>
+  <div class="nav-actions">
+    <a href="auth.html" class="nav-login-btn">👤 دخول</a>
+    <a href="index.html" class="nav-login-btn">← الرئيسية</a>
+    <button class="hamburger" id="ham" onclick="toggleMenu()" aria-label="قائمة"><span></span><span></span><span></span></button>
+  </div>
 </nav>
 
+<div class="mobile-nav" id="mob-menu">
+  <a href="index.html" onclick="closeMenu()">الرئيسية</a>
+  <a href="auth.html" onclick="closeMenu()">تسجيل الدخول</a>
+  <div class="mob-btns">
+    <a href="tel:19777" class="btn-primary" style="justify-content:center">📞 اتصل 19777</a>
+  </div>
+</div>
+
 <div class="page-hero">
-  <div class="page-hero-content">
+  <div class="page-hero-c">
     <h1>اختر <span>فنيّك</span> المعتمد</h1>
     <p>8 فنيين خبراء معتمدون — اختر خدمتك وتواصل بخصوصية تامة</p>
   </div>
 </div>
 
-<div class="filter-bar">
-  <span class="filter-label">تصفية:</span>
-  <button class="fbtn active" data-f="all">🏠 الكل <span class="cnt">8</span></button>
-  <button class="fbtn" data-f="electric">🔌 كهرباء <span class="cnt">2</span></button>
-  <button class="fbtn" data-f="plumbing">🔧 سباكة <span class="cnt">2</span></button>
-  <button class="fbtn" data-f="ac">❄️ تكييفات <span class="cnt">2</span></button>
-  <button class="fbtn" data-f="appliances">🏠 أجهزة <span class="cnt">2</span></button>
-  <button class="fbtn" data-f="available">🟢 المتاحون فقط <span class="cnt">6</span></button>
+<div class="fbar">
+  <span class="flbl">تصفية:</span>
+  <button class="fbtn active" data-f="all">🏠 الكل <span class="fcnt">8</span></button>
+  <button class="fbtn" data-f="electric">🔌 كهرباء <span class="fcnt">2</span></button>
+  <button class="fbtn" data-f="plumbing">🔧 سباكة <span class="fcnt">2</span></button>
+  <button class="fbtn" data-f="ac">❄️ تكييفات <span class="fcnt">2</span></button>
+  <button class="fbtn" data-f="appliances">🏠 أجهزة <span class="fcnt">2</span></button>
+  <button class="fbtn" data-f="available">🟢 المتاحون <span class="fcnt">6</span></button>
 </div>
 
-<div class="cards-wrap">
-  <p class="results-info">يُعرض <span id="shown">8</span> فني</p>
-  <div class="cards-grid" id="grid">
+<div class="wrap">
+  <p class="rinfo">يُعرض <span id="shown">8</span> فني</p>
+  <div class="grid" id="grid">
 
-    <div class="tech-card" data-svc="electric" data-avail="true">
-      <div class="card-top">
-        <span class="avail-badge on">● متاح الآن</span>
-        <div class="avatar-ring">
-          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-            <rect width="100" height="100" fill="#1a2c4a"/>
-            <rect x="28" y="62" width="44" height="30" rx="8" fill="#f97316"/>
-            <polygon points="50,62 40,72 50,68 60,72" fill="#1a3258"/>
-            <ellipse cx="50" cy="46" rx="20" ry="19" fill="#fbbf7a"/>
-            <rect x="26" y="31" width="48" height="6" rx="3" fill="#d97706"/>
-          </svg>
-          <div class="verified-badge">✓</div>
-        </div>
-        <div class="tech-name">أحمد محمود</div>
-        <span class="tech-tag">🔌 كهرباء معتمد</span>
-        <div class="stars-row">
-          <span class="stars">★★★★★</span>
-          <span class="rating-val">4.9</span>
-          <span class="review-ct">(234)</span>
-        </div>
-      </div>
-      <div class="card-stats">
-        <div class="cstat"><span class="cstat-val">12</span><span class="cstat-lbl">سنة خبرة</span></div>
-        <div class="cstat"><span class="cstat-val">80ج</span><span class="cstat-lbl">الزيارة</span></div>
-        <div class="cstat"><span class="cstat-val">+500</span><span class="cstat-lbl">مكتمل</span></div>
-      </div>
-      <div class="card-actions">
-        <button class="btn-book" onclick="openBook('أحمد محمود', '🔌 كهرباء')">📅 احجز موعد</button>
-        <button class="btn-chat" onclick="openChat('أحمد محمود', '🔌 كهرباء')">💬 تواصل بخصوصية</button>
-      </div>
+<div class="card" data-svc="electric" data-avail="true" data-id="1">
+  <div class="ctop">
+    <span class="abadge on">● متاح الآن</span>
+    <div class="aring">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <rect width="100" height="100" fill="#1a2c4a"/>
+        <rect x="28" y="62" width="44" height="30" rx="8" fill="#f97316"/>
+        <polygon points="50,62 40,72 50,68 60,72" fill="#1a3258"/>
+        <rect x="43" y="54" width="14" height="12" rx="4" fill="#fbbf7a"/>
+        <ellipse cx="50" cy="46" rx="20" ry="19" fill="#fbbf7a"/>
+        <ellipse cx="50" cy="27" rx="24" ry="10" fill="#f59e0b"/>
+        <rect x="26" y="31" width="48" height="6" rx="3" fill="#d97706"/>
+        <ellipse cx="43" cy="47" rx="3" ry="3.5" fill="#1e293b"/>
+        <ellipse cx="57" cy="47" rx="3" ry="3.5" fill="#1e293b"/>
+        <circle cx="44" cy="46" r="1" fill="#fff"/><circle cx="58" cy="46" r="1" fill="#fff"/>
+        <path d="M44 54 Q50 58 56 54" stroke="#c2855a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        <polygon points="68,58 64,66 67,66 63,74 71,63 68,63" fill="#fbbf24"/>
+      </svg>
+      <div class="vbadge">✓</div>
     </div>
-
-    <div class="tech-card" data-svc="electric" data-avail="false">
-      <div class="card-top">
-        <span class="avail-badge off">● مشغول حالياً</span>
-        <div class="avatar-ring">
-          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-            <rect width="100" height="100" fill="#1e1a2e"/>
-            <rect x="28" y="62" width="44" height="30" rx="8" fill="#6d28d9"/>
-            <polygon points="50,62 40,72 50,68 60,72" fill="#4c1d95"/>
-            <ellipse cx="50" cy="46" rx="20" ry="19" fill="#fcd5b0"/>
-          </svg>
-          <div class="verified-badge">✓</div>
-        </div>
-        <div class="tech-name">كريم عبدالله</div>
-        <span class="tech-tag">🔌 كهرباء معتمد</span>
-        <div class="stars-row">
-          <span class="stars">★★★★★</span>
-          <span class="rating-val">4.7</span>
-          <span class="review-ct">(189)</span>
-        </div>
-      </div>
-      <div class="card-stats">
-        <div class="cstat"><span class="cstat-val">8</span><span class="cstat-lbl">سنوات خبرة</span></div>
-        <div class="cstat"><span class="cstat-val">70ج</span><span class="cstat-lbl">الزيارة</span></div>
-        <div class="cstat"><span class="cstat-val">+320</span><span class="cstat-lbl">مكتمل</span></div>
-      </div>
-      <div class="card-actions">
-        <button class="btn-book" disabled>📅 احجز موعد</button>
-        <button class="btn-chat" disabled>💬 تواصل بخصوصية</button>
-        <div class="busy-note">سيكون متاحاً خلال ساعتين</div>
-      </div>
+    <div class="tname">أحمد محمود</div>
+    <span class="ttag">🔌 كهرباء</span>
+    <div class="srow"><span class="stars-r">★★★★★</span><span class="rval">4.9</span><span class="rct">(234)</span></div>
+  </div>
+  <div class="cstats">
+    <div class="cs"><span class="csv">12</span><span class="csl">سنة خبرة</span></div>
+    <div class="cs"><span class="csv">80ج</span><span class="csl">الزيارة</span></div>
+    <div class="cs"><span class="csv">+500</span><span class="csl">مكتمل</span></div>
+  </div>
+  <div class="cact"><button class="bbk" onclick="openBook('أحمد محمود','🔌 كهرباء',1)">📅 احجز موعد</button>
+    <button class="bch" onclick="openChat('أحمد محمود','🔌 كهرباء',1)">💬 تواصل بخصوصية</button></div>
+</div>
+<div class="card" data-svc="electric" data-avail="false" data-id="2">
+  <div class="ctop">
+    <span class="abadge off">● مشغول حالياً</span>
+    <div class="aring">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <rect width="100" height="100" fill="#1e1a2e"/>
+        <rect x="28" y="62" width="44" height="30" rx="8" fill="#6d28d9"/>
+        <polygon points="50,62 40,72 50,68 60,72" fill="#4c1d95"/>
+        <rect x="43" y="54" width="14" height="12" rx="4" fill="#fcd5b0"/>
+        <ellipse cx="50" cy="46" rx="20" ry="19" fill="#fcd5b0"/>
+        <rect x="30" y="27" width="40" height="12" rx="4" fill="#2d1f5e"/>
+        <ellipse cx="43" cy="48" rx="4" ry="3.5" fill="#fff" opacity=".9"/>
+        <ellipse cx="57" cy="48" rx="4" ry="3.5" fill="#fff" opacity=".9"/>
+        <ellipse cx="43" cy="48" rx="2.5" ry="2.5" fill="#1e293b"/>
+        <ellipse cx="57" cy="48" rx="2.5" ry="2.5" fill="#1e293b"/>
+        <circle cx="44" cy="47" r=".8" fill="#fff"/><circle cx="58" cy="47" r=".8" fill="#fff"/>
+        <path d="M44 54 Q50 57 56 54" stroke="#b8896a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        <polygon points="68,58 64,66 67,66 63,74 71,63 68,63" fill="#a78bfa"/>
+      </svg>
+      <div class="vbadge">✓</div>
     </div>
-
-    <div class="tech-card" data-svc="plumbing" data-avail="true">
-      <div class="card-top">
-        <span class="avail-badge on">● متاح الآن</span>
-        <div class="avatar-ring">
-          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-            <rect width="100" height="100" fill="#0f292e"/>
-            <rect x="28" y="62" width="44" height="30" rx="8" fill="#0ea5e9"/>
-            <polygon points="50,62 40,72 50,68 60,72" fill="#0369a1"/>
-            <ellipse cx="50" cy="46" rx="20" ry="19" fill="#eaddcd"/>
-          </svg>
-          <div class="verified-badge">✓</div>
-        </div>
-        <div class="tech-name">محمود حسن</div>
-        <span class="tech-tag">🔧 سباكة معتمد</span>
-        <div class="stars-row">
-          <span class="stars">★★★★☆</span>
-          <span class="rating-val">4.6</span>
-          <span class="review-ct">(145)</span>
-        </div>
-      </div>
-      <div class="card-stats">
-        <div class="cstat"><span class="cstat-val">10</span><span class="cstat-lbl">سنوات خبرة</span></div>
-        <div class="cstat"><span class="cstat-val">90ج</span><span class="cstat-lbl">الزيارة</span></div>
-        <div class="cstat"><span class="cstat-val">+410</span><span class="cstat-lbl">مكتمل</span></div>
-      </div>
-      <div class="card-actions">
-        <button class="btn-book" onclick="openBook('محمود حسن', '🔧 سباكة')">📅 احجز موعد</button>
-        <button class="btn-chat" onclick="openChat('محمود حسن', '🔧 سباكة')">💬 تواصل بخصوصية</button>
-      </div>
+    <div class="tname">كريم عبدالله</div>
+    <span class="ttag">🔌 كهرباء</span>
+    <div class="srow"><span class="stars-r">★★★★★</span><span class="rval">4.7</span><span class="rct">(187)</span></div>
+  </div>
+  <div class="cstats">
+    <div class="cs"><span class="csv">8</span><span class="csl">سنة خبرة</span></div>
+    <div class="cs"><span class="csv">70ج</span><span class="csl">الزيارة</span></div>
+    <div class="cs"><span class="csv">+320</span><span class="csl">مكتمل</span></div>
+  </div>
+  <div class="cact"><button class="bbk" disabled>⏳ غير متاح حالياً</button>
+    <div class="bnote">🕐 سيكون متاحاً قريباً</div></div>
+</div>
+<div class="card" data-svc="plumbing" data-avail="true" data-id="3">
+  <div class="ctop">
+    <span class="abadge on">● متاح الآن</span>
+    <div class="aring">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <rect width="100" height="100" fill="#0d2a1e"/>
+        <rect x="28" y="62" width="44" height="30" rx="8" fill="#059669"/>
+        <polygon points="50,62 40,72 50,68 60,72" fill="#064e3b"/>
+        <rect x="43" y="54" width="14" height="12" rx="4" fill="#fed7aa"/>
+        <ellipse cx="50" cy="46" rx="20" ry="19" fill="#fed7aa"/>
+        <ellipse cx="50" cy="29" rx="21" ry="7" fill="#065f46"/>
+        <rect x="29" y="26" width="42" height="10" rx="5" fill="#047857"/>
+        <rect x="27" y="32" width="46" height="4" rx="2" fill="#059669"/>
+        <path d="M42 52 Q46 55 50 52 Q54 55 58 52" stroke="#92400e" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <ellipse cx="43" cy="47" rx="3" ry="3.5" fill="#1e293b"/>
+        <ellipse cx="57" cy="47" rx="3" ry="3.5" fill="#1e293b"/>
+        <circle cx="44" cy="46" r="1" fill="#fff"/><circle cx="58" cy="46" r="1" fill="#fff"/>
+        <rect x="64" y="56" width="5" height="18" rx="2" fill="#9ca3af" transform="rotate(-20,66,65)"/>
+        <circle cx="68" cy="57" r="4" fill="#6b7280" stroke="#4b5563" stroke-width="1"/>
+      </svg>
+      <div class="vbadge">✓</div>
     </div>
-
-    <div class="tech-card" data-svc="plumbing" data-avail="false">
-      <div class="card-top">
-        <span class="avail-badge off">● مشغول حالياً</span>
-        <div class="avatar-ring">
-          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-            <rect width="100" height="100" fill="#2a1215"/>
-            <rect x="28" y="62" width="44" height="30" rx="8" fill="#ef4444"/>
-            <polygon points="50,62 40,72 50,68 60,72" fill="#991b1b"/>
-            <ellipse cx="50" cy="46" rx="20" ry="19" fill="#facc15"/>
-          </svg>
-          <div class="verified-badge">✓</div>
-        </div>
-        <div class="tech-name">طارق السيد</div>
-        <span class="tech-tag">🔧 سباكة معتمد</span>
-        <div class="stars-row">
-          <span class="stars">★★★★★</span>
-          <span class="rating-val">4.8</span>
-          <span class="review-ct">(210)</span>
-        </div>
-      </div>
-      <div class="card-stats">
-        <div class="cstat"><span class="cstat-val">15</span><span class="cstat-lbl">سنة خبرة</span></div>
-        <div class="cstat"><span class="cstat-val">100ج</span><span class="cstat-lbl">الزيارة</span></div>
-        <div class="cstat"><span class="cstat-val">+600</span><span class="cstat-lbl">مكتمل</span></div>
-      </div>
-      <div class="card-actions">
-        <button class="btn-book" disabled>📅 احجز موعد</button>
-        <button class="btn-chat" disabled>💬 تواصل بخصوصية</button>
-        <div class="busy-note">سيكون متاحاً غداً صباحاً</div>
-      </div>
+    <div class="tname">محمد سالم</div>
+    <span class="ttag">🔧 سباكة</span>
+    <div class="srow"><span class="stars-r">★★★★★</span><span class="rval">4.8</span><span class="rct">(312)</span></div>
+  </div>
+  <div class="cstats">
+    <div class="cs"><span class="csv">15</span><span class="csl">سنة خبرة</span></div>
+    <div class="cs"><span class="csv">90ج</span><span class="csl">الزيارة</span></div>
+    <div class="cs"><span class="csv">+700</span><span class="csl">مكتمل</span></div>
+  </div>
+  <div class="cact"><button class="bbk" onclick="openBook('محمد سالم','🔧 سباكة',3)">📅 احجز موعد</button>
+    <button class="bch" onclick="openChat('محمد سالم','🔧 سباكة',3)">💬 تواصل بخصوصية</button></div>
+</div>
+<div class="card" data-svc="plumbing" data-avail="true" data-id="4">
+  <div class="ctop">
+    <span class="abadge on">● متاح الآن</span>
+    <div class="aring">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <rect width="100" height="100" fill="#0c2233"/>
+        <rect x="28" y="62" width="44" height="30" rx="8" fill="#0369a1"/>
+        <polygon points="50,62 40,72 50,68 60,72" fill="#075985"/>
+        <rect x="43" y="54" width="14" height="12" rx="4" fill="#fde68a"/>
+        <ellipse cx="50" cy="46" rx="20" ry="19" fill="#fde68a"/>
+        <path d="M30 35 Q50 22 70 35 L68 42 Q50 30 32 42 Z" fill="#dc2626"/>
+        <ellipse cx="50" cy="56" rx="10" ry="5" fill="#92400e" opacity=".6"/>
+        <ellipse cx="43" cy="47" rx="3" ry="3.5" fill="#1e293b"/>
+        <ellipse cx="57" cy="47" rx="3" ry="3.5" fill="#1e293b"/>
+        <circle cx="44" cy="46" r="1" fill="#fff"/><circle cx="58" cy="46" r="1" fill="#fff"/>
+        <path d="M44 54 Q50 57 56 54" stroke="#92400e" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        <path d="M68 56 Q72 60 68 66 Q64 60 68 56Z" fill="#38bdf8"/>
+      </svg>
+      <div class="vbadge">✓</div>
     </div>
-
-    <div class="tech-card" data-svc="ac" data-avail="true">
-      <div class="card-top">
-        <span class="avail-badge on">● متاح الآن</span>
-        <div class="avatar-ring">
-          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-            <rect width="100" height="100" fill="#1e293b"/>
-            <rect x="28" y="62" width="44" height="30" rx="8" fill="#14b8a6"/>
-            <ellipse cx="50" cy="46" rx="20" ry="19" fill="#ffedd5"/>
-          </svg>
-          <div class="verified-badge">✓</div>
-        </div>
-        <div class="tech-name">ياسر خليل</div>
-        <span class="tech-tag">❄️ تكييفات معتمد</span>
-        <div class="stars-row">
-          <span class="stars">★★★★★</span>
-          <span class="rating-val">4.9</span>
-          <span class="review-ct">(312)</span>
-        </div>
-      </div>
-      <div class="card-stats">
-        <div class="cstat"><span class="cstat-val">9</span><span class="cstat-lbl">سنوات خبرة</span></div>
-        <div class="cstat"><span class="cstat-val">150ج</span><span class="cstat-lbl">الزيارة</span></div>
-        <div class="cstat"><span class="cstat-val">+450</span><span class="cstat-lbl">مكتمل</span></div>
-      </div>
-      <div class="card-actions">
-        <button class="btn-book" onclick="openBook('ياسر خليل', '❄️ تكييفات')">📅 احجز موعد</button>
-        <button class="btn-chat" onclick="openChat('ياسر خليل', '❄️ تكييفات')">💬 تواصل بخصوصية</button>
-      </div>
+    <div class="tname">عمر حسن</div>
+    <span class="ttag">🔧 سباكة</span>
+    <div class="srow"><span class="stars-r">★★★★½</span><span class="rval">4.5</span><span class="rct">(156)</span></div>
+  </div>
+  <div class="cstats">
+    <div class="cs"><span class="csv">10</span><span class="csl">سنة خبرة</span></div>
+    <div class="cs"><span class="csv">75ج</span><span class="csl">الزيارة</span></div>
+    <div class="cs"><span class="csv">+280</span><span class="csl">مكتمل</span></div>
+  </div>
+  <div class="cact"><button class="bbk" onclick="openBook('عمر حسن','🔧 سباكة',4)">📅 احجز موعد</button>
+    <button class="bch" onclick="openChat('عمر حسن','🔧 سباكة',4)">💬 تواصل بخصوصية</button></div>
+</div>
+<div class="card" data-svc="ac" data-avail="true" data-id="5">
+  <div class="ctop">
+    <span class="abadge on">● متاح الآن</span>
+    <div class="aring">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <rect width="100" height="100" fill="#0a1a3a"/>
+        <rect x="28" y="62" width="44" height="30" rx="8" fill="#1d4ed8"/>
+        <polygon points="50,62 40,72 50,68 60,72" fill="#1e3a8a"/>
+        <rect x="43" y="54" width="14" height="12" rx="4" fill="#bfdbfe"/>
+        <ellipse cx="50" cy="46" rx="20" ry="19" fill="#bfdbfe"/>
+        <rect x="30" y="22" width="40" height="14" rx="8" fill="#2563eb"/>
+        <rect x="28" y="31" width="44" height="5" rx="2.5" fill="#1d4ed8"/>
+        <circle cx="50" cy="19" r="5" fill="#fff"/>
+        <path d="M33 60 Q50 63 67 60" stroke="#93c5fd" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <ellipse cx="43" cy="47" rx="3" ry="3.5" fill="#1e293b"/>
+        <ellipse cx="57" cy="47" rx="3" ry="3.5" fill="#1e293b"/>
+        <circle cx="44" cy="46" r="1" fill="#fff"/><circle cx="58" cy="46" r="1" fill="#fff"/>
+        <path d="M44 54 Q50 57 56 54" stroke="#7cb9f0" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        <text x="68" y="73" font-size="13" fill="#93c5fd" text-anchor="middle">❄</text>
+      </svg>
+      <div class="vbadge">✓</div>
     </div>
-
-    <div class="tech-card" data-svc="ac" data-avail="true">
-      <div class="card-top">
-        <span class="avail-badge on">● متاح الآن</span>
-        <div class="avatar-ring">
-          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-            <rect width="100" height="100" fill="#0f172a"/>
-            <rect x="28" y="62" width="44" height="30" rx="8" fill="#3b82f6"/>
-            <ellipse cx="50" cy="46" rx="20" ry="19" fill="#f3e8ff"/>
-          </svg>
-          <div class="verified-badge">✓</div>
-        </div>
-        <div class="tech-name">عمر فوزي</div>
-        <span class="tech-tag">❄️ تكييفات معتمد</span>
-        <div class="stars-row">
-          <span class="stars">★★★★☆</span>
-          <span class="rating-val">4.5</span>
-          <span class="review-ct">(98)</span>
-        </div>
-      </div>
-      <div class="card-stats">
-        <div class="cstat"><span class="cstat-val">5</span><span class="cstat-lbl">سنوات خبرة</span></div>
-        <div class="cstat"><span class="cstat-val">120ج</span><span class="cstat-lbl">الزيارة</span></div>
-        <div class="cstat"><span class="cstat-val">+180</span><span class="cstat-lbl">مكتمل</span></div>
-      </div>
-      <div class="card-actions">
-        <button class="btn-book" onclick="openBook('عمر فوزي', '❄️ تكييفات')">📅 احجز موعد</button>
-        <button class="btn-chat" onclick="openChat('عمر فوزي', '❄️ تكييفات')">💬 تواصل بخصوصية</button>
-      </div>
+    <div class="tname">طارق إبراهيم</div>
+    <span class="ttag">❄️ تكييفات</span>
+    <div class="srow"><span class="stars-r">★★★★★</span><span class="rval">4.9</span><span class="rct">(428)</span></div>
+  </div>
+  <div class="cstats">
+    <div class="cs"><span class="csv">20</span><span class="csl">سنة خبرة</span></div>
+    <div class="cs"><span class="csv">100ج</span><span class="csl">الزيارة</span></div>
+    <div class="cs"><span class="csv">+900</span><span class="csl">مكتمل</span></div>
+  </div>
+  <div class="cact"><button class="bbk" onclick="openBook('طارق إبراهيم','❄️ تكييفات',5)">📅 احجز موعد</button>
+    <button class="bch" onclick="openChat('طارق إبراهيم','❄️ تكييفات',5)">💬 تواصل بخصوصية</button></div>
+</div>
+<div class="card" data-svc="ac" data-avail="false" data-id="6">
+  <div class="ctop">
+    <span class="abadge off">● مشغول حالياً</span>
+    <div class="aring">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <rect width="100" height="100" fill="#1a0a2e"/>
+        <rect x="28" y="62" width="44" height="30" rx="8" fill="#7c3aed"/>
+        <polygon points="50,62 40,72 50,68 60,72" fill="#5b21b6"/>
+        <rect x="43" y="54" width="14" height="12" rx="4" fill="#f5d0fe"/>
+        <ellipse cx="50" cy="46" rx="20" ry="19" fill="#f5d0fe"/>
+        <path d="M30 40 Q30 22 50 22 Q70 22 70 40" stroke="#7c3aed" stroke-width="4" fill="none"/>
+        <rect x="26" y="38" width="8" height="12" rx="3" fill="#6d28d9"/>
+        <rect x="66" y="38" width="8" height="12" rx="3" fill="#6d28d9"/>
+        <ellipse cx="43" cy="47" rx="3" ry="3.5" fill="#1e293b"/>
+        <ellipse cx="57" cy="47" rx="3" ry="3.5" fill="#1e293b"/>
+        <circle cx="44" cy="46" r="1" fill="#fff"/><circle cx="58" cy="46" r="1" fill="#fff"/>
+        <path d="M44 54 Q50 58 56 54" stroke="#c084fc" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        <text x="68" y="73" font-size="13" fill="#c084fc" text-anchor="middle">❄</text>
+      </svg>
+      <div class="vbadge">✓</div>
     </div>
-
-    <div class="tech-card" data-svc="appliances" data-avail="true">
-      <div class="card-top">
-        <span class="avail-badge on">● متاح الآن</span>
-        <div class="avatar-ring">
-          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-            <rect width="100" height="100" fill="#18181b"/>
-            <rect x="28" y="62" width="44" height="30" rx="8" fill="#f43f5e"/>
-            <ellipse cx="50" cy="46" rx="20" ry="19" fill="#fee2e2"/>
-          </svg>
-          <div class="verified-badge">✓</div>
-        </div>
-        <div class="tech-name">مصطفى كمال</div>
-        <span class="tech-tag">🏠 أجهزة معتمد</span>
-        <div class="stars-row">
-          <span class="stars">★★★★★</span>
-          <span class="rating-val">4.8</span>
-          <span class="review-ct">(265)</span>
-        </div>
-      </div>
-      <div class="card-stats">
-        <div class="cstat"><span class="cstat-val">11</span><span class="cstat-lbl">سنة خبرة</span></div>
-        <div class="cstat"><span class="cstat-val">100ج</span><span class="cstat-lbl">الزيارة</span></div>
-        <div class="cstat"><span class="cstat-val">+390</span><span class="cstat-lbl">مكتمل</span></div>
-      </div>
-      <div class="card-actions">
-        <button class="btn-book" onclick="openBook('مصطفى كمال', '🏠 أجهزة')">📅 احجز موعد</button>
-        <button class="btn-chat" onclick="openChat('مصطفى كمال', '🏠 أجهزة')">💬 تواصل بخصوصية</button>
-      </div>
+    <div class="tname">سامي عوض</div>
+    <span class="ttag">❄️ تكييفات</span>
+    <div class="srow"><span class="stars-r">★★★★½</span><span class="rval">4.6</span><span class="rct">(203)</span></div>
+  </div>
+  <div class="cstats">
+    <div class="cs"><span class="csv">9</span><span class="csl">سنة خبرة</span></div>
+    <div class="cs"><span class="csv">85ج</span><span class="csl">الزيارة</span></div>
+    <div class="cs"><span class="csv">+350</span><span class="csl">مكتمل</span></div>
+  </div>
+  <div class="cact"><button class="bbk" disabled>⏳ غير متاح حالياً</button>
+    <div class="bnote">🕐 سيكون متاحاً قريباً</div></div>
+</div>
+<div class="card" data-svc="appliances" data-avail="true" data-id="7">
+  <div class="ctop">
+    <span class="abadge on">● متاح الآن</span>
+    <div class="aring">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <rect width="100" height="100" fill="#1c1007"/>
+        <rect x="28" y="62" width="44" height="30" rx="8" fill="#d97706"/>
+        <polygon points="50,62 40,72 50,68 60,72" fill="#92400e"/>
+        <rect x="43" y="54" width="14" height="12" rx="4" fill="#fef3c7"/>
+        <ellipse cx="50" cy="46" rx="20" ry="19" fill="#fef3c7"/>
+        <ellipse cx="50" cy="27" rx="25" ry="6" fill="#92400e"/>
+        <ellipse cx="50" cy="25" rx="18" ry="10" fill="#b45309"/>
+        <ellipse cx="50" cy="22" rx="14" ry="7" fill="#d97706"/>
+        <path d="M40 41 Q43 39 46 41" stroke="#78350f" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <path d="M54 41 Q57 39 60 41" stroke="#78350f" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <ellipse cx="43" cy="47" rx="3" ry="3.5" fill="#1e293b"/>
+        <ellipse cx="57" cy="47" rx="3" ry="3.5" fill="#1e293b"/>
+        <circle cx="44" cy="46" r="1" fill="#fff"/><circle cx="58" cy="46" r="1" fill="#fff"/>
+        <path d="M44 54 Q50 57 56 54" stroke="#c2855a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        <circle cx="68" cy="65" r="6" fill="#6b7280" stroke="#4b5563" stroke-width="1.5"/>
+        <circle cx="68" cy="65" r="2.5" fill="#1c1007"/>
+      </svg>
+      <div class="vbadge">✓</div>
     </div>
-
-    <div class="tech-card" data-svc="appliances" data-avail="true">
-      <div class="card-top">
-        <span class="avail-badge on">● متاح الآن</span>
-        <div class="avatar-ring">
-          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-            <rect width="100" height="100" fill="#2e1065"/>
-            <rect x="28" y="62" width="44" height="30" rx="8" fill="#a855f7"/>
-            <ellipse cx="50" cy="46" rx="20" ry="19" fill="#fdf4ff"/>
-          </svg>
-          <div class="verified-badge">✓</div>
-        </div>
-        <div class="tech-name">إبراهيم ناصر</div>
-        <span class="tech-tag">🏠 أجهزة معتمد</span>
-        <div class="stars-row">
-          <span class="stars">★★★★★</span>
-          <span class="rating-val">5.0</span>
-          <span class="review-ct">(112)</span>
-        </div>
-      </div>
-      <div class="card-stats">
-        <div class="cstat"><span class="cstat-val">7</span><span class="cstat-lbl">سنوات خبرة</span></div>
-        <div class="cstat"><span class="cstat-val">100ج</span><span class="cstat-lbl">الزيارة</span></div>
-        <div class="cstat"><span class="cstat-val">+200</span><span class="cstat-lbl">مكتمل</span></div>
-      </div>
-      <div class="card-actions">
-        <button class="btn-book" onclick="openBook('إبراهيم ناصر', '🏠 أجهزة')">📅 احجز موعد</button>
-        <button class="btn-chat" onclick="openChat('إبراهيم ناصر', '🏠 أجهزة')">💬 تواصل بخصوصية</button>
-      </div>
+    <div class="tname">يوسف منصور</div>
+    <span class="ttag">🏠 أجهزة</span>
+    <div class="srow"><span class="stars-r">★★★★★</span><span class="rval">4.8</span><span class="rct">(267)</span></div>
+  </div>
+  <div class="cstats">
+    <div class="cs"><span class="csv">11</span><span class="csl">سنة خبرة</span></div>
+    <div class="cs"><span class="csv">65ج</span><span class="csl">الزيارة</span></div>
+    <div class="cs"><span class="csv">+450</span><span class="csl">مكتمل</span></div>
+  </div>
+  <div class="cact"><button class="bbk" onclick="openBook('يوسف منصور','🏠 أجهزة',7)">📅 احجز موعد</button>
+    <button class="bch" onclick="openChat('يوسف منصور','🏠 أجهزة',7)">💬 تواصل بخصوصية</button></div>
+</div>
+<div class="card" data-svc="appliances" data-avail="true" data-id="8">
+  <div class="ctop">
+    <span class="abadge on">● متاح الآن</span>
+    <div class="aring">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <rect width="100" height="100" fill="#0f1729"/>
+        <rect x="28" y="62" width="44" height="30" rx="8" fill="#0f766e"/>
+        <polygon points="50,62 40,72 50,68 60,72" fill="#134e4a"/>
+        <rect x="43" y="54" width="14" height="12" rx="4" fill="#fde68a"/>
+        <ellipse cx="50" cy="46" rx="20" ry="19" fill="#fde68a"/>
+        <circle cx="34" cy="34" r="5" fill="#1c1917"/>
+        <circle cx="41" cy="27" r="5" fill="#1c1917"/>
+        <circle cx="50" cy="24" r="5" fill="#1c1917"/>
+        <circle cx="59" cy="27" r="5" fill="#1c1917"/>
+        <circle cx="66" cy="34" r="5" fill="#1c1917"/>
+        <ellipse cx="43" cy="47" rx="3" ry="3.5" fill="#1e293b"/>
+        <ellipse cx="57" cy="47" rx="3" ry="3.5" fill="#1e293b"/>
+        <circle cx="44" cy="46" r="1" fill="#fff"/><circle cx="58" cy="46" r="1" fill="#fff"/>
+        <path d="M44 54 Q50 57 56 54" stroke="#c2855a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        <circle cx="68" cy="65" r="6" fill="#6b7280" stroke="#4b5563" stroke-width="1.5"/>
+        <circle cx="68" cy="65" r="2.5" fill="#0f1729"/>
+      </svg>
+      <div class="vbadge">✓</div>
     </div>
+    <div class="tname">رضا فاروق</div>
+    <span class="ttag">🏠 أجهزة</span>
+    <div class="srow"><span class="stars-r">★★★★☆</span><span class="rval">4.4</span><span class="rct">(98)</span></div>
+  </div>
+  <div class="cstats">
+    <div class="cs"><span class="csv">6</span><span class="csl">سنة خبرة</span></div>
+    <div class="cs"><span class="csv">60ج</span><span class="csl">الزيارة</span></div>
+    <div class="cs"><span class="csv">+180</span><span class="csl">مكتمل</span></div>
+  </div>
+  <div class="cact"><button class="bbk" onclick="openBook('رضا فاروق','🏠 أجهزة',8)">📅 احجز موعد</button>
+    <button class="bch" onclick="openChat('رضا فاروق','🏠 أجهزة',8)">💬 تواصل بخصوصية</button></div>
+</div>  </div>
+</div>
 
+<!-- BOOKING OVERLAY -->
+<div class="overlay" id="book-ov">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeBook()">✕</button>
+    <div id="book-form">
+      <div class="modal-sub">
+        <div class="modal-avatar-sm" id="m-av"></div>
+        <div>
+          <div style="font-size:.68rem;color:var(--muted);margin-bottom:.18rem">حجز مع</div>
+          <div style="font-family:'Tajawal',sans-serif;font-weight:800;font-size:.98rem" id="m-name"></div>
+          <div style="font-size:.72rem;color:var(--gold)" id="m-svc"></div>
+        </div>
+      </div>
+      <div class="modal-title">احجز <em>موعدك</em> الآن</div>
+      <div class="fgrow">
+        <div class="fg"><label>الاسم الكامل</label><input type="text" id="bc-name" placeholder="محمد أحمد"/><div class="err-msg" id="bc-name-err">مطلوب</div></div>
+        <div class="fg"><label>رقم الهاتف</label><input type="tel" id="bc-phone" placeholder="01XXXXXXXXX"/><div class="err-msg" id="bc-phone-err">مطلوب</div></div>
+      </div>
+      <div class="fgrow">
+        <div class="fg"><label>التاريخ</label><input type="date" id="bc-date"/><div class="err-msg" id="bc-date-err">مطلوب</div></div>
+        <div class="fg"><label>الوقت</label><input type="time" id="bc-time"/></div>
+      </div>
+      <div class="fg"><label>العنوان</label><input type="text" id="bc-addr" placeholder="الحي، الشارع، رقم المبنى"/><div class="err-msg" id="bc-addr-err">مطلوب</div></div>
+      <div class="fg"><label>وصف المشكلة (اختياري)</label><textarea id="bc-desc" placeholder="اشرح المشكلة باختصار..."></textarea></div>
+      <button class="btn-submit" onclick="submitBook()">✅ تأكيد الحجز</button>
+    </div>
+    <div class="success-box" id="book-ok">
+      <div class="success-ring">✅</div>
+      <h3>تم تأكيد حجزك!</h3>
+      <p>سيتواصل معك الفني قريباً.<br/>شكراً لثقتك بصيانةبلس 🙏</p>
+      <button class="btn-submit" onclick="closeBook()">إغلاق</button>
+    </div>
   </div>
 </div>
 
-<div class="overlay" id="mainOverlay">
-  
-  <div class="modal-container" id="bookModal">
-    <div class="modal">
-      <button class="modal-close" onclick="closeOverlay()">✕</button>
-      
-      <div id="bookingFormSection">
-        <div class="modal-head">
-          <div class="modal-avatar-sm">👨‍🔧</div>
-          <div>
-            <h2>حجز موعد مع <em id="b-name">...</em></h2>
-            <span style="font-size:0.75rem; color:var(--text-muted);" id="b-svc">...</span>
-          </div>
-        </div>
-        <form onsubmit="submitBooking(event)">
-          <div class="fgrow">
-            <div class="fg">
-              <label>الاسم الكريم</label>
-              <input type="text" placeholder="اكتب اسمك" required>
-            </div>
-            <div class="fg">
-              <label>رقم الموبايل</label>
-              <input type="tel" placeholder="01xxxxxxxxx" required>
-            </div>
-          </div>
-          <div class="fg">
-            <label>العنوان بالتفصيل</label>
-            <input type="text" placeholder="المنطقة، الشارع، رقم العمارة..." required>
-          </div>
-          <div class="fg">
-            <label>ما هي المشكلة؟</label>
-            <textarea placeholder="اشرح العطل باختصار لمساعدة الفني..." required></textarea>
-          </div>
-          <button type="submit" class="btn-submit">تأكيد الحجز المبدئي</button>
-        </form>
-      </div>
-
-      <div class="success-state" id="bookingSuccessSection">
-        <div class="success-icon">✓</div>
-        <h3>تم استلام طلبك!</h3>
-        <p>تم إرسال بياناتك للفني بنجاح.<br>سيتواصل معك هاتفياً خلال دقائق لتأكيد الموعد.</p>
-        <button class="btn-submit" style="margin-top:1.5rem;" onclick="closeOverlay()">حسناً، فهمت</button>
-      </div>
+<!-- CHAT OVERLAY -->
+<div class="overlay" id="chat-ov">
+  <div class="chat-modal">
+    <div class="ch-head">
+      <div class="ch-av" id="ch-av"></div>
+      <div class="ch-info"><h4 id="ch-name"></h4><span>● متاح الآن</span></div>
+      <button class="ch-cl" onclick="closeChat()">✕</button>
+    </div>
+    <div class="pnote">🔒 محادثة مشفرة وخاصة — هويتك محمية تماماً</div>
+    <div class="msgs" id="msgs"></div>
+    <div class="cinput">
+      <textarea class="ci" id="ci" placeholder="اكتب رسالتك..."
+        onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendMsg()}"></textarea>
+      <button class="send-btn" onclick="sendMsg()">➤</button>
     </div>
   </div>
-
-  <div class="modal-container" id="chatModal">
-    <div class="chat-modal">
-      <div class="chat-header">
-        <div class="chat-avatar">💬</div>
-        <div class="chat-info">
-          <h4 id="c-name">...</h4>
-          <span>● متصل الآن</span>
-        </div>
-        <button class="chat-close" onclick="closeOverlay()">✕</button>
-      </div>
-      <div class="privacy-note">
-        🔒 هذه المحادثة مشفرة ومؤمنة بالكامل
-      </div>
-      <div class="chat-messages" id="chatMessages">
-        <div class="msg from-tech">
-          أهلاً بك يا فندم في صيانةبلس. معاك الفني المختص، تحت أمرك، إيه المشكلة اللي بتواجهك؟
-          <span class="msg-time">الآن</span>
-        </div>
-      </div>
-      <div class="chat-input-area">
-        <input type="text" class="chat-input" id="chatInput" placeholder="اكتب رسالتك هنا..." onkeypress="handleChatEnter(event)">
-        <button class="send-btn" onclick="sendMessage()">➤</button>
-      </div>
-    </div>
-  </div>
-
 </div>
+
+<div class="toast" id="toast"></div>
 
 <script>
-  // الفلترة
-  const filterBtns = document.querySelectorAll('.fbtn');
-  const cards = document.querySelectorAll('.tech-card');
-  const shownCount = document.getElementById('shown');
-
-  filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      // إزالة الكلاس النشط من الكل وإضافته للزر المضغوط
-      filterBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-
-      const filter = btn.dataset.f;
-      let count = 0;
-
-      cards.forEach(card => {
-        const svc = card.dataset.svc;
-        const avail = card.dataset.avail;
-
-        if (filter === 'all' || filter === svc || (filter === 'available' && avail === 'true')) {
-          card.classList.remove('hidden');
-          count++;
-        } else {
-          card.classList.add('hidden');
-        }
-      });
-      shownCount.innerText = count;
+// FILTER
+document.querySelectorAll('.fbtn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    const f=btn.dataset.f;
+    let shown=0;
+    document.querySelectorAll('.card').forEach(c=>{
+      const match=f==='all'||(f==='available'&&c.dataset.avail==='true')||c.dataset.svc===f;
+      c.classList.toggle('hidden',!match);
+      if(match)shown++;
     });
+    document.getElementById('shown').textContent=shown;
   });
+});
 
-  // التحكم في النوافذ المنبثقة (Modals)
-  const overlay = document.getElementById('mainOverlay');
-  const bookModal = document.getElementById('bookModal');
-  const chatModal = document.getElementById('chatModal');
-  const formSection = document.getElementById('bookingFormSection');
-  const successSection = document.getElementById('bookingSuccessSection');
+// BOOKING
+function openBook(name,svc,id){
+  document.getElementById('m-name').textContent=name;
+  document.getElementById('m-svc').textContent=svc;
+  const svg=document.querySelector('[data-id="'+id+'"] .aring svg');
+  if(svg)document.getElementById('m-av').innerHTML=svg.outerHTML;
+  const today=new Date().toISOString().split('T')[0];
+  document.getElementById('bc-date').min=today;
+  document.getElementById('bc-date').value=today;
+  document.getElementById('book-form').style.display='block';
+  document.getElementById('book-ok').style.display='none';
+  ['bc-name','bc-phone','bc-date','bc-addr'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el){el.classList.remove('err-input');document.getElementById(id+'-err')&&document.getElementById(id+'-err').classList.remove('show');}
+  });
+  document.getElementById('book-ov').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeBook(){
+  document.getElementById('book-ov').classList.remove('open');
+  document.body.style.overflow='';
+  setTimeout(()=>{
+    ['bc-name','bc-phone','bc-addr','bc-desc'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+    document.getElementById('bc-time').value='';
+    document.getElementById('book-form').style.display='block';
+    document.getElementById('book-ok').style.display='none';
+  },300);
+}
+function submitBook(){
+  const fields=[{id:'bc-name',eid:'bc-name-err'},{id:'bc-phone',eid:'bc-phone-err'},{id:'bc-date',eid:'bc-date-err'},{id:'bc-addr',eid:'bc-addr-err'}];
+  let ok=true;
+  fields.forEach(f=>{
+    const el=document.getElementById(f.id);
+    const ee=document.getElementById(f.eid);
+    if(!el.value.trim()){el.classList.add('err-input');if(ee)ee.classList.add('show');ok=false;}
+    else{el.classList.remove('err-input');if(ee)ee.classList.remove('show');}
+  });
+  if(!ok)return;
+  document.getElementById('book-form').style.display='none';
+  document.getElementById('book-ok').style.display='block';
+}
+document.getElementById('book-ov').addEventListener('click',e=>{if(e.target===e.currentTarget)closeBook();});
 
-  function openBook(name, svc) {
-    document.getElementById('b-name').innerText = name;
-    document.getElementById('b-svc').innerText = svc;
-    
-    // ريستارة الفورم
-    formSection.style.display = 'block';
-    successSection.style.display = 'none';
-    
-    bookModal.classList.add('active');
-    chatModal.classList.remove('active');
-    overlay.classList.add('open');
-  }
+// CHAT
+const replies=['أهلاً بك! كيف يمكنني مساعدتك؟ 😊','بالتأكيد، سأكون عندك في أسرع وقت.','ما هو نوع المشكلة بالضبط؟','لا تقلق، هذا الأمر شائع وسهل الحل 👍','يمكنني الحضور خلال ساعة إن شاء الله.','هل يمكنك إرسال وصف أكثر للمشكلة؟','سأتواصل معك قريباً لتحديد الموعد المناسب.'];
+let ri=0,typT=null;
+function openChat(name,svc,id){
+  document.getElementById('ch-name').textContent=name;
+  const svg=document.querySelector('[data-id="'+id+'"] .aring svg');
+  if(svg)document.getElementById('ch-av').innerHTML=svg.outerHTML;
+  document.getElementById('msgs').innerHTML='';
+  ri=0;
+  addMsg('أهلاً! أنا '+name+'. كيف يمكنني مساعدتك اليوم؟ 🔒','ft');
+  document.getElementById('chat-ov').classList.add('open');
+  document.body.style.overflow='hidden';
+  setTimeout(()=>document.getElementById('ci').focus(),350);
+}
+function closeChat(){
+  document.getElementById('chat-ov').classList.remove('open');
+  document.body.style.overflow='';
+}
+document.getElementById('chat-ov').addEventListener('click',e=>{if(e.target===e.currentTarget)closeChat();});
+function addMsg(text,cls){
+  const msgs=document.getElementById('msgs');
+  const now=new Date();
+  const time=now.getHours().toString().padStart(2,'0')+':'+now.getMinutes().toString().padStart(2,'0');
+  const div=document.createElement('div');
+  div.className='msg '+cls;
+  div.innerHTML=text+'<div class="mtime">'+time+'</div>';
+  msgs.appendChild(div);msgs.scrollTop=msgs.scrollHeight;
+}
+function sendMsg(){
+  const input=document.getElementById('ci');
+  const text=input.value.trim();
+  if(!text)return;
+  addMsg(text,'fm');input.value='';
+  const msgs=document.getElementById('msgs');
+  const ti=document.createElement('div');
+  ti.className='msg ft';
+  ti.innerHTML='<div class="typing"><span></span><span></span><span></span></div>';
+  msgs.appendChild(ti);msgs.scrollTop=msgs.scrollHeight;
+  clearTimeout(typT);
+  typT=setTimeout(()=>{ti.remove();addMsg(replies[ri%replies.length],'ft');ri++;},900+Math.random()*700);
+}
 
-  function openChat(name, svc) {
-    document.getElementById('c-name').innerText = name;
-    // مسح الرسائل السابقة ووضع الرسالة الترحيبية فقط
-    document.getElementById('chatMessages').innerHTML = `
-      <div class="msg from-tech">
-        أهلاً بك يا فندم في صيانةبلس. معاك الفني المختص ${name}، تحت أمرك، إيه المشكلة اللي بتواجهك؟
-        <span class="msg-time">الآن</span>
-      </div>
-    `;
-    
-    chatModal.classList.add('active');
-    bookModal.classList.remove('active');
-    overlay.classList.add('open');
-  }
-
-  function closeOverlay() {
-    overlay.classList.remove('open');
-    setTimeout(() => {
-      bookModal.classList.remove('active');
-      chatModal.classList.remove('active');
-    }, 300);
-  }
-
-  // تقديم طلب الحجز
-  function submitBooking(e) {
-    e.preventDefault();
-    formSection.style.display = 'none';
-    successSection.style.display = 'block';
-  }
-
-  // نظام الشات البسيط
-  function sendMessage() {
-    const input = document.getElementById('chatInput');
-    const msgText = input.value.trim();
-    if (!msgText) return;
-
-    const messagesArea = document.getElementById('chatMessages');
-    
-    // إضافة رسالة المستخدم
-    const userMsg = document.createElement('div');
-    userMsg.className = 'msg from-me';
-    userMsg.innerHTML = `${msgText} <span class="msg-time">الآن</span>`;
-    messagesArea.appendChild(userMsg);
-    
-    input.value = '';
-    messagesArea.scrollTop = messagesArea.scrollHeight;
-
-    // رد تلقائي بعد ثانية
-    setTimeout(() => {
-      const techReply = document.createElement('div');
-      techReply.className = 'msg from-tech';
-      techReply.innerHTML = `تم استلام رسالتك، سأقوم بمراجعة التفاصيل والرد عليك فوراً. <span class="msg-time">الآن</span>`;
-      messagesArea.appendChild(techReply);
-      messagesArea.scrollTop = messagesArea.scrollHeight;
-    }, 1000);
-  }
-
-  function handleChatEnter(e) {
-    if (e.key === 'Enter') {
-      sendMessage();
-    }
-  }
+// HAMBURGER
+function toggleMenu(){
+  const h=document.getElementById('ham'),m=document.getElementById('mob-menu');
+  h.classList.toggle('open');m.classList.toggle('open');
+  document.body.style.overflow=m.classList.contains('open')?'hidden':'';
+}
+function closeMenu(){
+  document.getElementById('ham').classList.remove('open');
+  document.getElementById('mob-menu').classList.remove('open');
+  document.body.style.overflow='';
+}
 </script>
-
 </body>
 </html>

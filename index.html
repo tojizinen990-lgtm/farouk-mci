@@ -1,165 +1,271 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>صيانة منزلية متكاملة - راحة بالك تبدأ من هنا</title>
-  <meta name="description" content="خدمات صيانة منزلية متكاملة - سباكة، كهرباء، تكييف، أجهزة منزلية." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>صيانةبلس — خدمات صيانة منزلية متكاملة</title>
+<meta name="description" content="خدمات صيانة منزلية متكاملة. سباكة، كهرباء، تكييف، أجهزة منزلية. فنيون معتمدون، أسعار شفافة، ضمان حقيقي."/>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="shared.css"/>
+<style>
+/* ── HERO ── */
+.hero{min-height:100vh;display:flex;align-items:center;position:relative;padding:7rem 5% 11rem;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 75% 55% at 70% 50%,rgba(201,168,76,.07),transparent 68%),linear-gradient(158deg,#060e1a,#0c1c35 52%,#0a1628)}
+.hero-dots{position:absolute;inset:0;background-image:linear-gradient(rgba(201,168,76,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,.04) 1px,transparent 1px);background-size:55px 55px;mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 25%,transparent 100%)}
+.hero-content{position:relative;z-index:2;max-width:660px}
+.hero-badge{display:inline-flex;align-items:center;gap:.45rem;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.28);border-radius:100px;padding:.38rem .95rem;font-size:.78rem;color:var(--gold);font-weight:600;margin-bottom:1.6rem;animation:fadeUp .6s ease both}
+.hero-badge::before{content:'✦';font-size:.65rem}
+.hero h1{font-family:'Tajawal',sans-serif;font-size:clamp(2rem,5vw,3.6rem);font-weight:900;line-height:1.2;margin-bottom:1.3rem;animation:fadeUp .6s .1s ease both}
+.hero h1 em{font-style:normal;color:var(--gold);position:relative}
+.hero h1 em::after{content:'';position:absolute;bottom:-3px;right:0;left:0;height:2px;background:linear-gradient(90deg,var(--gold),transparent);border-radius:2px}
+.hero-text{font-size:1rem;color:var(--body-text);line-height:1.85;max-width:540px;margin-bottom:2.2rem;animation:fadeUp .6s .18s ease both}
+.hero-actions{display:flex;gap:.9rem;flex-wrap:wrap;animation:fadeUp .6s .26s ease both}
+.hero-stats{position:absolute;bottom:3.5rem;left:5%;right:5%;display:flex;gap:2px;z-index:2;animation:fadeUp .6s .4s ease both}
+.stat-card{flex:1;padding:1.1rem 1rem;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);text-align:center}
+.stat-card:first-child{border-radius:10px 2px 2px 10px}
+.stat-card:last-child{border-radius:2px 10px 10px 2px}
+.stat-num{font-family:'Tajawal',sans-serif;font-size:1.6rem;font-weight:800;color:var(--gold)}
+.stat-lbl{font-size:.72rem;color:var(--muted);margin-top:.1rem}
+
+/* ── WHY ── */
+.why-sec{background:var(--navy-mid)}
+.why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.3rem;margin-top:2.5rem}
+.why-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:1.8rem;position:relative;overflow:hidden;transition:border-color .3s,transform .3s}
+.why-card::before{content:'';position:absolute;top:0;right:0;width:3px;height:0;background:var(--gold);transition:height .4s}
+.why-card:hover{border-color:rgba(201,168,76,.28);transform:translateY(-4px)}
+.why-card:hover::before{height:100%}
+.why-icon{width:48px;height:48px;background:rgba(201,168,76,.1);border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-bottom:1rem}
+.why-card h3{font-size:1rem;font-weight:700;margin-bottom:.5rem}
+.why-card p{font-size:.85rem;color:var(--body-text);line-height:1.7}
+
+/* ── SERVICES ── */
+.svc-sec{background:var(--navy)}
+.svc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.3rem;margin-top:2.5rem}
+.svc-card{background:linear-gradient(135deg,rgba(255,255,255,.04),rgba(255,255,255,.01));border:1px solid rgba(255,255,255,.07);border-radius:16px;padding:2rem;position:relative;overflow:hidden;transition:transform .3s,box-shadow .3s,border-color .3s}
+.svc-card:hover{transform:translateY(-5px);box-shadow:0 18px 50px rgba(0,0,0,.4);border-color:rgba(201,168,76,.2)}
+.svc-num{position:absolute;top:1.2rem;left:1.2rem;font-family:'Tajawal',sans-serif;font-size:2.8rem;font-weight:900;color:rgba(201,168,76,.07);line-height:1}
+.svc-icon{font-size:2rem;margin-bottom:.9rem;display:block}
+.svc-card h3{font-family:'Tajawal',sans-serif;font-size:1.2rem;font-weight:800;color:var(--gold);margin-bottom:.7rem}
+.svc-card p{font-size:.85rem;color:var(--body-text);line-height:1.75}
+.svc-link{display:inline-flex;align-items:center;gap:.3rem;margin-top:1rem;font-size:.8rem;color:var(--gold);font-weight:700;opacity:0;transform:translateX(8px);transition:opacity .3s,transform .3s}
+.svc-card:hover .svc-link{opacity:1;transform:translateX(0)}
+
+/* ── ABOUT ── */
+.about-sec{background:var(--navy-mid);display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.about-visual{position:relative}
+.about-box{width:100%;aspect-ratio:4/3;background:linear-gradient(135deg,var(--navy-light),var(--navy));border-radius:18px;border:1px solid rgba(201,168,76,.18);display:flex;align-items:center;justify-content:center;font-size:5.5rem;overflow:hidden}
+.about-badge{position:absolute;bottom:-1.4rem;right:-1.4rem;background:var(--gold);color:var(--navy);border-radius:12px;padding:.9rem 1.3rem;font-family:'Tajawal',sans-serif;font-size:.85rem;font-weight:800;box-shadow:0 8px 28px rgba(201,168,76,.4);text-align:center}
+.about-badge strong{font-size:1.6rem;display:block}
+
+/* ── TESTIMONIALS ── */
+.test-sec{background:var(--navy)}
+.test-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.3rem;margin-top:2.5rem}
+.test-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:16px;padding:1.8rem;transition:border-color .3s}
+.test-card:hover{border-color:rgba(201,168,76,.22)}
+.quote{font-size:3.5rem;line-height:1;color:rgba(201,168,76,.14);font-family:Georgia,serif;margin-bottom:.4rem}
+.test-card p{font-size:.88rem;color:var(--body-text);line-height:1.8;margin-bottom:1.3rem;font-style:italic}
+.test-author{display:flex;align-items:center;gap:.9rem}
+.author-av{width:42px;height:42px;background:linear-gradient(135deg,var(--gold),var(--gold-light));border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1rem;color:var(--navy);flex-shrink:0}
+.author-av h4{font-size:.9rem;font-weight:700}
+.author-av span{font-size:.74rem;color:var(--gold);font-weight:600}
+.stars{color:var(--gold);font-size:.8rem;margin-bottom:.25rem}
+
+/* ── CONTACT ── */
+.contact-sec{background:linear-gradient(135deg,var(--navy-mid),var(--navy-light));text-align:center;position:relative;overflow:hidden}
+.contact-sec::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(201,168,76,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,.04) 1px,transparent 1px);background-size:38px 38px}
+.contact-inner{position:relative;z-index:2;max-width:660px;margin:0 auto}
+.contact-num{font-family:'Tajawal',sans-serif;font-size:clamp(2.4rem,6vw,4.2rem);font-weight:900;color:var(--gold);letter-spacing:-2px;display:block;margin:1.3rem 0;transition:opacity .2s}
+.contact-num:hover{opacity:.8}
+.contact-items{display:flex;justify-content:center;flex-wrap:wrap;gap:1.8rem;margin:1.8rem 0}
+.c-item{display:flex;align-items:center;gap:.55rem;color:var(--body-text);font-size:.88rem}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){.about-sec{grid-template-columns:1fr}.about-visual{order:-1}}
+@media(max-width:600px){
+  .hero{padding:6rem 4% 14rem}
+  .hero-stats{bottom:2rem;flex-wrap:wrap;gap:4px}
+  .stat-card{min-width:calc(50% - 2px);border-radius:6px!important}
+  .hero-actions{flex-direction:column;gap:.7rem}
+  .hero-actions a{width:100%;justify-content:center}
+  .contact-items{flex-direction:column;align-items:center;gap:1rem}
+}
+</style>
 </head>
-<body>
+<body class="has-ebar">
 
-<div class="emergency-bar">
-  🚨 خدمة طوارئ على مدار الساعة 24/7 — اتصل الآن: <a href="tel:19777">19777</a>
-</div>
+<div class="ebar">🚨 طوارئ 24/7 — اتصل الآن: <a href="tel:19777">19777</a></div>
+<div class="navbar-offset"></div>
 
-<nav>
-  <div class="logo">صيانة<span>بلس</span></div>
+<nav class="navbar">
+  <a href="index.html" class="nav-logo">صيانة<span>بلس</span></a>
   <ul class="nav-links">
     <li><a href="#services">خدماتنا</a></li>
     <li><a href="#why">لماذا نحن</a></li>
     <li><a href="#about">من نحن</a></li>
     <li><a href="#testimonials">آراء العملاء</a></li>
-    <li><a href="tel:19777" class="nav-cta">📞 19777</a></li>
+    <li><a href="#contact">تواصل معنا</a></li>
   </ul>
+  <div class="nav-actions">
+    <span id="user-badge" style="font-size:.78rem;font-weight:700;padding:.3rem .75rem;border-radius:6px;display:none"></span>
+    <a href="auth.html" class="nav-login-btn" id="login-nav-btn">👤 دخول</a>
+    <a href="tel:19777" class="nav-cta-btn">📞 19777</a>
+    <button class="hamburger" id="ham" onclick="toggleMenu()" aria-label="قائمة">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
 </nav>
 
+<!-- Mobile Menu -->
+<div class="mobile-nav" id="mob-menu">
+  <a href="#services" onclick="closeMenu()">خدماتنا</a>
+  <a href="#why" onclick="closeMenu()">لماذا نحن</a>
+  <a href="#about" onclick="closeMenu()">من نحن</a>
+  <a href="#testimonials" onclick="closeMenu()">آراء العملاء</a>
+  <a href="#contact" onclick="closeMenu()">تواصل معنا</a>
+  <div class="mob-btns">
+    <a href="auth.html" class="btn-primary" style="justify-content:center">👤 تسجيل الدخول</a>
+    <a href="tel:19777" class="btn-outline" style="justify-content:center">📞 19777</a>
+  </div>
+</div>
+
+<!-- HERO -->
 <section class="hero" id="home">
   <div class="hero-bg"></div>
-  <div class="hero-grid"></div>
+  <div class="hero-dots"></div>
   <div class="hero-content">
     <div class="hero-badge">خدمة منزلية احترافية ومعتمدة</div>
-    <h1>راحة بالك تبدأ من هنا..<br /><em>صيانة منزلية متكاملة</em><br />بضغطة زر</h1>
-    <p class="hero-text">هل تعاني من أعطال مفاجئة تعكر صفو يومك؟ ندرك تماماً حجم الإزعاج الذي تسببه مشاكل المنزل. نحن هنا لنقدم لك حلولاً فورية، آمنة، وموثوقة.</p>
+    <h1>راحة بالك تبدأ من هنا..<br/><em>صيانة منزلية متكاملة</em><br/>بضغطة زر</h1>
+    <p class="hero-text">هل تعاني من أعطال مفاجئة تعكر صفو يومك؟ نحن هنا لنقدم لك حلولاً فورية، آمنة، وموثوقة لتصليح أعطال السباكة، الكهرباء، والتكييفات.</p>
     <div class="hero-actions">
       <a href="technicians.html" class="btn-primary">⚡ اطلب فني صيانة الآن</a>
       <a href="#services" class="btn-outline">تصفح خدماتنا ←</a>
     </div>
   </div>
   <div class="hero-stats">
-    <div class="stat-card"><div class="stat-num">+5000</div><div class="stat-label">عميل سعيد</div></div>
-    <div class="stat-card"><div class="stat-num">+200</div><div class="stat-label">فني معتمد</div></div>
-    <div class="stat-card"><div class="stat-num">24/7</div><div class="stat-label">خدمة طوارئ</div></div>
-    <div class="stat-card"><div class="stat-num">98%</div><div class="stat-label">معدل رضا العملاء</div></div>
+    <div class="stat-card"><div class="stat-num">+5000</div><div class="stat-lbl">عميل سعيد</div></div>
+    <div class="stat-card"><div class="stat-num">+200</div><div class="stat-lbl">فني معتمد</div></div>
+    <div class="stat-card"><div class="stat-num">24/7</div><div class="stat-lbl">خدمة طوارئ</div></div>
+    <div class="stat-card"><div class="stat-num">98%</div><div class="stat-lbl">رضا العملاء</div></div>
   </div>
 </section>
 
-<section class="why-section" id="why">
+<!-- WHY US -->
+<section class="section why-sec" id="why">
   <div class="section-tag">▸ لماذا نحن</div>
-  <h2>لماذا نُعد الخيار الآمن والأول لأسرتك؟</h2>
-  <p class="section-intro">لأننا لا نقدم مجرد تصليح أعطال، بل نقدم تجربة خالية من التوتر ترتكز على راحتك وأمان منزلك.</p>
+  <h2 class="section-title">لماذا نُعد الخيار الآمن والأول لأسرتك؟</h2>
+  <p class="section-sub">لأننا لا نقدم مجرد تصليح أعطال، بل نقدم تجربة خالية من التوتر ترتكز على راحتك وأمان منزلك.</p>
   <div class="why-grid reveal">
-    <div class="why-card"><div class="why-icon">⚡</div><h3>سرعة الاستجابة</h3><p>نوفر خدمات صيانة طوارئ نصلك من خلالها في وقت قياسي لحل مشكلتك قبل أن تتفاقم.</p></div>
-    <div class="why-card"><div class="why-icon">🛡️</div><h3>فنيون معتمدون وأمان تام</h3><p>كل فني لدينا يمر باختبارات فنية دقيقة وفحص شامل للخلفية، لأن أمان أسرتك هو خط أحمر.</p></div>
+    <div class="why-card"><div class="why-icon">⚡</div><h3>سرعة الاستجابة</h3><p>نوفر خدمات صيانة طوارئ نصلك في وقت قياسي لحل مشكلتك قبل أن تتفاقم.</p></div>
+    <div class="why-card"><div class="why-icon">🛡️</div><h3>فنيون معتمدون وأمان تام</h3><p>كل فني يمر باختبارات فنية دقيقة وفحص شامل للخلفية، لأن أمان أسرتك خط أحمر.</p></div>
     <div class="why-card"><div class="why-icon">💰</div><h3>أسعار شفافة بلا مفاجآت</h3><p>لا توجد رسوم خفية. نقدم تسعيراً واضحاً ومفصلاً قبل البدء في أي عمل.</p></div>
-    <div class="why-card"><div class="why-icon">✅</div><h3>ضمان حقيقي ومعتمد</h3><p>نثق في جودة عملنا؛ لذا نقدم ضماناً معتمداً على قطع الغيار الأصلية والخدمة المقدمة.</p></div>
+    <div class="why-card"><div class="why-icon">✅</div><h3>ضمان حقيقي ومعتمد</h3><p>نثق في جودة عملنا ونقدم ضماناً معتمداً على قطع الغيار الأصلية والخدمة المقدمة.</p></div>
   </div>
-  <div class="why-cta">
-    <a href="technicians.html" class="btn-primary">🗓 احجز موعد صيانة اليوم</a>
-  </div>
+  <div style="margin-top:2.2rem"><a href="technicians.html" class="btn-primary">🗓 احجز موعد صيانة اليوم</a></div>
 </section>
 
-<section class="services-section" id="services">
+<!-- SERVICES -->
+<section class="section svc-sec" id="services">
   <div class="section-tag">▸ خدماتنا</div>
-  <h2>حلول متكاملة تحت سقف واحد</h2>
-  <p class="section-intro">نغطي جميع احتياجاتك المنزلية بفريق من الخبراء المتخصصين في كل مجال.</p>
-  <div class="services-grid reveal">
-    <div class="service-card">
-      <span class="service-num">01</span><span class="service-icon">🔌</span>
-      <h3>صيانة الكهرباء</h3>
-      <p>من إصلاح التماسات الكهربائية الخطيرة إلى تركيب وحدات الإضاءة وتأسيس الشبكات.</p>
-      <a href="technicians.html" class="learn-more">اطلب الخدمة ←</a>
-    </div>
-    <div class="service-card">
-      <span class="service-num">02</span><span class="service-icon">🔧</span>
-      <h3>صيانة السباكة</h3>
-      <p>وداعاً لتسربات المياه وانسداد المواسير. نوفر أحدث أدوات الكشف عن التسربات.</p>
-      <a href="technicians.html" class="learn-more">اطلب الخدمة ←</a>
-    </div>
-    <div class="service-card">
-      <span class="service-num">03</span><span class="service-icon">❄️</span>
-      <h3>صيانة التكييفات</h3>
-      <p>هواء نقي وبارد طوال الصيف. غسيل عميق، شحن فريون، ومعالجة ضعف التبريد.</p>
-      <a href="technicians.html" class="learn-more">اطلب الخدمة ←</a>
-    </div>
-    <div class="service-card">
-      <span class="service-num">04</span><span class="service-icon">🏠</span>
-      <h3>صيانة الأجهزة المنزلية</h3>
-      <p>تعطلت الغسالة أو الثلاجة؟ لا داعي لشراء أجهزة جديدة. خبراؤنا يعيدون أجهزتك للعمل.</p>
-      <a href="technicians.html" class="learn-more">اطلب الخدمة ←</a>
-    </div>
+  <h2 class="section-title">حلول متكاملة تحت سقف واحد</h2>
+  <p class="section-sub">نغطي جميع احتياجاتك المنزلية بفريق من الخبراء المتخصصين في كل مجال.</p>
+  <div class="svc-grid reveal">
+    <div class="svc-card"><span class="svc-num">01</span><span class="svc-icon">🔌</span><h3>صيانة الكهرباء</h3><p>من إصلاح التماسات الكهربائية الخطيرة إلى تركيب وحدات الإضاءة وتأسيس الشبكات.</p><a href="technicians.html" class="svc-link">اطلب الخدمة ←</a></div>
+    <div class="svc-card"><span class="svc-num">02</span><span class="svc-icon">🔧</span><h3>صيانة السباكة</h3><p>وداعاً لتسربات المياه وانسداد المواسير. أحدث أدوات الكشف عن التسربات دون تكسير.</p><a href="technicians.html" class="svc-link">اطلب الخدمة ←</a></div>
+    <div class="svc-card"><span class="svc-num">03</span><span class="svc-icon">❄️</span><h3>صيانة التكييفات</h3><p>هواء نقي وبارد طوال الصيف. غسيل عميق، شحن فريون، ومعالجة ضعف التبريد لجميع الماركات.</p><a href="technicians.html" class="svc-link">اطلب الخدمة ←</a></div>
+    <div class="svc-card"><span class="svc-num">04</span><span class="svc-icon">🏠</span><h3>صيانة الأجهزة المنزلية</h3><p>تعطلت الغسالة أو الثلاجة؟ خبراؤنا يعيدون أجهزتك للعمل بكفاءتها الأولى مع قطع غيار أصلية.</p><a href="technicians.html" class="svc-link">اطلب الخدمة ←</a></div>
   </div>
-  <div style="margin-top:2.5rem;">
-    <a href="technicians.html" class="btn-primary">📋 تصفح جميع خدماتنا</a>
-  </div>
+  <div style="margin-top:2.2rem"><a href="technicians.html" class="btn-primary">📋 تصفح جميع خدماتنا</a></div>
 </section>
 
-<section class="about-section" id="about">
+<!-- ABOUT -->
+<section class="section about-sec" id="about">
   <div class="about-visual reveal">
-    <div class="about-img-box">🏆</div>
-    <div class="about-badge-float"><strong>10+</strong> سنوات خبرة</div>
+    <div class="about-box">🏆</div>
+    <div class="about-badge"><strong>10+</strong> سنوات خبرة</div>
   </div>
   <div>
     <div class="section-tag">▸ من نحن</div>
-    <h2>شركاء راحتك وحراس أمانك</h2>
-    <p class="section-intro">تأسست شركتنا لتغيير المفهوم التقليدي للصيانة. رؤيتنا هي أن نصبح الرفيق الموثوق لكل أسرة.</p>
-    <p style="color:var(--text-body);font-size:.92rem;line-height:1.85;margin-bottom:2rem;">مهمتنا تكمن في تقديم خدمات صيانة منزلية ترتقي لمستويات الجودة العالمية، مع التزام صارم باحترام خصوصية المنازل ومواعيد العملاء.</p>
+    <h2 class="section-title">شركاء راحتك وحراس أمانك</h2>
+    <p class="section-sub">تأسست شركتنا لتغيير المفهوم التقليدي للصيانة. رؤيتنا أن نصبح الرفيق الموثوق لكل أسرة تبحث عن الأمان.</p>
+    <p style="font-size:.9rem;color:var(--body-text);line-height:1.85;margin-bottom:1.8rem">مهمتنا تقديم خدمات صيانة ترتقي لمستويات الجودة العالمية، مع التزام صارم باحترام خصوصية المنازل ومواعيد العملاء. نحن لا نصلح الأعطال فقط، بل نعيد بناء الثقة.</p>
     <a href="technicians.html" class="btn-primary">👥 تعرف على فريقنا</a>
   </div>
 </section>
 
-<section class="testimonials-section" id="testimonials">
+<!-- TESTIMONIALS -->
+<section class="section test-sec" id="testimonials">
   <div class="section-tag">▸ آراء العملاء</div>
-  <h2>ماذا يقول عملاؤنا عن تجربتهم؟</h2>
-  <p class="section-intro">ثقة عملائنا هي أكبر إنجازاتنا.</p>
-  <div class="testimonials-grid reveal">
-    <div class="testimonial-card">
-      <div class="stars">★★★★★</div><div class="quote-mark">"</div>
-      <p>تعطل التكييف في منتصف موجة حارة، تواصلت معهم ووصل الفني في أقل من ساعتين. خدمة سريعة واحترافية جداً!</p>
-      <div class="testimonial-author"><div class="author-avatar">خ</div><div class="author-info"><h4>Farouk</h4><span>خدمة التكييفات</span></div></div>
-    </div>
-    <div class="testimonial-card">
-      <div class="stars">★★★★★</div><div class="quote-mark">"</div>
-      <p>كنت أعاني من تسرب مياه خفي أرهقني لفترة طويلة. أرسلوا لي أفضل سباك تعاملت معه دون أي تكسير.</p>
-      <div class="testimonial-author"><div class="author-avatar">ن</div><div class="author-info"><h4>Nour</h4><span>خدمة السباكة</span></div></div>
-    </div>
-    <div class="testimonial-card">
-      <div class="stars">★★★★★</div><div class="quote-mark">"</div>
-      <p>أكثر ما أعجبني هو الشفافية في السعر والأمان. الفني كان يرتدي زياً رسمياً وقدم لي ضماناً مكتوباً.</p>
-      <div class="testimonial-author"><div class="author-avatar">م</div><div class="author-info"><h4>Moaaz</h4><span>خدمة الأجهزة المنزلية</span></div></div>
-    </div>
+  <h2 class="section-title">ماذا يقول عملاؤنا؟</h2>
+  <p class="section-sub">ثقة عملائنا هي أكبر إنجازاتنا.</p>
+  <div class="test-grid reveal">
+    <div class="test-card"><div class="stars">★★★★★</div><div class="quote">"</div><p>تعطل التكييف في منتصف موجة حارة، ووصل الفني في أقل من ساعتين. خدمة سريعة واحترافية!</p><div class="test-author"><div class="author-av">خ</div><div><h4>خيري م.</h4><span>خدمة التكييفات</span></div></div></div>
+    <div class="test-card"><div class="stars">★★★★★</div><div class="quote">"</div><p>كنت أعاني من تسرب مياه خفي. أرسلوا لي أفضل سباك تعاملت معه وحدد المشكلة دون أي تكسير.</p><div class="test-author"><div class="author-av">ن</div><div><h4>نور ع.</h4><span>خدمة السباكة</span></div></div></div>
+    <div class="test-card"><div class="stars">★★★★★</div><div class="quote">"</div><p>الفني كان يرتدي زياً رسمياً ومعه بطاقة تعريفية، وقدم لي ضماناً مكتوباً. شركة تستحق الثقة.</p><div class="test-author"><div class="author-av">م</div><div><h4>م. معاذ</h4><span>خدمة الأجهزة</span></div></div></div>
   </div>
-  <div style="margin-top:3rem;text-align:center;">
-    <a href="technicians.html" class="btn-primary">🤝 انضم لعملائنا السعداء</a>
-  </div>
+  <div style="margin-top:2.5rem;text-align:center"><a href="technicians.html" class="btn-primary">🤝 انضم لعملائنا السعداء</a></div>
 </section>
 
-<section class="contact-section" id="contact">
+<!-- CONTACT -->
+<section class="section contact-sec" id="contact">
   <div class="contact-inner">
-    <div class="section-tag" style="text-align:center;">▸ تواصل معنا</div>
-    <h2>لا تترك منزلك للأعطال.. نحن أقرب إليك!</h2>
-    <p class="section-intro" style="margin:0 auto 1rem;text-align:center;">نعمل على مدار الساعة 24/7 لنضمن راحتك.</p>
+    <div class="section-tag" style="text-align:center">▸ تواصل معنا</div>
+    <h2 class="section-title">لا تترك منزلك للأعطال!</h2>
+    <p class="section-sub" style="margin:0 auto 1rem;text-align:center">نعمل على مدار الساعة 24/7 لنضمن راحتك.</p>
     <a href="tel:19777" class="contact-num">19777</a>
-    <div class="contact-info">
-      <div class="contact-item"><span>📞</span><span>خط ساخن متاح 24 ساعة</span></div>
-      <div class="contact-item"><span>✉️</span><span>info@yourdomain.com</span></div>
-      <div class="contact-item"><span>📍</span><span>نغطي جميع المناطق</span></div>
+    <div class="contact-items">
+      <div class="c-item"><span>📞</span><span>خط ساخن متاح 24 ساعة</span></div>
+      <div class="c-item"><span>✉️</span><span>info@sianaaplus.com</span></div>
+      <div class="c-item"><span>📍</span><span>نغطي جميع المناطق</span></div>
     </div>
-    <a href="tel:19777" class="btn-primary" style="font-size:1.1rem;padding:1.2rem 2.8rem;">📞 اتصل على 19777 الآن</a>
+    <a href="tel:19777" class="btn-primary" style="font-size:1rem;padding:1rem 2.5rem">📞 اتصل على 19777 الآن</a>
   </div>
 </section>
 
 <footer>
   <div class="footer-logo">صيانةبلس</div>
   <p>© 2025 جميع الحقوق محفوظة — خدمة صيانة منزلية متكاملة</p>
-  <p style="color:var(--gold);font-weight:700;">19777</p>
+  <p style="color:var(--gold);font-weight:700">19777</p>
 </footer>
 
-<a href="technicians.html" class="floating-cta">⚡ اطلب فني الآن</a>
+<a href="technicians.html" class="float-cta">⚡ اطلب فني الآن</a>
 
-<script src="script.js"></script>
+<script>
+// ── NAV USER STATUS ──
+const status=sessionStorage.getItem('loggedIn');
+const via=sessionStorage.getItem('via')||'';
+const name=sessionStorage.getItem('userName')||'';
+const badge=document.getElementById('user-badge');
+const loginBtn=document.getElementById('login-nav-btn');
+if(status==='true'){
+  badge.style.display='inline-block';
+  badge.style.cssText='display:inline-block;font-size:.76rem;color:var(--gold);font-weight:700;padding:.28rem .7rem;background:rgba(201,168,76,.1);border-radius:6px;border:1px solid rgba(201,168,76,.2)';
+  badge.textContent=name?'👋 '+name.split(' ')[0]:via?'✅ '+via:'✅ مرحباً';
+  loginBtn.textContent='🚪 خروج';
+  loginBtn.href='#';
+  loginBtn.onclick=function(e){e.preventDefault();sessionStorage.clear();window.location.reload();};
+}else if(status==='guest'){
+  badge.style.display='inline-block';
+  badge.style.cssText='display:inline-block;font-size:.76rem;color:var(--muted);font-weight:600;padding:.28rem .7rem;background:rgba(255,255,255,.05);border-radius:6px;border:1px solid rgba(255,255,255,.1)';
+  badge.textContent='👤 زائر';
+}
+
+// ── HAMBURGER ──
+function toggleMenu(){
+  const ham=document.getElementById('ham');
+  const menu=document.getElementById('mob-menu');
+  ham.classList.toggle('open');
+  menu.classList.toggle('open');
+  document.body.style.overflow=menu.classList.contains('open')?'hidden':'';
+}
+function closeMenu(){
+  document.getElementById('ham').classList.remove('open');
+  document.getElementById('mob-menu').classList.remove('open');
+  document.body.style.overflow='';
+}
+
+// ── SCROLL REVEAL ──
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');})},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
 </body>
 </html>

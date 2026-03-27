@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>صيانةبلس — تسجيل الدخول</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Tajawal:wght@400;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#0a1628;--navy-mid:#112240;--navy-light:#1a3258;--gold:#c9a84c;--gold-light:#e8c97a;--white:#fff;--body-text:#d1c9b8;--muted:#8a8070;--red:#e8534a;--green:#2ecc71}
+html,body{height:100%;font-family:'Cairo',sans-serif;background:var(--navy);color:var(--white);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+
+/* BG */
+.bg{position:fixed;inset:0;z-index:0;background:radial-gradient(ellipse 65% 55% at 12% 50%,rgba(201,168,76,.07),transparent 65%),radial-gradient(ellipse 45% 65% at 88% 18%,rgba(46,196,182,.05),transparent 60%),linear-gradient(155deg,#06101e,#0c1c35 55%,#0a1628)}
+.bg-grid{position:fixed;inset:0;z-index:0;background-image:linear-gradient(rgba(201,168,76,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,.035) 1px,transparent 1px);background-size:50px 50px;mask-image:radial-gradient(ellipse 100% 100% at 50% 50%,black 15%,transparent 75%)}
+.particle{position:fixed;border-radius:50%;pointer-events:none;z-index:0;background:radial-gradient(circle,rgba(201,168,76,.1),transparent);animation:pfloat linear infinite}
+@keyframes pfloat{0%{transform:translateY(105vh) scale(0);opacity:0}8%{opacity:1}92%{opacity:.25}100%{transform:translateY(-8vh) scale(1);opacity:0}}
+
+/* LAYOUT */
+.page{position:relative;z-index:1;min-height:100vh;display:grid;grid-template-columns:1.1fr .9fr}
+
+/* BRAND PANEL */
+.brand-panel{display:flex;flex-direction:column;justify-content:center;padding:3rem 6%;position:relative;overflow:hidden}
+.brand-panel::after{content:'';position:absolute;top:0;left:0;width:1px;height:100%;background:linear-gradient(to bottom,transparent,rgba(201,168,76,.22),transparent)}
+.deco{position:absolute;border-radius:50%;border:1px solid rgba(201,168,76,.05);pointer-events:none}
+.brand-logo{font-family:'Tajawal',sans-serif;font-size:2rem;font-weight:900;color:var(--gold);margin-bottom:.35rem;animation:up .6s ease both}
+.brand-logo span{color:var(--white)}
+.brand-sub{font-size:.72rem;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:2.2rem;animation:up .6s .08s ease both}
+.brand-heading{font-family:'Tajawal',sans-serif;font-size:clamp(1.9rem,3vw,2.8rem);font-weight:900;line-height:1.2;margin-bottom:1rem;animation:up .6s .16s ease both}
+.brand-heading em{font-style:normal;color:var(--gold)}
+.brand-desc{font-size:.9rem;color:var(--body-text);line-height:1.85;max-width:380px;margin-bottom:2.2rem;animation:up .6s .24s ease both}
+.brand-feats{display:flex;flex-direction:column;gap:.85rem;animation:up .6s .32s ease both}
+.feat{display:flex;align-items:center;gap:.75rem;font-size:.86rem;color:var(--body-text)}
+.feat-ico{width:34px;height:34px;border-radius:9px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.18);display:flex;align-items:center;justify-content:center;font-size:.95rem;flex-shrink:0}
+
+/* FORM PANEL */
+.form-panel{display:flex;flex-direction:column;justify-content:center;align-items:center;padding:2.5rem 5%;overflow-y:auto}
+.form-box{width:100%;max-width:400px}
+
+/* TABS */
+.tabs{display:grid;grid-template-columns:1fr 1fr;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:11px;padding:3px;margin-bottom:1.8rem}
+.tab{padding:.65rem;border-radius:8px;border:none;background:transparent;color:var(--muted);font-family:'Cairo',sans-serif;font-size:.88rem;font-weight:700;cursor:pointer;transition:all .25s}
+.tab.active{background:linear-gradient(135deg,var(--gold),var(--gold-light));color:var(--navy);box-shadow:0 4px 14px rgba(201,168,76,.3)}
+.form-title{font-family:'Tajawal',sans-serif;font-size:1.5rem;font-weight:900;margin-bottom:.35rem}
+.form-title em{font-style:normal;color:var(--gold)}
+.form-sub{font-size:.8rem;color:var(--muted);margin-bottom:1.5rem}
+
+/* SOCIAL BUTTONS */
+.socials{display:flex;flex-direction:column;gap:.6rem;margin-bottom:1rem}
+.soc-btn{display:flex;align-items:center;justify-content:center;gap:.75rem;padding:.8rem;border-radius:11px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);color:var(--white);font-family:'Cairo',sans-serif;font-size:.9rem;font-weight:700;cursor:pointer;transition:all .22s;width:100%}
+.soc-btn:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,.3)}
+.soc-btn.google{border-color:rgba(234,67,53,.3);background:rgba(234,67,53,.06)}
+.soc-btn.google:hover{background:rgba(234,67,53,.13);border-color:rgba(234,67,53,.55)}
+.soc-btn.fb{border-color:rgba(24,119,242,.3);background:rgba(24,119,242,.06)}
+.soc-btn.fb:hover{background:rgba(24,119,242,.13);border-color:rgba(24,119,242,.55)}
+.soc-btn.guest{border-color:rgba(201,168,76,.3);background:rgba(201,168,76,.06)}
+.soc-btn.guest:hover{background:rgba(201,168,76,.13);border-color:rgba(201,168,76,.55)}
+.soc-ico{font-size:1.15rem}
+
+/* DIVIDER */
+.divider{display:flex;align-items:center;gap:.75rem;margin:1rem 0}
+.divider::before,.divider::after{content:'';flex:1;height:1px;background:rgba(255,255,255,.08)}
+.divider span{font-size:.7rem;color:var(--muted);white-space:nowrap}
+
+/* FORM FIELDS */
+.fg{margin-bottom:.85rem}
+.fg label{display:block;font-size:.72rem;font-weight:700;color:var(--muted);margin-bottom:.35rem;letter-spacing:.5px}
+.iw{position:relative}
+.iw .ico{position:absolute;top:50%;transform:translateY(-50%);right:.9rem;font-size:.85rem;color:var(--muted);pointer-events:none;transition:color .2s}
+.iw input{width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:9px;padding:.75rem 2.5rem .75rem 2.5rem;color:var(--white);font-family:'Cairo',sans-serif;font-size:.88rem;outline:none;transition:border-color .2s,background .2s}
+.iw input:focus{border-color:var(--gold);background:rgba(201,168,76,.04)}
+.iw input::placeholder{color:rgba(255,255,255,.18)}
+.iw input:focus~.ico{color:var(--gold)}
+.iw input.ie{border-color:var(--red)!important}
+.eye{position:absolute;top:50%;transform:translateY(-50%);left:.9rem;background:none;border:none;color:var(--muted);cursor:pointer;font-size:.85rem;transition:color .2s}
+.eye:hover{color:var(--gold)}
+.err-msg{font-size:.7rem;color:var(--red);margin-top:.28rem;display:none}
+.err-msg.show{display:block}
+.fgrow{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
+
+/* STRENGTH */
+.str-wrap{margin-top:.35rem;display:none}
+.str-wrap.show{display:block}
+.str-bar{height:3px;border-radius:3px;background:rgba(255,255,255,.08);overflow:hidden}
+.str-fill{height:100%;border-radius:3px;transition:width .3s,background .3s;width:0}
+.str-lbl{font-size:.65rem;color:var(--muted);margin-top:.25rem}
+
+/* EXTRA ROWS */
+.row-between{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.1rem}
+.chk-row{display:flex;align-items:center;gap:.45rem;cursor:pointer}
+.chk-row input{display:none}
+.chk{width:17px;height:17px;border-radius:4px;border:1px solid rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s}
+.chk-row input:checked+.chk{background:var(--gold);border-color:var(--gold)}
+.chk-row input:checked+.chk::after{content:'✓';font-size:.6rem;color:var(--navy);font-weight:900}
+.chk-lbl{font-size:.76rem;color:var(--muted)}
+.chk-lbl a{color:var(--gold)}
+.forgot{font-size:.76rem;color:var(--gold)}
+.forgot:hover{text-decoration:underline}
+
+/* SUBMIT */
+.btn-go{width:100%;padding:.92rem;background:linear-gradient(135deg,var(--gold),var(--gold-light));color:var(--navy);border:none;border-radius:10px;font-family:'Cairo',sans-serif;font-size:.95rem;font-weight:800;cursor:pointer;transition:transform .2s,box-shadow .2s;box-shadow:0 4px 18px rgba(201,168,76,.35);margin-bottom:.9rem}
+.btn-go:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(201,168,76,.5)}
+.btn-go.ld{pointer-events:none;opacity:.75}
+
+/* SUCCESS */
+.suc-box{display:none;text-align:center;padding:1.5rem 0}
+.suc-ring{width:72px;height:72px;border-radius:50%;background:rgba(46,204,113,.1);border:2px solid var(--green);display:flex;align-items:center;justify-content:center;font-size:2rem;margin:0 auto .9rem;animation:pop .4s ease}
+@keyframes pop{from{transform:scale(0)}to{transform:scale(1)}}
+.suc-box h3{font-family:'Tajawal',sans-serif;font-size:1.3rem;font-weight:900;margin-bottom:.4rem}
+.suc-box p{font-size:.83rem;color:var(--body-text);line-height:1.7;margin-bottom:1.2rem}
+
+/* TOAST */
+.toast{position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%);background:var(--navy-mid);border:1px solid rgba(201,168,76,.3);border-radius:10px;padding:.72rem 1.4rem;font-size:.83rem;font-weight:600;box-shadow:0 8px 28px rgba(0,0,0,.4);z-index:999;opacity:0;pointer-events:none;transition:opacity .3s;white-space:nowrap}
+.toast.show{opacity:1}
+.toast.ok{border-color:rgba(46,204,113,.4);color:#86efac}
+.toast.err{border-color:rgba(232,83,74,.4);color:#fca5a5}
+
+@keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+
+/* RESPONSIVE */
+@media(max-width:860px){
+  .page{grid-template-columns:1fr}
+  .brand-panel{display:none}
+  .form-panel{padding:2rem 1.2rem;min-height:100vh;justify-content:flex-start;padding-top:3.5rem}
+  .form-box{max-width:100%}
+}
+@media(max-width:420px){
+  .fgrow{grid-template-columns:1fr}
+  .soc-btn{font-size:.82rem}
+}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<div class="bg-grid"></div>
+<div class="particle" style="width:55px;height:55px;left:6%;animation-duration:13s;animation-delay:0s"></div>
+<div class="particle" style="width:32px;height:32px;left:24%;animation-duration:18s;animation-delay:3.5s"></div>
+<div class="particle" style="width:44px;height:44px;left:72%;animation-duration:15s;animation-delay:1.8s"></div>
+<div class="particle" style="width:22px;height:22px;left:90%;animation-duration:21s;animation-delay:7s"></div>
+
+<div class="page">
+  <!-- BRAND -->
+  <div class="brand-panel">
+    <div class="deco" style="width:480px;height:480px;bottom:-200px;left:-130px"></div>
+    <div class="deco" style="width:260px;height:260px;bottom:-20px;left:30px"></div>
+    <div class="brand-logo">صيانة<span>بلس</span></div>
+    <div class="brand-sub">خدمات صيانة منزلية احترافية ومعتمدة</div>
+    <div class="brand-heading">مرحباً بك في<br/><em>عالم الصيانة</em><br/>الذكية</div>
+    <p class="brand-desc">سجّل دخولك وتمتع بحجز فوري، ومتابعة طلباتك، والتواصل مع أفضل الفنيين المعتمدين في منطقتك.</p>
+    <div class="brand-feats">
+      <div class="feat"><div class="feat-ico">⚡</div><span>حجز فوري في أقل من دقيقة</span></div>
+      <div class="feat"><div class="feat-ico">🔒</div><span>بياناتك محمية بتشفير كامل</span></div>
+      <div class="feat"><div class="feat-ico">📍</div><span>تتبع الفني حتى وصوله لبابك</span></div>
+      <div class="feat"><div class="feat-ico">⭐</div><span>قيّم خدمتك وساعد الآخرين</span></div>
+    </div>
+  </div>
+
+  <!-- FORM -->
+  <div class="form-panel">
+    <div class="form-box">
+
+      <!-- Mobile logo -->
+      <div style="display:none" class="mob-logo">
+        <div class="brand-logo" style="font-size:1.6rem;margin-bottom:.2rem">صيانة<span style="color:#fff">بلس</span></div>
+        <div style="font-size:.7rem;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:1.5rem">خدمات صيانة منزلية</div>
+      </div>
+
+      <div class="tabs">
+        <button class="tab active" id="tab-login" onclick="switchTab('login')">تسجيل الدخول</button>
+        <button class="tab" id="tab-reg" onclick="switchTab('reg')">إنشاء حساب</button>
+      </div>
+
+      <!-- ══ LOGIN ══ -->
+      <div id="sec-login">
+        <div class="form-title">أهلاً بعودتك <em>👋</em></div>
+        <p class="form-sub">ادخل بسرعة أو استخدم حساباتك الاجتماعية</p>
+        <div class="socials">
+          <button class="soc-btn google" onclick="goSocial('Google')"><span class="soc-ico">🔴</span> المتابعة بـ Google</button>
+          <button class="soc-btn fb" onclick="goSocial('Facebook')"><span class="soc-ico">📘</span> المتابعة بـ Facebook</button>
+          <button class="soc-btn guest" onclick="goGuest()"><span class="soc-ico">👤</span> الدخول كزائر</button>
+        </div>
+        <div class="divider"><span>أو تسجيل بالبريد</span></div>
+        <div class="fg">
+          <label>البريد الإلكتروني أو الهاتف</label>
+          <div class="iw"><input type="text" id="l-email" placeholder="example@mail.com"/><span class="ico">📧</span></div>
+          <div class="err-msg" id="l-email-err">يرجى إدخال بريد أو هاتف صحيح</div>
+        </div>
+        <div class="fg">
+          <label>كلمة المرور</label>
+          <div class="iw"><input type="password" id="l-pass" placeholder="••••••••"/><span class="ico">🔑</span><button class="eye" onclick="togglePass('l-pass',this)" type="button">👁</button></div>
+          <div class="err-msg" id="l-pass-err">كلمة المرور مطلوبة</div>
+        </div>
+        <div class="row-between">
+          <label class="chk-row"><input type="checkbox" id="l-rem"/><span class="chk"></span><span class="chk-lbl">تذكرني</span></label>
+          <a href="#" class="forgot">نسيت كلمة المرور؟</a>
+        </div>
+        <button class="btn-go" id="l-btn" onclick="doLogin()">🔓 تسجيل الدخول</button>
+      </div>
+
+      <!-- ══ REGISTER ══ -->
+      <div id="sec-reg" style="display:none">
+        <div class="form-title">إنشاء <em>حساب جديد</em></div>
+        <p class="form-sub">انضم لآلاف العملاء السعداء اليوم</p>
+        <div class="socials">
+          <button class="soc-btn google" onclick="goSocial('Google')"><span class="soc-ico">🔴</span> التسجيل بـ Google</button>
+          <button class="soc-btn fb" onclick="goSocial('Facebook')"><span class="soc-ico">📘</span> التسجيل بـ Facebook</button>
+        </div>
+        <div class="divider"><span>أو بالبريد الإلكتروني</span></div>
+        <div class="suc-box" id="reg-ok">
+          <div class="suc-ring">✅</div>
+          <h3>تم إنشاء حسابك!</h3>
+          <p>مرحباً بك في صيانةبلس 🎉<br/>جاري الدخول للموقع...</p>
+          <button class="btn-go" onclick="redirect()">الذهاب للموقع →</button>
+        </div>
+        <div id="reg-form">
+          <div class="fgrow">
+            <div class="fg"><label>الاسم الأول</label><div class="iw"><input type="text" id="r-first" placeholder="محمد"/><span class="ico">👤</span></div><div class="err-msg" id="r-first-err">الاسم مطلوب</div></div>
+            <div class="fg"><label>اسم العائلة</label><div class="iw"><input type="text" id="r-last" placeholder="أحمد"/><span class="ico">👤</span></div><div class="err-msg" id="r-last-err">مطلوب</div></div>
+          </div>
+          <div class="fg"><label>رقم الهاتف</label><div class="iw"><input type="tel" id="r-phone" placeholder="01XXXXXXXXX"/><span class="ico">📞</span></div><div class="err-msg" id="r-phone-err">رقم غير صحيح (01XXXXXXXXX)</div></div>
+          <div class="fg"><label>البريد الإلكتروني</label><div class="iw"><input type="email" id="r-email" placeholder="example@mail.com"/><span class="ico">📧</span></div><div class="err-msg" id="r-email-err">بريد غير صحيح</div></div>
+          <div class="fg">
+            <label>كلمة المرور</label>
+            <div class="iw"><input type="password" id="r-pass" placeholder="••••••••" oninput="checkStr(this.value)"/><span class="ico">🔑</span><button class="eye" onclick="togglePass('r-pass',this)" type="button">👁</button></div>
+            <div class="str-wrap" id="str-wrap"><div class="str-bar"><div class="str-fill" id="str-fill"></div></div><div class="str-lbl" id="str-lbl"></div></div>
+            <div class="err-msg" id="r-pass-err">كلمة المرور يجب أن تكون 8 أحرف على الأقل</div>
+          </div>
+          <div class="fg"><label>تأكيد كلمة المرور</label><div class="iw"><input type="password" id="r-pass2" placeholder="••••••••"/><span class="ico">🔑</span><button class="eye" onclick="togglePass('r-pass2',this)" type="button">👁</button></div><div class="err-msg" id="r-pass2-err">كلمات المرور غير متطابقة</div></div>
+          <label class="chk-row" style="margin-bottom:1.1rem"><input type="checkbox" id="r-agree"/><span class="chk"></span><span class="chk-lbl">أوافق على <a href="#">الشروط والأحكام</a></span></label>
+          <button class="btn-go" id="r-btn" onclick="doReg()">🚀 إنشاء الحساب</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// show mobile logo on small screens
+if(window.innerWidth<=860){const ml=document.querySelector('.mob-logo');if(ml)ml.style.display='block';}
+
+function switchTab(t){
+  const isL=t==='login';
+  document.getElementById('sec-login').style.display=isL?'block':'none';
+  document.getElementById('sec-reg').style.display=isL?'none':'block';
+  document.getElementById('tab-login').classList.toggle('active',isL);
+  document.getElementById('tab-reg').classList.toggle('active',!isL);
+  if(!isL){document.getElementById('reg-ok').style.display='none';document.getElementById('reg-form').style.display='block';}
+}
+
+function togglePass(id,btn){
+  const el=document.getElementById(id);
+  const h=el.type==='password';
+  el.type=h?'text':'password';btn.textContent=h?'🙈':'👁';
+}
+
+function checkStr(v){
+  const w=document.getElementById('str-wrap'),f=document.getElementById('str-fill'),l=document.getElementById('str-lbl');
+  w.classList.toggle('show',v.length>0);if(!v)return;
+  let s=0;if(v.length>=8)s++;if(/[A-Z]/.test(v))s++;if(/[0-9]/.test(v))s++;if(/[^A-Za-z0-9]/.test(v))s++;
+  const lvs=[{w:'25%',bg:'#e8534a',t:'🔴 ضعيفة جداً'},{w:'50%',bg:'#f97316',t:'🟠 ضعيفة'},{w:'75%',bg:'#eab308',t:'🟡 متوسطة'},{w:'100%',bg:'#2ecc71',t:'🟢 قوية جداً'}];
+  const lv=lvs[Math.max(s-1,0)];f.style.width=lv.w;f.style.background=lv.bg;l.textContent=lv.t;
+}
+
+function showToast(msg,type='ok'){
+  const t=document.getElementById('toast');t.textContent=msg;t.className='toast '+type+' show';
+  setTimeout(()=>t.classList.remove('show'),3200);
+}
+
+function isEmail(v){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);}
+function isPhone(v){return /^01[0-9]{9}$/.test(v.replace(/[\s-]/g,''));}
+
+function setErr(id,show){const el=document.getElementById(id);if(el)el.classList.toggle('show',show);}
+function setIE(id,has){const el=document.getElementById(id);if(el)el.classList.toggle('ie',has);}
+
+function redirect(){sessionStorage.setItem('loggedIn','true');window.location.href='index.html';}
+
+function doLogin(){
+  const em=document.getElementById('l-email').value.trim();
+  const ps=document.getElementById('l-pass').value;
+  let ok=true;
+  const emOk=isEmail(em)||isPhone(em);setIE('l-email',!emOk);setErr('l-email-err',!emOk);if(!emOk)ok=false;
+  const psOk=ps.length>0;setIE('l-pass',!psOk);setErr('l-pass-err',!psOk);if(!psOk)ok=false;
+  if(!ok)return;
+  const btn=document.getElementById('l-btn');
+  btn.classList.add('ld');btn.textContent='جاري التحقق...';
+  setTimeout(()=>{
+    btn.classList.remove('ld');btn.textContent='🔓 تسجيل الدخول';
+    showToast('✅ أهلاً بك! جاري الدخول...','ok');
+    setTimeout(()=>{sessionStorage.setItem('loggedIn','true');window.location.href='index.html';},1100);
+  },1600);
+}
+
+function doReg(){
+  const first=document.getElementById('r-first').value.trim();
+  const last=document.getElementById('r-last').value.trim();
+  const phone=document.getElementById('r-phone').value.trim();
+  const email=document.getElementById('r-email').value.trim();
+  const pass=document.getElementById('r-pass').value;
+  const pass2=document.getElementById('r-pass2').value;
+  const agreed=document.getElementById('r-agree').checked;
+  let ok=true;
+  setIE('r-first',!first);setErr('r-first-err',!first);if(!first)ok=false;
+  setIE('r-last',!last);setErr('r-last-err',!last);if(!last)ok=false;
+  const phOk=isPhone(phone);setIE('r-phone',!phOk);setErr('r-phone-err',!phOk);if(!phOk)ok=false;
+  const emOk=isEmail(email);setIE('r-email',!emOk);setErr('r-email-err',!emOk);if(!emOk)ok=false;
+  const psOk=pass.length>=8;setIE('r-pass',!psOk);setErr('r-pass-err',!psOk);if(!psOk)ok=false;
+  const p2Ok=pass===pass2&&pass2.length>0;setIE('r-pass2',!p2Ok);setErr('r-pass2-err',!p2Ok);if(!p2Ok)ok=false;
+  if(!agreed){showToast('⚠️ يجب الموافقة على الشروط','err');ok=false;}
+  if(!ok)return;
+  const btn=document.getElementById('r-btn');
+  btn.classList.add('ld');btn.textContent='جاري إنشاء الحساب...';
+  setTimeout(()=>{
+    btn.classList.remove('ld');btn.textContent='🚀 إنشاء الحساب';
+    sessionStorage.setItem('loggedIn','true');
+    sessionStorage.setItem('userName',first+' '+last);
+    document.getElementById('reg-form').style.display='none';
+    document.getElementById('reg-ok').style.display='block';
+  },1800);
+}
+
+function goSocial(p){
+  showToast('🔄 جاري الاتصال بـ '+p+'...','ok');
+  setTimeout(()=>{
+    sessionStorage.setItem('loggedIn','true');
+    sessionStorage.setItem('via',p);
+    showToast('✅ تم الدخول بنجاح!','ok');
+    setTimeout(()=>{window.location.href='index.html';},900);
+  },1700);
+}
+
+function goGuest(){
+  showToast('👤 دخول كزائر...','ok');
+  setTimeout(()=>{sessionStorage.setItem('loggedIn','guest');window.location.href='index.html';},700);
+}
+
+document.addEventListener('keydown',e=>{
+  if(e.key==='Enter'){
+    const sec=document.getElementById('sec-login').style.display;
+    if(sec!=='none')doLogin();else doReg();
+  }
+});
+</script>
+</body>
+</html>
