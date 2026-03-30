@@ -123,6 +123,7 @@ html,body{height:100%;font-family:'Cairo',sans-serif;background:var(--navy);colo
   .brand-panel{display:none}
   .form-panel{padding:2rem 1.2rem;min-height:100vh;justify-content:flex-start;padding-top:3.5rem}
   .form-box{max-width:100%}
+  .mob-logo { display: block !important; }
 }
 @media(max-width:420px){
   .fgrow{grid-template-columns:1fr}
@@ -139,7 +140,6 @@ html,body{height:100%;font-family:'Cairo',sans-serif;background:var(--navy);colo
 <div class="particle" style="width:22px;height:22px;left:90%;animation-duration:21s;animation-delay:7s"></div>
 
 <div class="page">
-  <!-- BRAND -->
   <div class="brand-panel">
     <div class="deco" style="width:480px;height:480px;bottom:-200px;left:-130px"></div>
     <div class="deco" style="width:260px;height:260px;bottom:-20px;left:30px"></div>
@@ -155,11 +155,9 @@ html,body{height:100%;font-family:'Cairo',sans-serif;background:var(--navy);colo
     </div>
   </div>
 
-  <!-- FORM -->
   <div class="form-panel">
     <div class="form-box">
 
-      <!-- Mobile logo -->
       <div style="display:none" class="mob-logo">
         <div class="brand-logo" style="font-size:1.6rem;margin-bottom:.2rem">صيانة<span style="color:#fff">بلس</span></div>
         <div style="font-size:.7rem;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:1.5rem">خدمات صيانة منزلية</div>
@@ -170,7 +168,6 @@ html,body{height:100%;font-family:'Cairo',sans-serif;background:var(--navy);colo
         <button class="tab" id="tab-reg" onclick="switchTab('reg')">إنشاء حساب</button>
       </div>
 
-      <!-- ══ LOGIN ══ -->
       <div id="sec-login">
         <div class="form-title">أهلاً بعودتك <em>👋</em></div>
         <p class="form-sub">ادخل بسرعة أو استخدم حساباتك الاجتماعية</p>
@@ -197,7 +194,6 @@ html,body{height:100%;font-family:'Cairo',sans-serif;background:var(--navy);colo
         <button class="btn-go" id="l-btn" onclick="doLogin()">🔓 تسجيل الدخول</button>
       </div>
 
-      <!-- ══ REGISTER ══ -->
       <div id="sec-reg" style="display:none">
         <div class="form-title">إنشاء <em>حساب جديد</em></div>
         <p class="form-sub">انضم لآلاف العملاء السعداء اليوم</p>
@@ -238,9 +234,6 @@ html,body{height:100%;font-family:'Cairo',sans-serif;background:var(--navy);colo
 <div class="toast" id="toast"></div>
 
 <script>
-// show mobile logo on small screens
-if(window.innerWidth<=860){const ml=document.querySelector('.mob-logo');if(ml)ml.style.display='block';}
-
 function switchTab(t){
   const isL=t==='login';
   document.getElementById('sec-login').style.display=isL?'block':'none';
@@ -275,32 +268,60 @@ function isPhone(v){return /^01[0-9]{9}$/.test(v.replace(/[\s-]/g,''));}
 function setErr(id,show){const el=document.getElementById(id);if(el)el.classList.toggle('show',show);}
 function setIE(id,has){const el=document.getElementById(id);if(el)el.classList.toggle('ie',has);}
 
-function redirect(){sessionStorage.setItem('loggedIn','true');window.location.href='index.html';}
-
-function doLogin(){
-  const em=document.getElementById('l-email').value.trim();
-  const ps=document.getElementById('l-pass').value;
-  let ok=true;
-  const emOk=isEmail(em)||isPhone(em);setIE('l-email',!emOk);setErr('l-email-err',!emOk);if(!emOk)ok=false;
-  const psOk=ps.length>0;setIE('l-pass',!psOk);setErr('l-pass-err',!psOk);if(!psOk)ok=false;
-  if(!ok)return;
-  const btn=document.getElementById('l-btn');
-  btn.classList.add('ld');btn.textContent='جاري التحقق...';
-  setTimeout(()=>{
-    btn.classList.remove('ld');btn.textContent='🔓 تسجيل الدخول';
-    showToast('✅ أهلاً بك! جاري الدخول...','ok');
-    setTimeout(()=>{sessionStorage.setItem('loggedIn','true');window.location.href='index.html';},1100);
-  },1600);
+function redirect(){
+  window.location.href='index.html';
 }
 
-function doReg(){
-  const first=document.getElementById('r-first').value.trim();
-  const last=document.getElementById('r-last').value.trim();
-  const phone=document.getElementById('r-phone').value.trim();
-  const email=document.getElementById('r-email').value.trim();
-  const pass=document.getElementById('r-pass').value;
-  const pass2=document.getElementById('r-pass2').value;
-  const agreed=document.getElementById('r-agree').checked;
+// ===============================================
+// دوال الاتصال بالسيرفر الحقيقي (الباك إند)
+// ===============================================
+
+async function doLogin(){
+  const em = document.getElementById('l-email').value.trim();
+  const ps = document.getElementById('l-pass').value;
+  
+  let ok=true;
+  const emOk = isEmail(em) || isPhone(em); setIE('l-email', !emOk); setErr('l-email-err', !emOk); if(!emOk) ok=false;
+  const psOk = ps.length>0; setIE('l-pass', !psOk); setErr('l-pass-err', !psOk); if(!psOk) ok=false;
+  if(!ok) return;
+
+  const btn = document.getElementById('l-btn');
+  btn.classList.add('ld'); btn.textContent='جاري التحقق...';
+
+  try {
+    const response = await fetch('http://localhost:3000/api/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ emailOrPhone: em, password: ps })
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      showToast('✅ ' + data.message, 'ok');
+      sessionStorage.setItem('loggedIn', 'true');
+      sessionStorage.setItem('userName', data.userName);
+      sessionStorage.setItem('token', data.token); 
+      setTimeout(() => { window.location.href = 'index.html'; }, 1100);
+    } else {
+      showToast('❌ ' + data.error, 'err');
+      btn.classList.remove('ld'); btn.textContent='🔓 تسجيل الدخول';
+    }
+  } catch (error) {
+    showToast('❌ تأكد من تشغيل السيرفر', 'err');
+    btn.classList.remove('ld'); btn.textContent='🔓 تسجيل الدخول';
+  }
+}
+
+async function doReg(){
+  const first = document.getElementById('r-first').value.trim();
+  const last = document.getElementById('r-last').value.trim();
+  const phone = document.getElementById('r-phone').value.trim();
+  const email = document.getElementById('r-email').value.trim();
+  const pass = document.getElementById('r-pass').value;
+  const pass2 = document.getElementById('r-pass2').value;
+  const agreed = document.getElementById('r-agree').checked;
+  
   let ok=true;
   setIE('r-first',!first);setErr('r-first-err',!first);if(!first)ok=false;
   setIE('r-last',!last);setErr('r-last-err',!last);if(!last)ok=false;
@@ -309,16 +330,33 @@ function doReg(){
   const psOk=pass.length>=8;setIE('r-pass',!psOk);setErr('r-pass-err',!psOk);if(!psOk)ok=false;
   const p2Ok=pass===pass2&&pass2.length>0;setIE('r-pass2',!p2Ok);setErr('r-pass2-err',!p2Ok);if(!p2Ok)ok=false;
   if(!agreed){showToast('⚠️ يجب الموافقة على الشروط','err');ok=false;}
-  if(!ok)return;
-  const btn=document.getElementById('r-btn');
-  btn.classList.add('ld');btn.textContent='جاري إنشاء الحساب...';
-  setTimeout(()=>{
-    btn.classList.remove('ld');btn.textContent='🚀 إنشاء الحساب';
-    sessionStorage.setItem('loggedIn','true');
-    sessionStorage.setItem('userName',first+' '+last);
-    document.getElementById('reg-form').style.display='none';
-    document.getElementById('reg-ok').style.display='block';
-  },1800);
+  if(!ok) return;
+
+  const btn = document.getElementById('r-btn');
+  btn.classList.add('ld'); btn.textContent='جاري إنشاء الحساب...';
+
+  try {
+    const response = await fetch('http://localhost:3000/api/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ firstName: first, lastName: last, phone: phone, email: email, password: pass })
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      sessionStorage.setItem('loggedIn', 'true');
+      sessionStorage.setItem('userName', first + ' ' + last);
+      document.getElementById('reg-form').style.display='none';
+      document.getElementById('reg-ok').style.display='block';
+    } else {
+      showToast('⚠️ ' + data.error, 'err');
+      btn.classList.remove('ld'); btn.textContent='🚀 إنشاء الحساب';
+    }
+  } catch (error) {
+    showToast('❌ تأكد من تشغيل السيرفر', 'err');
+    btn.classList.remove('ld'); btn.textContent='🚀 إنشاء الحساب';
+  }
 }
 
 function goSocial(p){

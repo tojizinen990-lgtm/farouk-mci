@@ -1,9 +1,16 @@
 /* ============================================
    SHARED VARIABLES & RESET
    ============================================ */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*, *::before, *::after { 
+  box-sizing: border-box; 
+  margin: 0; 
+  padding: 0; 
+}
 
 :root {
+  /* 👇 تعريف قيم RGB للون البحرية لاستخدامها في طبقة الدمج 👇 */
+  --navy-rgb:   10, 22, 40; 
+  
   --navy:       #0a1628;
   --navy-mid:   #112240;
   --navy-light: #1a3258;
@@ -17,7 +24,10 @@
   --blue:       #3b82f6;
 }
 
-html { scroll-behavior: smooth; font-size: 16px; }
+html { 
+  scroll-behavior: smooth; 
+  font-size: 16px; 
+}
 
 body {
   font-family: 'Cairo', sans-serif;
@@ -76,9 +86,9 @@ button { cursor: pointer; font-family: 'Cairo', sans-serif; }
   padding: 0 5%; height: 64px;
   background: rgba(10,22,40,.92);
   backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
   border-bottom: 1px solid rgba(201,168,76,.12);
 }
-/* offset for emergency bar + navbar */
 body.has-ebar .navbar { top: 36px; }
 body.has-ebar .navbar-offset { height: 100px; }
 .navbar-offset { height: 64px; }
@@ -226,6 +236,7 @@ footer p { font-size: .8rem; color: var(--muted); }
 .overlay {
   position: fixed; inset: 0; z-index: 200;
   background: rgba(0,0,0,.72); backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   display: flex; align-items: center; justify-content: center;
   padding: 1rem; opacity: 0; pointer-events: none; transition: opacity .3s;
 }
