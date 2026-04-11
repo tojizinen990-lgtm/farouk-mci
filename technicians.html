@@ -6,7 +6,7 @@
 <title>اختر فنيّك — صيانةبلس</title>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Tajawal:wght@400;700;800;900&display=swap" rel="stylesheet"/>
 
-<!-- 🟢 1. إضافة مكتبة Leaflet للخرائط المجانية 🟢 -->
+<!-- مكتبة Leaflet للخرائط المجانية -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
@@ -16,6 +16,7 @@
   --navy: #0a1128; --navy-mid: #141f3e; --navy-light: #1f2d54;
   --gold: #c9a84c; --gold-light: #e8c66a; --white: #ffffff;
   --body-text: #e2e8f0; --muted: #94a3b8; --green: #2ecc71; --blue: #3b82f6;
+  --red: #ef4444;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; }
 body { background-color: var(--navy); color: var(--white); overflow-x: hidden; }
@@ -45,19 +46,20 @@ a { text-decoration: none; }
 .page-hero h1 span{color:var(--gold)}
 .page-hero p{color:var(--body-text);font-size:.9rem}
 
-/* FLOATING TOOLS */
+/* 🟢 إصلاح التروس والمعدات 🟢 */
 .floating-tools { position: absolute; inset: 0; z-index: 1; pointer-events: none; overflow: hidden; }
-.f-tool { position: absolute; opacity: 0.12; color: var(--gold); }
-.f-tool svg { width: 100%; height: 100%; fill: currentColor; }
-.ft1 { width: 80px; top: 10%; left: 8%; animation: floatSpace 7s ease-in-out infinite; }
+.f-tool { position: absolute; opacity: 0.12; color: var(--gold); display: flex; align-items: center; justify-content: center; }
+.f-tool svg { width: 100%; height: 100%; fill: currentColor; display: block; }
+/* إضافة height ثابت لمنع تمدد الشكل */
+.ft1 { width: 80px; height: 80px; top: 10%; left: 8%; animation: floatSpace 7s ease-in-out infinite; }
 .ft1 svg { animation: spinGear 20s linear infinite; }
-.ft2 { width: 60px; top: 55%; left: 20%; animation: floatSpace 6s ease-in-out infinite 1s; }
+.ft2 { width: 60px; height: 60px; top: 55%; left: 20%; animation: floatSpace 6s ease-in-out infinite 1s; }
 .ft2 svg { transform: rotate(35deg); }
-.ft3 { width: 120px; top: -15%; right: -2%; animation: floatSpace 8s ease-in-out infinite 2s; opacity: 0.08; }
+.ft3 { width: 120px; height: 120px; top: -15%; right: -2%; animation: floatSpace 8s ease-in-out infinite 2s; opacity: 0.08; }
 .ft3 svg { animation: spinGear 30s linear infinite reverse; }
-.ft4 { width: 70px; bottom: 10%; right: 15%; animation: floatSpace 7.5s ease-in-out infinite 0.5s; }
+.ft4 { width: 70px; height: 70px; bottom: 10%; right: 15%; animation: floatSpace 7.5s ease-in-out infinite 0.5s; }
 .ft4 svg { transform: rotate(-45deg); }
-.ft5 { width: 50px; top: 30%; right: 30%; animation: floatSpace 5s ease-in-out infinite 1.5s; }
+.ft5 { width: 50px; height: 50px; top: 30%; right: 30%; animation: floatSpace 5s ease-in-out infinite 1.5s; }
 .ft5 svg { animation: spinGear 15s linear infinite; }
 @keyframes floatSpace { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
 @keyframes spinGear { 100% { transform: rotate(360deg); } }
@@ -72,24 +74,19 @@ a { text-decoration: none; }
 .fcnt{background:rgba(255,255,255,.08);border-radius:20px;padding:.04rem .38rem;font-size:.67rem;color:var(--muted)}
 .fbtn.active .fcnt{background:rgba(201,168,76,.2);color:var(--gold)}
 
-/* 🟢 أزرار الخريطة 🟢 */
+/* MAP BUTTON & CONTAINER */
 .map-btn { background: rgba(59, 130, 246, 0.1); border-color: rgba(59, 130, 246, 0.3); color: #93c5fd; }
 .map-btn:hover { background: rgba(59, 130, 246, 0.2); border-color: rgba(59, 130, 246, 0.6); color: white; }
 .map-btn.active { background: #3b82f6; color: white; border-color: #2563eb; }
-
-/* 🟢 تنسيقات الخريطة والمؤشرات 🟢 */
 #map-wrap { display: none; padding: 0 3%; max-width: 1400px; margin: 1rem auto; animation: fadeMap 0.4s ease forwards; }
 #map-container { height: 450px; width: 100%; border-radius: 18px; border: 2px solid rgba(201,168,76,.3); z-index: 1; }
 @keyframes fadeMap { from{opacity:0; transform:translateY(-10px)} to{opacity:1; transform:translateY(0)} }
-/* تعديل شكل الـ Popup في الخريطة ليتماشى مع الدارك مود */
 .leaflet-popup-content-wrapper { background: var(--navy-mid); color: white; border: 1px solid rgba(201,168,76,.3); border-radius: 12px; }
 .leaflet-popup-tip { background: var(--navy-mid); border: 1px solid rgba(201,168,76,.3); }
 .leaflet-popup-close-button { color: white !important; }
 .map-marker-custom { width: 45px; height: 45px; border-radius: 50%; border: 3px solid var(--gold); background: var(--navy); overflow: hidden; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
 .map-marker-custom.busy { border-color: #ef4444; filter: grayscale(0.8); }
 .map-marker-custom svg { width: 90%; height: 90%; }
-
-/* محتوى الـ Popup */
 .mp-card { text-align: center; font-family: 'Cairo', sans-serif; min-width: 150px; }
 .mp-name { font-family: 'Tajawal', sans-serif; font-weight: 800; font-size: 1.1rem; color: white; margin-bottom: 2px; }
 .mp-tag { font-size: 0.7rem; color: var(--gold); display: block; margin-bottom: 8px; }
@@ -203,10 +200,35 @@ a { text-decoration: none; }
 .sos-btn-float:hover { transform: scale(1.05); }
 @keyframes pulseRed { 0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(239, 68, 68, 0); } 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); } }
 
+/* 🟢 ويدجت تتبع الطلب النشط (Active Order Tracker) 🟢 */
+.active-order-widget { position: fixed; bottom: 30px; right: 30px; width: 320px; background: var(--navy-mid); border: 1px solid var(--gold); border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.6); z-index: 995; display: none; flex-direction: column; overflow: hidden; animation: slideInRight 0.4s ease forwards; }
+.ao-header { background: rgba(201,168,76,0.1); padding: 0.6rem 1rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(201,168,76,0.2); }
+.ao-status { font-size: 0.8rem; color: var(--gold); font-weight: 700; display: flex; align-items: center; gap: 0.4rem; }
+.ao-status::before { content: ''; display: inline-block; width: 8px; height: 8px; background: var(--gold); border-radius: 50%; animation: pulseGold 1.5s infinite; }
+.ao-close { background: none; border: none; color: var(--muted); cursor: pointer; font-size: 1rem; }
+.ao-close:hover { color: var(--red); }
+.ao-body { padding: 1rem; }
+.ao-tech { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1rem; }
+.ao-av { width: 45px; height: 45px; border-radius: 50%; background: var(--navy); border: 2px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink:0;}
+.ao-av svg { width: 90%; height: 90%; }
+.ao-tech-name { font-family: 'Tajawal', sans-serif; font-weight: 800; font-size: 1rem; color: white; }
+.ao-svc { font-size: 0.75rem; color: var(--muted); }
+.ao-details { background: rgba(255,255,255,0.03); border-radius: 8px; padding: 0.8rem; font-size: 0.8rem; color: var(--body-text); }
+.ao-row { display: flex; justify-content: space-between; margin-bottom: 0.4rem; }
+.ao-row:last-child { margin-bottom: 0; }
+@keyframes slideInRight { from { opacity: 0; transform: translateX(50px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes pulseGold { 0% { box-shadow: 0 0 0 0 rgba(201,168,76,0.7); } 70% { box-shadow: 0 0 0 6px rgba(201,168,76,0); } 100% { box-shadow: 0 0 0 0 rgba(201,168,76,0); } }
+
 /* RESPONSIVE */
 @media(max-width:1200px){.grid{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:860px){.grid{grid-template-columns:repeat(2,1fr)}.fbar{top:36px!important;position:sticky}.hamburger{display:flex}.nav-actions .nav-login-btn{display:none}}
-@media(max-width:500px){.grid{grid-template-columns:1fr}.fbar{gap:.4rem; padding: 0.8rem 5%; justify-content:center}.fbtn{font-size:.74rem;padding:.38rem .7rem} .fgrow{flex-direction:column;gap:0}.modal-box{padding:1.5rem}}
+@media(max-width:500px){
+  .grid{grid-template-columns:1fr}
+  .fbar{gap:.4rem; padding: 0.8rem 5%; justify-content:center}
+  .fbtn{font-size:.74rem;padding:.38rem .7rem} 
+  .modal-box{padding:1.5rem}
+  .active-order-widget { right: 10px; left: 10px; width: auto; bottom: 85px; } 
+}
 </style>
 </head>
 <body class="has-ebar">
@@ -233,39 +255,40 @@ a { text-decoration: none; }
 
 <div class="page-hero">
   <div class="floating-tools">
-    <div class="f-tool ft1"><svg viewBox="0 0 24 24"><path d="M19.14 12.94..."></path></svg></div>
-    <div class="f-tool ft2"><svg viewBox="0 0 24 24"><path d="M21.71 20.29..."></path></svg></div>
+    <div class="f-tool ft1"><svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.06-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.05-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.56-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22l-1.92 3.32c-.12.22-.07-.49.12.61l2.03 1.58c-.04.3-.06.61-.06.94s.02.64.06.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .43-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.49-.12-.61l-2.03-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></div>
+    <div class="f-tool ft2"><svg viewBox="0 0 24 24"><path d="M21.71 20.29l-9.53-9.53C12.75 9.77 13 8.4 12.64 7c-.43-1.64-1.7-2.92-3.35-3.36-1.95-.51-3.92.27-5.01 1.81l3.01 3.01c.2.2.2.51 0 .71l-1.41 1.41c-.2.2-.51.2-.71 0L2.16 7.57C.62 8.66-.16 10.63.35 12.58c.44 1.65 1.72 2.92 3.36 3.36 1.4.36 2.77.1 3.76-.48l9.53 9.53c.39.39 1.02.39 1.41 0l3.3-3.3c.39-.38.39-1.01 0-1.4z"/></svg></div>
+    <div class="f-tool ft3"><svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.06-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.05-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.56-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22l-1.92 3.32c-.12.22-.07-.49.12.61l2.03 1.58c-.04.3-.06.61-.06.94s.02.64.06.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .43-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.49-.12-.61l-2.03-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></div>
+    <div class="f-tool ft4"><svg viewBox="0 0 24 24"><path d="M21.71 20.29l-9.53-9.53C12.75 9.77 13 8.4 12.64 7c-.43-1.64-1.7-2.92-3.35-3.36-1.95-.51-3.92.27-5.01 1.81l3.01 3.01c.2.2.2.51 0 .71l-1.41 1.41c-.2.2-.51.2-.71 0L2.16 7.57C.62 8.66-.16 10.63.35 12.58c.44 1.65 1.72 2.92 3.36 3.36 1.4.36 2.77.1 3.76-.48l9.53 9.53c.39.39 1.02.39 1.41 0l3.3-3.3c.39-.38.39-1.01 0-1.4z"/></svg></div>
+    <div class="f-tool ft5"><svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.06-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.05-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.56-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22l-1.92 3.32c-.12.22-.07.49.12.61l2.03 1.58c-.04.3-.06.61-.06.94s.02.64.06.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .43-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.49-.12-.61l-2.03-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></div>
   </div>
   <div class="page-hero-c">
     <h1>اختر <span>فنيّك</span> المعتمد</h1>
-    <p>8 فنيين خبراء معتمدون — اختر خدمتك وتواصل بخصوصية تامة</p>
+    <p>22 فني خبير معتمد — اختر خدمتك وتواصل بخصوصية تامة</p>
   </div>
 </div>
 
 <div class="fbar">
   <div class="fbar-left">
     <span class="flbl">تصفية:</span>
-    <button class="fbtn active" data-f="all">🏠 الكل <span class="fcnt">8</span></button>
-    <button class="fbtn" data-f="electric">🔌 كهرباء <span class="fcnt">2</span></button>
-    <button class="fbtn" data-f="plumbing">🔧 سباكة <span class="fcnt">2</span></button>
-    <button class="fbtn" data-f="ac">❄️ تكييفات <span class="fcnt">2</span></button>
-    <button class="fbtn" data-f="appliances">🏠 أجهزة <span class="fcnt">2</span></button>
-    <button class="fbtn" data-f="available">🟢 المتاحون <span class="fcnt">6</span></button>
+    <button class="fbtn active" data-f="all">🏠 الكل <span class="fcnt">22</span></button>
+    <button class="fbtn" data-f="electric">🔌 كهرباء <span class="fcnt">5</span></button>
+    <button class="fbtn" data-f="plumbing">🔧 سباكة <span class="fcnt">6</span></button>
+    <button class="fbtn" data-f="ac">❄️ تكييفات <span class="fcnt">5</span></button>
+    <button class="fbtn" data-f="appliances">🏠 أجهزة <span class="fcnt">6</span></button>
+    <button class="fbtn" data-f="available">🟢 المتاحون <span class="fcnt">16</span></button>
   </div>
-  <!-- 🟢 زر تفعيل الخريطة التفاعلية 🟢 -->
   <button class="fbtn map-btn" id="map-toggle" onclick="toggleMap()">🗺️ الخريطة (Live)</button>
 </div>
 
-<!-- 🟢 حاوية الخريطة التفاعلية 🟢 -->
 <div id="map-wrap">
   <div id="map-container"></div>
 </div>
 
 <div class="wrap">
-  <p class="rinfo">يُعرض <span id="shown">8</span> فني</p>
+  <p class="rinfo">يُعرض <span id="shown">22</span> فني</p>
   <div class="grid" id="grid">
 
-    <!-- كارت 1: أحمد (كهرباء) -->
+    <!-- 1. أحمد محمود (كهرباء) -->
     <div class="card" data-svc="electric" data-avail="true" data-id="1">
       <div class="ctop">
         <span class="abadge on">● متاح الآن</span>
@@ -285,18 +308,11 @@ a { text-decoration: none; }
         <span class="ttag" data-svcname="كهرباء">🔌 كهرباء</span>
         <div class="srow"><span class="stars-r">★★★★★</span><span class="rval">4.9</span><span class="rct">(234)</span></div>
       </div>
-      <div class="cstats">
-        <div class="cs"><span class="csv">12</span><span class="csl">سنة خبرة</span></div>
-        <div class="cs"><span class="csv">80ج</span><span class="csl">الزيارة</span></div>
-        <div class="cs"><span class="csv">+500</span><span class="csl">مكتمل</span></div>
-      </div>
-      <div class="cact">
-        <button class="bbk" onclick="openBook('أحمد محمود','🔌 كهرباء',1)">📅 احجز موعد</button>
-        <button class="bch" onclick="openChat('أحمد محمود','🔌 كهرباء',1)">💬 تواصل بخصوصية</button>
-      </div>
+      <div class="cstats"><div class="cs"><span class="csv">12</span><span class="csl">سنة خبرة</span></div><div class="cs"><span class="csv">80ج</span><span class="csl">الزيارة</span></div><div class="cs"><span class="csv">+500</span><span class="csl">مكتمل</span></div></div>
+      <div class="cact"><button class="bbk" onclick="openBook('أحمد محمود','🔌 كهرباء',1)">📅 احجز موعد</button><button class="bch" onclick="openChat('أحمد محمود','🔌 كهرباء',1)">💬 تواصل بخصوصية</button></div>
     </div>
 
-    <!-- كارت 2: كريم (كهرباء - مشغول) -->
+    <!-- 2. كريم عبدالله (كهرباء - مشغول) -->
     <div class="card" data-svc="electric" data-avail="false" data-id="2">
       <div class="ctop">
         <span class="abadge off">● مشغول حالياً</span>
@@ -316,18 +332,11 @@ a { text-decoration: none; }
         <span class="ttag" data-svcname="كهرباء">🔌 كهرباء</span>
         <div class="srow"><span class="stars-r">★★★★★</span><span class="rval">4.7</span><span class="rct">(187)</span></div>
       </div>
-      <div class="cstats">
-        <div class="cs"><span class="csv">8</span><span class="csl">سنة خبرة</span></div>
-        <div class="cs"><span class="csv">70ج</span><span class="csl">الزيارة</span></div>
-        <div class="cs"><span class="csv">+320</span><span class="csl">مكتمل</span></div>
-      </div>
-      <div class="cact">
-        <div class="wait-time">⏳ متاح بعد ٤٥ دقيقة</div>
-        <button class="balt" onclick="openAlternatives(2, '🔌 كهرباء', 'electric')">✨ عرض فنيين بدلاء</button>
-      </div>
+      <div class="cstats"><div class="cs"><span class="csv">8</span><span class="csl">سنة خبرة</span></div><div class="cs"><span class="csv">70ج</span><span class="csl">الزيارة</span></div><div class="cs"><span class="csv">+320</span><span class="csl">مكتمل</span></div></div>
+      <div class="cact"><div class="wait-time">⏳ متاح بعد ٤٥ دقيقة</div><button class="balt" onclick="openAlternatives(2, '🔌 كهرباء', 'electric')">✨ عرض فنيين بدلاء</button></div>
     </div>
 
-    <!-- كارت 3: محمد (سباكة) -->
+    <!-- 3. محمد سالم (سباكة) -->
     <div class="card" data-svc="plumbing" data-avail="true" data-id="3">
       <div class="ctop">
         <span class="abadge on">● متاح الآن</span>
@@ -348,18 +357,11 @@ a { text-decoration: none; }
         <span class="ttag" data-svcname="سباكة">🔧 سباكة</span>
         <div class="srow"><span class="stars-r">★★★★★</span><span class="rval">4.8</span><span class="rct">(312)</span></div>
       </div>
-      <div class="cstats">
-        <div class="cs"><span class="csv">15</span><span class="csl">سنة خبرة</span></div>
-        <div class="cs"><span class="csv">90ج</span><span class="csl">الزيارة</span></div>
-        <div class="cs"><span class="csv">+700</span><span class="csl">مكتمل</span></div>
-      </div>
-      <div class="cact">
-        <button class="bbk" onclick="openBook('محمد سالم','🔧 سباكة',3)">📅 احجز موعد</button>
-        <button class="bch" onclick="openChat('محمد سالم','🔧 سباكة',3)">💬 تواصل بخصوصية</button>
-      </div>
+      <div class="cstats"><div class="cs"><span class="csv">15</span><span class="csl">سنة خبرة</span></div><div class="cs"><span class="csv">90ج</span><span class="csl">الزيارة</span></div><div class="cs"><span class="csv">+700</span><span class="csl">مكتمل</span></div></div>
+      <div class="cact"><button class="bbk" onclick="openBook('محمد سالم','🔧 سباكة',3)">📅 احجز موعد</button><button class="bch" onclick="openChat('محمد سالم','🔧 سباكة',3)">💬 تواصل بخصوصية</button></div>
     </div>
 
-    <!-- كارت 4: عمر (سباكة) -->
+    <!-- 4. عمر حسن (سباكة) -->
     <div class="card" data-svc="plumbing" data-avail="true" data-id="4">
       <div class="ctop">
         <span class="abadge on">● متاح الآن</span>
@@ -381,18 +383,11 @@ a { text-decoration: none; }
         <span class="ttag" data-svcname="سباكة">🔧 سباكة</span>
         <div class="srow"><span class="stars-r">★★★★½</span><span class="rval">4.5</span><span class="rct">(156)</span></div>
       </div>
-      <div class="cstats">
-        <div class="cs"><span class="csv">10</span><span class="csl">سنة خبرة</span></div>
-        <div class="cs"><span class="csv">75ج</span><span class="csl">الزيارة</span></div>
-        <div class="cs"><span class="csv">+280</span><span class="csl">مكتمل</span></div>
-      </div>
-      <div class="cact">
-        <button class="bbk" onclick="openBook('عمر حسن','🔧 سباكة',4)">📅 احجز موعد</button>
-        <button class="bch" onclick="openChat('عمر حسن','🔧 سباكة',4)">💬 تواصل بخصوصية</button>
-      </div>
+      <div class="cstats"><div class="cs"><span class="csv">10</span><span class="csl">سنة خبرة</span></div><div class="cs"><span class="csv">75ج</span><span class="csl">الزيارة</span></div><div class="cs"><span class="csv">+280</span><span class="csl">مكتمل</span></div></div>
+      <div class="cact"><button class="bbk" onclick="openBook('عمر حسن','🔧 سباكة',4)">📅 احجز موعد</button><button class="bch" onclick="openChat('عمر حسن','🔧 سباكة',4)">💬 تواصل بخصوصية</button></div>
     </div>
 
-    <!-- كارت 5: طارق (تكييفات) -->
+    <!-- 5. طارق إبراهيم (تكييفات) -->
     <div class="card" data-svc="ac" data-avail="true" data-id="5">
       <div class="ctop">
         <span class="abadge on">● متاح الآن</span>
@@ -413,18 +408,11 @@ a { text-decoration: none; }
         <span class="ttag" data-svcname="تكييفات">❄️ تكييفات</span>
         <div class="srow"><span class="stars-r">★★★★★</span><span class="rval">4.9</span><span class="rct">(428)</span></div>
       </div>
-      <div class="cstats">
-        <div class="cs"><span class="csv">20</span><span class="csl">سنة خبرة</span></div>
-        <div class="cs"><span class="csv">100ج</span><span class="csl">الزيارة</span></div>
-        <div class="cs"><span class="csv">+900</span><span class="csl">مكتمل</span></div>
-      </div>
-      <div class="cact">
-        <button class="bbk" onclick="openBook('طارق إبراهيم','❄️ تكييفات',5)">📅 احجز موعد</button>
-        <button class="bch" onclick="openChat('طارق إبراهيم','❄️ تكييفات',5)">💬 تواصل بخصوصية</button>
-      </div>
+      <div class="cstats"><div class="cs"><span class="csv">20</span><span class="csl">سنة خبرة</span></div><div class="cs"><span class="csv">100ج</span><span class="csl">الزيارة</span></div><div class="cs"><span class="csv">+900</span><span class="csl">مكتمل</span></div></div>
+      <div class="cact"><button class="bbk" onclick="openBook('طارق إبراهيم','❄️ تكييفات',5)">📅 احجز موعد</button><button class="bch" onclick="openChat('طارق إبراهيم','❄️ تكييفات',5)">💬 تواصل بخصوصية</button></div>
     </div>
 
-    <!-- كارت 6: سامي (تكييفات - مشغول) -->
+    <!-- 6. سامي عوض (تكييفات - مشغول) -->
     <div class="card" data-svc="ac" data-avail="false" data-id="6">
       <div class="ctop">
         <span class="abadge off">● مشغول حالياً</span>
@@ -444,18 +432,11 @@ a { text-decoration: none; }
         <span class="ttag" data-svcname="تكييفات">❄️ تكييفات</span>
         <div class="srow"><span class="stars-r">★★★★½</span><span class="rval">4.6</span><span class="rct">(203)</span></div>
       </div>
-      <div class="cstats">
-        <div class="cs"><span class="csv">9</span><span class="csl">سنة خبرة</span></div>
-        <div class="cs"><span class="csv">85ج</span><span class="csl">الزيارة</span></div>
-        <div class="cs"><span class="csv">+350</span><span class="csl">مكتمل</span></div>
-      </div>
-      <div class="cact">
-        <div class="wait-time">⏳ متاح بعد ٣٠ دقيقة</div>
-        <button class="balt" onclick="openAlternatives(6, '❄️ تكييفات', 'ac')">✨ عرض فنيين بدلاء</button>
-      </div>
+      <div class="cstats"><div class="cs"><span class="csv">9</span><span class="csl">سنة خبرة</span></div><div class="cs"><span class="csv">85ج</span><span class="csl">الزيارة</span></div><div class="cs"><span class="csv">+350</span><span class="csl">مكتمل</span></div></div>
+      <div class="cact"><div class="wait-time">⏳ متاح بعد ٣٠ دقيقة</div><button class="balt" onclick="openAlternatives(6, '❄️ تكييفات', 'ac')">✨ عرض فنيين بدلاء</button></div>
     </div>
 
-    <!-- كارت 7: يوسف (أجهزة) -->
+    <!-- 7. يوسف منصور (أجهزة) -->
     <div class="card" data-svc="appliances" data-avail="true" data-id="7">
       <div class="ctop">
         <span class="abadge on">● متاح الآن</span>
@@ -474,18 +455,11 @@ a { text-decoration: none; }
         <span class="ttag" data-svcname="أجهزة">🏠 أجهزة</span>
         <div class="srow"><span class="stars-r">★★★★★</span><span class="rval">4.8</span><span class="rct">(267)</span></div>
       </div>
-      <div class="cstats">
-        <div class="cs"><span class="csv">11</span><span class="csl">سنة خبرة</span></div>
-        <div class="cs"><span class="csv">65ج</span><span class="csl">الزيارة</span></div>
-        <div class="cs"><span class="csv">+450</span><span class="csl">مكتمل</span></div>
-      </div>
-      <div class="cact">
-        <button class="bbk" onclick="openBook('يوسف منصور','🏠 أجهزة',7)">📅 احجز موعد</button>
-        <button class="bch" onclick="openChat('يوسف منصور','🏠 أجهزة',7)">💬 تواصل بخصوصية</button>
-      </div>
+      <div class="cstats"><div class="cs"><span class="csv">11</span><span class="csl">سنة خبرة</span></div><div class="cs"><span class="csv">65ج</span><span class="csl">الزيارة</span></div><div class="cs"><span class="csv">+450</span><span class="csl">مكتمل</span></div></div>
+      <div class="cact"><button class="bbk" onclick="openBook('يوسف منصور','🏠 أجهزة',7)">📅 احجز موعد</button><button class="bch" onclick="openChat('يوسف منصور','🏠 أجهزة',7)">💬 تواصل بخصوصية</button></div>
     </div>
 
-    <!-- كارت 8: رضا (أجهزة) -->
+    <!-- 8. رضا فاروق (أجهزة) -->
     <div class="card" data-svc="appliances" data-avail="true" data-id="8">
       <div class="ctop">
         <span class="abadge on">● متاح الآن</span>
@@ -510,21 +484,358 @@ a { text-decoration: none; }
         <span class="ttag" data-svcname="أجهزة">🏠 أجهزة</span>
         <div class="srow"><span class="stars-r">★★★★☆</span><span class="rval">4.4</span><span class="rct">(98)</span></div>
       </div>
-      <div class="cstats">
-        <div class="cs"><span class="csv">6</span><span class="csl">سنة خبرة</span></div>
-        <div class="cs"><span class="csv">60ج</span><span class="csl">الزيارة</span></div>
-        <div class="cs"><span class="csv">+180</span><span class="csl">مكتمل</span></div>
+      <div class="cstats"><div class="cs"><span class="csv">6</span><span class="csl">سنة خبرة</span></div><div class="cs"><span class="csv">60ج</span><span class="csl">الزيارة</span></div><div class="cs"><span class="csv">+180</span><span class="csl">مكتمل</span></div></div>
+      <div class="cact"><button class="bbk" onclick="openBook('رضا فاروق','🏠 أجهزة',8)">📅 احجز موعد</button><button class="bch" onclick="openChat('رضا فاروق','🏠 أجهزة',8)">💬 تواصل بخصوصية</button></div>
+    </div>
+
+    <!-- 9. محمود سعيد (كهرباء) -->
+    <div class="card" data-svc="electric" data-avail="true" data-id="9">
+      <div class="ctop">
+        <span class="abadge on">● متاح الآن</span>
+        <div class="aring">
+          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <rect width="100" height="100" fill="#064e3b"/>
+            <path d="M25,100 Q50,60 75,100" fill="#10b981"/>
+            <circle cx="50" cy="45" r="18" fill="#fde047"/>
+            <rect x="35" y="40" width="12" height="8" rx="2" fill="none" stroke="#000" stroke-width="2"/>
+            <rect x="53" y="40" width="12" height="8" rx="2" fill="none" stroke="#000" stroke-width="2"/>
+            <line x1="47" y1="44" x2="53" y2="44" stroke="#000" stroke-width="2"/>
+            <path d="M40,25 Q50,15 60,25 Z" fill="#022c22"/>
+          </svg>
+          <div class="vbadge">✓</div>
+        </div>
+        <div class="tname">محمود سعيد</div>
+        <span class="ttag" data-svcname="كهرباء">🔌 كهرباء</span>
+        <div class="srow"><span class="stars-r">★★★★★</span><span class="rval">4.9</span><span class="rct">(412)</span></div>
       </div>
-      <div class="cact">
-        <button class="bbk" onclick="openBook('رضا فاروق','🏠 أجهزة',8)">📅 احجز موعد</button>
-        <button class="bch" onclick="openChat('رضا فاروق','🏠 أجهزة',8)">💬 تواصل بخصوصية</button>
+      <div class="cstats"><div class="cs"><span class="csv">14</span><span class="csl">سنة خبرة</span></div><div class="cs"><span class="csv">85ج</span><span class="csl">الزيارة</span></div><div class="cs"><span class="csv">+600</span><span class="csl">مكتمل</span></div></div>
+      <div class="cact"><button class="bbk" onclick="openBook('محمود سعيد','🔌 كهرباء',9)">📅 احجز موعد</button><button class="bch" onclick="openChat('محمود سعيد','🔌 كهرباء',9)">💬 تواصل بخصوصية</button></div>
+    </div>
+
+    <!-- 10. حسن مصطفى (كهرباء - مشغول) -->
+    <div class="card" data-svc="electric" data-avail="false" data-id="10">
+      <div class="ctop">
+        <span class="abadge off">● مشغول حالياً</span>
+        <div class="aring">
+          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <rect width="100" height="100" fill="#4c1d95"/>
+            <path d="M20,100 C20,60 80,60 80,100" fill="#8b5cf6"/>
+            <circle cx="50" cy="45" r="16" fill="#fecaca"/>
+            <path d="M34,45 A16,16 0 0,1 66,45" fill="none" stroke="#1e1b4b" stroke-width="4"/>
+            <circle cx="34" cy="45" r="5" fill="#1e1b4b"/>
+            <circle cx="66" cy="45" r="5" fill="#1e1b4b"/>
+            <circle cx="44" cy="43" r="2" fill="#000"/>
+            <circle cx="56" cy="43" r="2" fill="#000"/>
+          </svg>
+          <div class="vbadge">✓</div>
+        </div>
+        <div class="tname">حسن مصطفى</div>
+        <span class="ttag" data-svcname="كهرباء">🔌 كهرباء</span>
+        <div class="srow"><span class="stars-r">★★★★☆</span><span class="rval">4.5</span><span class="rct">(120)</span></div>
       </div>
-    </div> 
+      <div class="cstats"><div class="cs"><span class="csv">7</span><span class="csl">سنة خبرة</span></div><div class="cs"><span class="csv">60ج</span><span class="csl">الزيارة</span></div><div class="cs"><span class="csv">+210</span><span class="csl">مكتمل</span></div></div>
+      <div class="cact"><div class="wait-time">⏳ متاح بعد ٢٠ دقيقة</div><button class="balt" onclick="openAlternatives(10, '🔌 كهرباء', 'electric')">✨ عرض فنيين بدلاء</button></div>
+    </div>
+
+    <!-- 11. علي عبد الرحمن (كهرباء) -->
+    <div class="card" data-svc="electric" data-avail="true" data-id="11">
+      <div class="ctop">
+        <span class="abadge on">● متاح الآن</span>
+        <div class="aring">
+          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <rect width="100" height="100" fill="#1e293b"/>
+            <path d="M10,100 L30,60 L70,60 L90,100 Z" fill="#64748b"/>
+            <circle cx="50" cy="40" r="18" fill="#fed7aa"/>
+            <path d="M30,35 Q50,10 70,35 Z" fill="#0ea5e9"/>
+            <rect x="35" y="35" width="30" height="6" fill="#0284c7"/>
+            <circle cx="44" cy="44" r="2" fill="#000"/>
+            <circle cx="56" cy="44" r="2" fill="#000"/>
+            <path d="M46,52 Q50,56 54,52" fill="none" stroke="#000" stroke-width="1.5"/>
+          </svg>
+          <div class="vbadge">✓</div>
+        </div>
+        <div class="tname">علي عبد الرحمن</div>
+        <span class="ttag" data-svcname="كهرباء">🔌 كهرباء</span>
+        <div class="srow"><span class="stars-r">★★★★★</span><span class="rval">4.8</span><span class="rct">(290)</span></div>
+      </div>
+      <div class="cstats"><div class="cs"><span class="csv">10</span><span class="csl">سنة خبرة</span></div><div class="cs"><span class="csv">75ج</span><span class="csl">الزيارة</span></div><div class="cs"><span class="csv">+380</span><span class="csl">مكتمل</span></div></div>
+      <div class="cact"><button class="bbk" onclick="openBook('علي عبد الرحمن','🔌 كهرباء',11)">📅 احجز موعد</button><button class="bch" onclick="openChat('علي عبد الرحمن','🔌 كهرباء',11)">💬 تواصل بخصوصية</button></div>
+    </div>
+
+    <!-- 12. سعيد عثمان (سباكة) -->
+    <div class="card" data-svc="plumbing" data-avail="true" data-id="12">
+      <div class="ctop">
+        <span class="abadge on">● متاح الآن</span>
+        <div class="aring">
+          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <rect width="100" height="100" fill="#083344"/>
+            <rect x="20" y="65" width="60" height="35" rx="15" fill="#0d9488"/>
+            <circle cx="50" cy="45" r="19" fill="#ffedd5"/>
+            <path d="M31,45 C31,65 69,65 69,45 Z" fill="#713f12"/>
+            <rect x="42" y="55" width="16" height="5" fill="#ffedd5"/>
+            <circle cx="43" cy="40" r="2.5" fill="#000"/>
+            <circle cx="57" cy="40" r="2.5" fill="#000"/>
+          </svg>
+          <div class="vbadge">✓</div>
+        </div>
+        <div class="tname">سعيد عثمان</div>
+        <span class="ttag" data-svcname="سباكة">🔧 سباكة</span>
+        <div class="srow"><span class="stars-r">★★★★★</span><span class="rval">5.0</span><span class="rct">(112)</span></div>
+      </div>
+      <div class="cstats"><div class="cs"><span class="csv">18</span><span class="csl">سنة خبرة</span></div><div class="cs"><span class="csv">95ج</span><span class="csl">الزيارة</span></div><div class="cs"><span class="csv">+850</span><span class="csl">مكتمل</span></div></div>
+      <div class="cact"><button class="bbk" onclick="openBook('سعيد عثمان','🔧 سباكة',12)">📅 احجز موعد</button><button class="bch" onclick="openChat('سعيد عثمان','🔧 سباكة',12)">💬 تواصل بخصوصية</button></div>
+    </div>
+
+    <!-- 13. خالد جلال (سباكة - مشغول) -->
+    <div class="card" data-svc="plumbing" data-avail="false" data-id="13">
+      <div class="ctop">
+        <span class="abadge off">● مشغول حالياً</span>
+        <div class="aring">
+          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <rect width="100" height="100" fill="#422006"/>
+            <path d="M25,100 L35,65 L65,65 L75,100 Z" fill="#eab308"/>
+            <circle cx="50" cy="45" r="18" fill="#fef08a"/>
+            <path d="M30,35 Q50,20 70,35 Z" fill="#171717"/>
+            <rect x="35" y="33" width="30" height="5" fill="#171717"/>
+            <path d="M38,50 Q50,45 62,50 Q50,55 38,50" fill="#171717"/>
+            <circle cx="43" cy="42" r="2" fill="#000"/>
+            <circle cx="57" cy="42" r="2" fill="#000"/>
+          </svg>
+          <div class="vbadge">✓</div>
+        </div>
+        <div class="tname">خالد جلال</div>
+        <span class="ttag" data-svcname="سباكة">🔧 سباكة</span>
+        <div class="srow"><span class="stars-r">★★★★☆</span><span class="rval">4.3</span><span class="rct">(95)</span></div>
+      </div>
+      <div class="cstats"><div class="cs"><span class="csv">5</span><span class="csl">سنة خبرة</span></div><div class="cs"><span class="csv">60ج</span><span class="csl">الزيارة</span></div><div class="cs"><span class="csv">+150</span><span class="csl">مكتمل</span></div></div>
+      <div class="cact"><div class="wait-time">⏳ متاح بعد ٦٠ دقيقة</div><button class="balt" onclick="openAlternatives(13, '🔧 سباكة', 'plumbing')">✨ عرض فنيين بدلاء</button></div>
+    </div>
+
+    <!-- 14. وليد سعد (سباكة) -->
+    <div class="card" data-svc="plumbing" data-avail="true" data-id="14">
+      <div class="ctop">
+        <span class="abadge on">● متاح الآن</span>
+        <div class="aring">
+          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <rect width="100" height="100" fill="#7f1d1d"/>
+            <rect x="30" y="65" width="40" height="35" rx="8" fill="#f87171"/>
+            <circle cx="50" cy="45" r="17" fill="#fbcfe8"/>
+            <rect x="30" y="35" width="40" height="10" rx="4" fill="#450a0a"/>
+            <line x1="30" y1="40" x2="70" y2="40" stroke="#fecaca" stroke-width="2"/>
+            <circle cx="45" cy="52" r="1.5" fill="#000"/>
+            <circle cx="55" cy="52" r="1.5" fill="#000"/>
+          </svg>
+          <div class="vbadge">✓</div>
+        </div>
+        <div class="tname">وليد سعد</div>
+        <span class="ttag" data-svcname="سباكة">🔧 سباكة</span>
+        <div class="srow"><span class="stars-r">★★★★★</span><span class="rval">4.7</span><span class="rct">(201)</span></div>
+      </div>
+      <div class="cstats"><div class="cs"><span class="csv">8</span><span class="csl">سنة خبرة</span></div><div class="cs"><span class="csv">70ج</span><span class="csl">الزيارة</span></div><div class="cs"><span class="csv">+310</span><span class="csl">مكتمل</span></div></div>
+      <div class="cact"><button class="bbk" onclick="openBook('وليد سعد','🔧 سباكة',14)">📅 احجز موعد</button><button class="bch" onclick="openChat('وليد سعد','🔧 سباكة',14)">💬 تواصل بخصوصية</button></div>
+    </div>
+
+    <!-- 15. مصطفى كمال (سباكة) -->
+    <div class="card" data-svc="plumbing" data-avail="true" data-id="15">
+      <div class="ctop">
+        <span class="abadge on">● متاح الآن</span>
+        <div class="aring">
+          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <rect width="100" height="100" fill="#334155"/>
+            <path d="M20,100 C20,60 80,60 80,100" fill="#94a3b8"/>
+            <circle cx="50" cy="45" r="18" fill="#ffedd5"/>
+            <path d="M30,38 A20,20 0 0,1 70,38 Z" fill="#fcd34d"/>
+            <rect x="35" y="38" width="30" height="4" fill="#b45309"/>
+            <circle cx="43" cy="48" r="2" fill="#000"/>
+            <circle cx="57" cy="48" r="2" fill="#000"/>
+            <path d="M45,55 Q50,58 55,55" fill="none" stroke="#000" stroke-width="1.5"/>
+          </svg>
+          <div class="vbadge">✓</div>
+        </div>
+        <div class="tname">مصطفى كمال</div>
+        <span class="ttag" data-svcname="سباكة">🔧 سباكة</span>
+        <div class="srow"><span class="stars-r">★★★★★</span><span class="rval">4.9</span><span class="rct">(365)</span></div>
+      </div>
+      <div class="cstats"><div class="cs"><span class="csv">13</span><span class="csl">سنة خبرة</span></div><div class="cs"><span class="csv">85ج</span><span class="csl">الزيارة</span></div><div class="cs"><span class="csv">+550</span><span class="csl">مكتمل</span></div></div>
+      <div class="cact"><button class="bbk" onclick="openBook('مصطفى كمال','🔧 سباكة',15)">📅 احجز موعد</button><button class="bch" onclick="openChat('مصطفى كمال','🔧 سباكة',15)">💬 تواصل بخصوصية</button></div>
+    </div>
+
+    <!-- 16. إبراهيم حمدي (تكييفات) -->
+    <div class="card" data-svc="ac" data-avail="true" data-id="16">
+      <div class="ctop">
+        <span class="abadge on">● متاح الآن</span>
+        <div class="aring">
+          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <rect width="100" height="100" fill="#0891b2"/>
+            <rect x="25" y="65" width="50" height="35" rx="10" fill="#06b6d4"/>
+            <circle cx="50" cy="45" r="18" fill="#fef08a"/>
+            <rect x="35" y="60" width="30" height="15" rx="5" fill="#f8fafc"/>
+            <rect x="30" y="70" width="10" height="20" fill="#f8fafc"/>
+            <circle cx="43" cy="42" r="2.5" fill="#000"/>
+            <circle cx="57" cy="42" r="2.5" fill="#000"/>
+            <path d="M35,25 Q50,10 65,25 Z" fill="#000"/>
+          </svg>
+          <div class="vbadge">✓</div>
+        </div>
+        <div class="tname">إبراهيم حمدي</div>
+        <span class="ttag" data-svcname="تكييفات">❄️ تكييفات</span>
+        <div class="srow"><span class="stars-r">★★★★★</span><span class="rval">4.8</span><span class="rct">(275)</span></div>
+      </div>
+      <div class="cstats"><div class="cs"><span class="csv">11</span><span class="csl">سنة خبرة</span></div><div class="cs"><span class="csv">80ج</span><span class="csl">الزيارة</span></div><div class="cs"><span class="csv">+420</span><span class="csl">مكتمل</span></div></div>
+      <div class="cact"><button class="bbk" onclick="openBook('إبراهيم حمدي','❄️ تكييفات',16)">📅 احجز موعد</button><button class="bch" onclick="openChat('إبراهيم حمدي','❄️ تكييفات',16)">💬 تواصل بخصوصية</button></div>
+    </div>
+
+    <!-- 17. عبد الله ياسين (تكييفات - مشغول) -->
+    <div class="card" data-svc="ac" data-avail="false" data-id="17">
+      <div class="ctop">
+        <span class="abadge off">● مشغول حالياً</span>
+        <div class="aring">
+          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <rect width="100" height="100" fill="#831843"/>
+            <path d="M20,100 L40,65 L60,65 L80,100 Z" fill="#db2777"/>
+            <circle cx="50" cy="45" r="18" fill="#fecdd3"/>
+            <path d="M30,40 C30,10 70,10 70,40" fill="none" stroke="#be185d" stroke-width="4"/>
+            <path d="M40,25 L45,15 L50,25 L55,15 L60,25" fill="none" stroke="#be185d" stroke-width="3"/>
+            <circle cx="43" cy="46" r="2" fill="#000"/>
+            <circle cx="57" cy="46" r="2" fill="#000"/>
+            <rect x="40" y="52" width="20" height="8" rx="4" fill="#fff"/>
+          </svg>
+          <div class="vbadge">✓</div>
+        </div>
+        <div class="tname">عبد الله ياسين</div>
+        <span class="ttag" data-svcname="تكييفات">❄️ تكييفات</span>
+        <div class="srow"><span class="stars-r">★★★★☆</span><span class="rval">4.4</span><span class="rct">(140)</span></div>
+      </div>
+      <div class="cstats"><div class="cs"><span class="csv">6</span><span class="csl">سنة خبرة</span></div><div class="cs"><span class="csv">65ج</span><span class="csl">الزيارة</span></div><div class="cs"><span class="csv">+190</span><span class="csl">مكتمل</span></div></div>
+      <div class="cact"><div class="wait-time">⏳ متاح بعد ١٥ دقيقة</div><button class="balt" onclick="openAlternatives(17, '❄️ تكييفات', 'ac')">✨ عرض فنيين بدلاء</button></div>
+    </div>
+
+    <!-- 18. ياسر جلال (تكييفات) -->
+    <div class="card" data-svc="ac" data-avail="true" data-id="18">
+      <div class="ctop">
+        <span class="abadge on">● متاح الآن</span>
+        <div class="aring">
+          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <rect width="100" height="100" fill="#312e81"/>
+            <path d="M25,100 C25,60 75,60 75,100" fill="#4f46e5"/>
+            <circle cx="50" cy="45" r="18" fill="#e0e7ff"/>
+            <path d="M32,40 Q50,20 68,40 Z" fill="#000"/>
+            <rect x="36" y="42" width="28" height="6" rx="2" fill="none" stroke="#4338ca" stroke-width="2"/>
+            <line x1="50" y1="42" x2="50" y2="48" stroke="#4338ca" stroke-width="2"/>
+            <path d="M45,55 Q50,58 55,55" fill="none" stroke="#000" stroke-width="1.5"/>
+          </svg>
+          <div class="vbadge">✓</div>
+        </div>
+        <div class="tname">ياسر جلال</div>
+        <span class="ttag" data-svcname="تكييفات">❄️ تكييفات</span>
+        <div class="srow"><span class="stars-r">★★★★★</span><span class="rval">4.9</span><span class="rct">(310)</span></div>
+      </div>
+      <div class="cstats"><div class="cs"><span class="csv">14</span><span class="csl">سنة خبرة</span></div><div class="cs"><span class="csv">90ج</span><span class="csl">الزيارة</span></div><div class="cs"><span class="csv">+620</span><span class="csl">مكتمل</span></div></div>
+      <div class="cact"><button class="bbk" onclick="openBook('ياسر جلال','❄️ تكييفات',18)">📅 احجز موعد</button><button class="bch" onclick="openChat('ياسر جلال','❄️ تكييفات',18)">💬 تواصل بخصوصية</button></div>
+    </div>
+
+    <!-- 19. رامي عادل (أجهزة) -->
+    <div class="card" data-svc="appliances" data-avail="true" data-id="19">
+      <div class="ctop">
+        <span class="abadge on">● متاح الآن</span>
+        <div class="aring">
+          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <rect width="100" height="100" fill="#064e3b"/>
+            <rect x="25" y="65" width="50" height="35" rx="8" fill="#10b981"/>
+            <circle cx="50" cy="45" r="18" fill="#dcfce7"/>
+            <path d="M30,45 A20,20 0 0,1 70,45" fill="none" stroke="#064e3b" stroke-width="3"/>
+            <circle cx="70" cy="45" r="4" fill="#064e3b"/>
+            <line x1="70" y1="45" x2="60" y2="55" stroke="#064e3b" stroke-width="2"/>
+            <circle cx="43" cy="45" r="2" fill="#000"/>
+            <circle cx="57" cy="45" r="2" fill="#000"/>
+          </svg>
+          <div class="vbadge">✓</div>
+        </div>
+        <div class="tname">رامي عادل</div>
+        <span class="ttag" data-svcname="أجهزة">🏠 أجهزة</span>
+        <div class="srow"><span class="stars-r">★★★★★</span><span class="rval">4.7</span><span class="rct">(245)</span></div>
+      </div>
+      <div class="cstats"><div class="cs"><span class="csv">10</span><span class="csl">سنة خبرة</span></div><div class="cs"><span class="csv">70ج</span><span class="csl">الزيارة</span></div><div class="cs"><span class="csv">+390</span><span class="csl">مكتمل</span></div></div>
+      <div class="cact"><button class="bbk" onclick="openBook('رامي عادل','🏠 أجهزة',19)">📅 احجز موعد</button><button class="bch" onclick="openChat('رامي عادل','🏠 أجهزة',19)">💬 تواصل بخصوصية</button></div>
+    </div>
+
+    <!-- 20. هاني شاكر (أجهزة - مشغول) -->
+    <div class="card" data-svc="appliances" data-avail="false" data-id="20">
+      <div class="ctop">
+        <span class="abadge off">● مشغول حالياً</span>
+        <div class="aring">
+          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <rect width="100" height="100" fill="#7f1d1d"/>
+            <path d="M20,100 L40,65 L60,65 L80,100 Z" fill="#ef4444"/>
+            <circle cx="50" cy="45" r="18" fill="#fee2e2"/>
+            <path d="M35,35 Q40,20 50,35 Q60,20 65,35 Z" fill="#450a0a"/>
+            <rect x="36" y="42" width="10" height="6" fill="none" stroke="#000" stroke-width="1.5"/>
+            <rect x="54" y="42" width="10" height="6" fill="none" stroke="#000" stroke-width="1.5"/>
+            <line x1="46" y1="45" x2="54" y2="45" stroke="#000" stroke-width="1.5"/>
+          </svg>
+          <div class="vbadge">✓</div>
+        </div>
+        <div class="tname">هاني شاكر</div>
+        <span class="ttag" data-svcname="أجهزة">🏠 أجهزة</span>
+        <div class="srow"><span class="stars-r">★★★★☆</span><span class="rval">4.5</span><span class="rct">(115)</span></div>
+      </div>
+      <div class="cstats"><div class="cs"><span class="csv">7</span><span class="csl">سنة خبرة</span></div><div class="cs"><span class="csv">65ج</span><span class="csl">الزيارة</span></div><div class="cs"><span class="csv">+175</span><span class="csl">مكتمل</span></div></div>
+      <div class="cact"><div class="wait-time">⏳ متاح بعد ٣٥ دقيقة</div><button class="balt" onclick="openAlternatives(20, '🏠 أجهزة', 'appliances')">✨ عرض فنيين بدلاء</button></div>
+    </div>
+
+    <!-- 21. وائل سعيد (أجهزة) -->
+    <div class="card" data-svc="appliances" data-avail="true" data-id="21">
+      <div class="ctop">
+        <span class="abadge on">● متاح الآن</span>
+        <div class="aring">
+          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <rect width="100" height="100" fill="#78350f"/>
+            <rect x="25" y="65" width="50" height="35" rx="5" fill="#d97706"/>
+            <circle cx="50" cy="45" r="18" fill="#fef3c7"/>
+            <path d="M30,40 Q50,25 70,40" fill="none" stroke="#b45309" stroke-width="5"/>
+            <path d="M35,55 Q50,70 65,55" fill="#78350f"/>
+            <circle cx="43" cy="43" r="2" fill="#000"/>
+            <circle cx="57" cy="43" r="2" fill="#000"/>
+          </svg>
+          <div class="vbadge">✓</div>
+        </div>
+        <div class="tname">وائل سعيد</div>
+        <span class="ttag" data-svcname="أجهزة">🏠 أجهزة</span>
+        <div class="srow"><span class="stars-r">★★★★★</span><span class="rval">4.8</span><span class="rct">(305)</span></div>
+      </div>
+      <div class="cstats"><div class="cs"><span class="csv">12</span><span class="csl">سنة خبرة</span></div><div class="cs"><span class="csv">75ج</span><span class="csl">الزيارة</span></div><div class="cs"><span class="csv">+480</span><span class="csl">مكتمل</span></div></div>
+      <div class="cact"><button class="bbk" onclick="openBook('وائل سعيد','🏠 أجهزة',21)">📅 احجز موعد</button><button class="bch" onclick="openChat('وائل سعيد','🏠 أجهزة',21)">💬 تواصل بخصوصية</button></div>
+    </div>
+
+    <!-- 22. تامر حسني (أجهزة) -->
+    <div class="card" data-svc="appliances" data-avail="true" data-id="22">
+      <div class="ctop">
+        <span class="abadge on">● متاح الآن</span>
+        <div class="aring">
+          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <rect width="100" height="100" fill="#134e4a"/>
+            <path d="M20,100 C20,60 80,60 80,100" fill="#14b8a6"/>
+            <circle cx="50" cy="45" r="17" fill="#ccfbf1"/>
+            <rect x="30" y="38" width="40" height="12" rx="4" fill="#0f766e"/>
+            <circle cx="40" cy="44" r="3" fill="#fff"/>
+            <circle cx="60" cy="44" r="3" fill="#fff"/>
+            <line x1="45" y1="54" x2="55" y2="54" stroke="#000" stroke-width="2"/>
+          </svg>
+          <div class="vbadge">✓</div>
+        </div>
+        <div class="tname">تامر حسني</div>
+        <span class="ttag" data-svcname="أجهزة">🏠 أجهزة</span>
+        <div class="srow"><span class="stars-r">★★★★★</span><span class="rval">4.9</span><span class="rct">(410)</span></div>
+      </div>
+      <div class="cstats"><div class="cs"><span class="csv">15</span><span class="csl">سنة خبرة</span></div><div class="cs"><span class="csv">85ج</span><span class="csl">الزيارة</span></div><div class="cs"><span class="csv">+590</span><span class="csl">مكتمل</span></div></div>
+      <div class="cact"><button class="bbk" onclick="openBook('تامر حسني','🏠 أجهزة',22)">📅 احجز موعد</button><button class="bch" onclick="openChat('تامر حسني','🏠 أجهزة',22)">💬 تواصل بخصوصية</button></div>
+    </div>
+
   </div>
 </div>
 
 <!-- ============================================== -->
-<!-- 🟢 بقية النوافذ المنبثقة (البدائل، الحجز، الشات، الطوارئ) 🟢 -->
+<!-- النوافذ المنبثقة (البدائل، الحجز، الشات، الطوارئ) -->
 <!-- ============================================== -->
 
 <div class="overlay" id="alt-ov"><div class="modal-box" style="max-width:500px;"><button class="modal-close" onclick="closeAlternatives()">✕</button><div class="modal-title" style="margin-bottom:0.5rem">اقتراح <em>بدائل</em></div><p style="font-size:0.85rem; color:var(--muted); margin-bottom:1rem">تم العثور على الفنيين المتاحين حالياً في قسم <span id="alt-svc-name" style="color:var(--gold); font-weight:700"></span>:</p><div class="alt-list" id="alt-list"></div></div></div>
@@ -535,6 +846,28 @@ a { text-decoration: none; }
 
 <button class="sos-btn-float" onclick="openSOS()">🚨 طلب طوارئ</button>
 <div class="overlay" id="sos-ov"><div class="modal-box"><button class="modal-close" onclick="closeSOS()">✕</button><div class="sos-header"><div class="sos-icon">🚨</div><h2 style="color:#ef4444;font-family:'Tajawal',sans-serif;font-weight:900;">خدمة الطوارئ السريعة</h2><p style="font-size:0.8rem;color:var(--muted);margin-top:0.5rem;">سيتم توجيه أقرب فني متاح إليك فوراً (زمن الوصول المتوقع: 15-30 دقيقة). <br><strong style="color:#fca5a5;">ملاحظة: تُطبق رسوم خدمة طوارئ إضافية.</strong></p></div><div id="sos-form"><div class="fg"><label>نوع الطوارئ</label><select id="sos-type" class="sos-input"><option value="">اختر المشكلة السريعة...</option><option value="electric">⚡ ماس أو عطل كهربائي خطير</option><option value="plumbing">💧 كسر ماسورة أو تسرب مياه ضخم</option><option value="ac">❄️ عطل تكييف مفاجئ</option></select></div><div class="fg"><label>رقم الهاتف للاتصال الفوري</label><input type="tel" id="sos-phone" class="sos-input" placeholder="01XXXXXXXXX" /></div><div class="fg"><label>موقعك الحالي</label><div style="display:flex;gap:0.5rem;"><input type="text" id="sos-addr" class="sos-input" placeholder="أدخل العنوان السريع" style="flex:1; margin-bottom:0;" /><button class="btn-gps" onclick="getLocation()" title="تحديد موقعي">📍</button></div></div><button class="btn-submit" style="background:linear-gradient(135deg,#ef4444,#b91c1c);" onclick="submitSOS()">🚀 أرسل الاستغاثة الآن</button></div><div class="success-box" id="sos-ok"><div class="success-ring" style="background:rgba(239,68,68,0.1);border-color:#ef4444;color:#ef4444;">🏃</div><h3 style="color:#ef4444;">تم إرسال الاستغاثة!</h3><p>جاري توجيه أقرب فني إليك..<br>يرجى إبقاء هاتفك متاحاً.</p><button class="btn-submit" onclick="closeSOS()" style="background:#1f2d54;">إغلاق</button></div></div></div>
+
+<!-- 🟢 ويدجت تتبع الطلب النشط 🟢 -->
+<div class="active-order-widget" id="active-order-widget">
+  <div class="ao-header">
+    <span class="ao-status">⏳ جاري التنفيذ</span>
+    <button class="ao-close" onclick="cancelOrder()" title="إنهاء الطلب للمعاينة">✕</button>
+  </div>
+  <div class="ao-body">
+    <div class="ao-tech">
+      <div class="ao-av" id="ao-tech-av"></div>
+      <div>
+        <div class="ao-tech-name" id="ao-tech-name"></div>
+        <div class="ao-svc" id="ao-svc"></div>
+      </div>
+    </div>
+    <div class="ao-details">
+      <div class="ao-row"><span>العميل:</span> <strong id="ao-user" style="color:white;"></strong></div>
+      <div class="ao-row"><span>العنوان:</span> <strong id="ao-address" style="color:white;"></strong></div>
+      <div class="ao-row"><span>الوقت المتوقع:</span> <strong id="ao-eta" style="color:var(--green);font-weight:700;"></strong></div>
+    </div>
+  </div>
+</div>
 
 <script>
 // ── USER STATUS ──
@@ -556,24 +889,42 @@ if(status === 'true'){
   badge.textContent = '👤 زائر';
 }
 
-// ── 🟢 خريطة التتبع المباشر (Leaflet Map) 🟢 ──
+// ── 🟢 وظائف ويدجت الطلب الجاري 🟢 ──
+function renderActiveOrder() {
+  const orderData = sessionStorage.getItem('activeOrder');
+  const widget = document.getElementById('active-order-widget');
+  if(orderData && (status === 'true' || status === 'guest')) {
+    const order = JSON.parse(orderData);
+    document.getElementById('ao-tech-name').textContent = order.techName;
+    document.getElementById('ao-svc').textContent = order.svc;
+    document.getElementById('ao-tech-av').innerHTML = order.svg;
+    document.getElementById('ao-user').textContent = order.userName;
+    document.getElementById('ao-address').textContent = order.address;
+    document.getElementById('ao-eta').textContent = order.eta;
+    widget.style.display = 'flex';
+  } else {
+    widget.style.display = 'none';
+  }
+}
+function cancelOrder() {
+  sessionStorage.removeItem('activeOrder');
+  renderActiveOrder();
+}
+document.addEventListener("DOMContentLoaded", renderActiveOrder);
+
+// ── Leaflet Map ──
 let map = null;
 let markersLayer = null;
 let isMapVisible = false;
-let userLat = 30.0444; // القاهرة افتراضياً
+let userLat = 30.0444; 
 let userLng = 31.2357;
 
-// تجهيز بيانات الفنيين من الكروت الموجودة في الصفحة
 const technicians = [];
 document.querySelectorAll('.card').forEach(card => {
   technicians.push({
-    id: card.dataset.id,
-    name: card.querySelector('.tname').textContent,
-    svcCode: card.dataset.svc,
-    svcName: card.querySelector('.ttag').dataset.svcname,
-    avail: card.dataset.avail === 'true',
-    rating: card.querySelector('.rval').textContent,
-    svg: card.querySelector('.aring').innerHTML
+    id: card.dataset.id, name: card.querySelector('.tname').textContent, svcCode: card.dataset.svc,
+    svcName: card.querySelector('.ttag').dataset.svcname, avail: card.dataset.avail === 'true',
+    rating: card.querySelector('.rval').textContent, svg: card.querySelector('.aring').innerHTML
   });
 });
 
@@ -583,61 +934,27 @@ function toggleMap() {
   isMapVisible = !isMapVisible;
   
   if(isMapVisible) {
-    mapWrap.style.display = 'block';
-    btn.classList.add('active');
-    btn.innerHTML = '🔽 إخفاء الخريطة';
-    
-    // تأخير بسيط للسماح للـ div بالظهور قبل رسم الخريطة
-    setTimeout(() => {
-      if(!map) {
-        initMap();
-      } else {
-        map.invalidateSize();
-      }
-    }, 100);
+    mapWrap.style.display = 'block'; btn.classList.add('active'); btn.innerHTML = '🔽 إخفاء الخريطة';
+    setTimeout(() => { if(!map) { initMap(); } else { map.invalidateSize(); } }, 100);
   } else {
-    mapWrap.style.display = 'none';
-    btn.classList.remove('active');
-    btn.innerHTML = '🗺️ الخريطة (Live)';
+    mapWrap.style.display = 'none'; btn.classList.remove('active'); btn.innerHTML = '🗺️ الخريطة (Live)';
   }
 }
 
 function initMap() {
-  // محاولة الحصول على موقع المستخدم
   if(navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
-      pos => {
-        userLat = pos.coords.latitude;
-        userLng = pos.coords.longitude;
-        renderMap();
-      },
-      err => {
-        console.log("تم رفض الموقع، سيتم استخدام موقع افتراضي.");
-        renderMap();
-      }
+      pos => { userLat = pos.coords.latitude; userLng = pos.coords.longitude; renderMap(); },
+      err => { renderMap(); }
     );
-  } else {
-    renderMap();
-  }
+  } else { renderMap(); }
 }
 
 function renderMap() {
   map = L.map('map-container').setView([userLat, userLng], 12);
-  
-  // خريطة مجانية (Dark Style Simulation)
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-    attribution: '&copy; OpenStreetMap',
-    maxZoom: 18
-  }).addTo(map);
-
-  // نقطة المستخدم الحالية
-  L.circleMarker([userLat, userLng], {
-    color: '#3b82f6', fillColor: '#3b82f6', fillOpacity: 0.5, radius: 10
-  }).addTo(map).bindPopup('<div style="text-align:center; color:#333; font-family:Cairo;"><b>📍 موقعك الحالي</b></div>').openPopup();
-
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', { attribution: '&copy; OpenStreetMap', maxZoom: 18 }).addTo(map);
+  L.circleMarker([userLat, userLng], { color: '#3b82f6', fillColor: '#3b82f6', fillOpacity: 0.5, radius: 10 }).addTo(map).bindPopup('<div style="text-align:center; color:#333; font-family:Cairo;"><b>📍 موقعك الحالي</b></div>').openPopup();
   markersLayer = L.layerGroup().addTo(map);
-  
-  // قراءة الفلتر النشط حالياً لتطبيقه على الخريطة
   const activeFilterBtn = document.querySelector('.fbtn.active:not(#map-toggle)');
   const currentFilter = activeFilterBtn ? activeFilterBtn.dataset.f : 'all';
   plotTechnicians(currentFilter);
@@ -645,60 +962,36 @@ function renderMap() {
 
 function plotTechnicians(filterType) {
   if(!markersLayer) return;
-  markersLayer.clearLayers(); // مسح الدبابيس القديمة
+  markersLayer.clearLayers();
 
   technicians.forEach(tech => {
-    // تطبيق الفلتر على الخريطة
     if(filterType !== 'all' && filterType !== 'available' && tech.svcCode !== filterType) return;
     if(filterType === 'available' && !tech.avail) return;
 
-    // توليد موقع وهمي حول المستخدم (من 1 إلى 15 كيلو)
-    const distanceKm = (Math.random() * 14) + 1; // المسافة العشوائية
-    const angle = Math.random() * Math.PI * 2; // زاوية عشوائية حول المستخدم
-    
-    // تحويل المسافة إلى إحداثيات تقريبية
+    const distanceKm = (Math.random() * 14) + 1; 
+    const angle = Math.random() * Math.PI * 2; 
     const techLat = userLat + (Math.sin(angle) * distanceKm) / 111;
     const techLng = userLng + (Math.cos(angle) * distanceKm) / (111 * Math.cos(userLat * Math.PI / 180));
-    
-    // حساب وقت الوصول (بمتوسط 3 دقائق لكل كيلومتر)
     const etaMins = Math.round(distanceKm * 3);
 
-    // إنشاء أيقونة مخصصة (Avatar)
     const customIcon = L.divIcon({
       className: `map-marker-custom ${tech.avail ? '' : 'busy'}`,
-      html: tech.svg,
-      iconSize: [45, 45],
-      iconAnchor: [22, 45],
-      popupAnchor: [0, -45]
+      html: tech.svg, iconSize: [45, 45], iconAnchor: [22, 45], popupAnchor: [0, -45]
     });
 
-    // تصميم النافذة المنبثقة للفني في الخريطة
     const popupHTML = `
       <div class="mp-card">
         <div class="mp-name">${tech.name}</div>
         <span class="mp-tag">${tech.svcName} | ⭐ ${tech.rating}</span>
-        <div class="mp-stats">
-          <span>🚗 يبعد: ${distanceKm.toFixed(1)} كم</span>
-          <span>⏳ يصل خلال: ${etaMins} دقيقة</span>
-        </div>
-        ${tech.avail 
-          ? `<button class="mp-btn" onclick="openBookFromMap('${tech.name}', '${tech.svcName}', ${tech.id})">احجز الآن</button>`
-          : `<button class="mp-btn disabled" disabled>مشغول حالياً</button>`}
-      </div>
-    `;
-
+        <div class="mp-stats"><span>🚗 يبعد: ${distanceKm.toFixed(1)} كم</span><span>⏳ يصل خلال: ${etaMins} دقيقة</span></div>
+        ${tech.avail ? `<button class="mp-btn" onclick="openBookFromMap('${tech.name}', '${tech.svcName}', ${tech.id})">احجز الآن</button>` : `<button class="mp-btn disabled" disabled>مشغول حالياً</button>`}
+      </div>`;
     L.marker([techLat, techLng], {icon: customIcon}).bindPopup(popupHTML).addTo(markersLayer);
   });
 }
+window.openBookFromMap = function(name, svc, id) { map.closePopup(); openBook(name, svc, id); };
 
-// دالة لفتح الحجز من داخل الخريطة
-window.openBookFromMap = function(name, svc, id) {
-  map.closePopup(); // إغلاق بوب أب الخريطة
-  openBook(name, svc, id); // فتح مودال الحجز الأصلي
-};
-
-
-// ── FILTER LOGIC (تم ربط الخريطة به) ──
+// ── FILTER LOGIC ──
 document.addEventListener("DOMContentLoaded", () => {
   const urlParams = new URLSearchParams(window.location.search);
   const filterValue = urlParams.get('filter');
@@ -712,28 +1005,20 @@ document.querySelectorAll('.fbtn:not(#map-toggle)').forEach(btn=>{
   btn.addEventListener('click',()=>{
     document.querySelectorAll('.fbtn:not(#map-toggle)').forEach(b=>b.classList.remove('active'));
     btn.classList.add('active');
-    const f=btn.dataset.f;
-    let shown=0;
-    
-    // فلترة الكروت
+    const f=btn.dataset.f; let shown=0;
     document.querySelectorAll('.card').forEach(c=>{
       const match=f==='all'||(f==='available'&&c.dataset.avail==='true')||c.dataset.svc===f;
-      c.classList.toggle('hidden',!match);
-      if(match)shown++;
+      c.classList.toggle('hidden',!match); if(match)shown++;
     });
     document.getElementById('shown').textContent=shown;
-
-    // فلترة الخريطة التفاعلية
     if(isMapVisible) plotTechnicians(f);
   });
 });
 
-// ── OLD LOGIC (Alts, Booking, Chat, SOS) ──
+// ── Alternatives & Booking ──
 function openAlternatives(techId, svcName, svcCode) {
   const list = document.getElementById('alt-list');
-  list.innerHTML = ''; 
-  document.getElementById('alt-svc-name').textContent = svcName;
-  let foundCount = 0;
+  list.innerHTML = ''; document.getElementById('alt-svc-name').textContent = svcName; let foundCount = 0;
   document.querySelectorAll('.card').forEach(card => {
     if(card.dataset.svc === svcCode && card.dataset.avail === 'true' && card.dataset.id != techId) {
       foundCount++;
@@ -741,13 +1026,7 @@ function openAlternatives(techId, svcName, svcCode) {
       const ratingHTML = card.querySelector('.srow').innerHTML;
       const svgHTML = card.querySelector('.aring').innerHTML;
       const id = card.dataset.id;
-      const altCardHtml = `
-        <div class="alt-card">
-          <div class="aring">${svgHTML}</div>
-          <div class="alt-info"><h4>${name}</h4><div class="srow" style="justify-content:flex-start; margin-top:0.2rem">${ratingHTML}</div></div>
-          <div class="alt-action"><button class="bbk" onclick="closeAlternatives(); openBook('${name}','${svcName}',${id})">📅 احجز الآن</button></div>
-        </div>`;
-      list.insertAdjacentHTML('beforeend', altCardHtml);
+      list.insertAdjacentHTML('beforeend', `<div class="alt-card"><div class="aring">${svgHTML}</div><div class="alt-info"><h4>${name}</h4><div class="srow" style="justify-content:flex-start; margin-top:0.2rem">${ratingHTML}</div></div><div class="alt-action"><button class="bbk" onclick="closeAlternatives(); openBook('${name}','${svcName}',${id})">📅 احجز الآن</button></div></div>`);
     }
   });
   if(foundCount === 0) list.innerHTML = '<div class="no-alts">عذراً، لا يوجد فنيين متاحين في هذا القسم.</div>';
@@ -773,10 +1052,43 @@ function closeBook(){
     document.getElementById('book-form').style.display='block'; document.getElementById('book-ok').style.display='none';
   },300);
 }
-function submitBook(){
-  const name=document.getElementById('bc-name').value, phone=document.getElementById('bc-phone').value;
-  if(!name || !phone) return alert("يرجى إدخال الاسم ورقم الهاتف");
-  document.getElementById('book-form').style.display='none'; document.getElementById('book-ok').style.display='block';
+
+// 🟢 دالة إرسال الحجز للسيرفر (مربوطة بـ XAMPP) 🟢
+async function submitBook(){
+  const userName=document.getElementById('bc-name').value, phone=document.getElementById('bc-phone').value, address=document.getElementById('bc-addr').value;
+  const date=document.getElementById('bc-date').value, time=document.getElementById('bc-time').value, desc=document.getElementById('bc-desc').value;
+  
+  if(!userName || !phone || !address) return alert("يرجى إكمال البيانات الأساسية");
+  
+  const techName = document.getElementById('m-name').textContent;
+  const svc = document.getElementById('m-svc').textContent;
+  const svg = document.getElementById('m-av').innerHTML;
+  
+  const orderData = { techName, svc, svg, userName, phone, address, date, time, desc, eta: 'بناءً على الموعد' };
+  
+  try {
+    const btn = document.querySelector('#book-form .btn-submit');
+    const oldText = btn.textContent;
+    btn.textContent = 'جاري الحجز...';
+
+    const res = await fetch('http://localhost/SIANAPLUS/api/book.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(orderData)
+    });
+    
+    if(res.ok) {
+      sessionStorage.setItem('activeOrder', JSON.stringify(orderData));
+      document.getElementById('book-form').style.display='none'; document.getElementById('book-ok').style.display='block';
+      renderActiveOrder();
+    } else {
+      const data = await res.json();
+      alert('خطأ من السيرفر: ' + data.error);
+    }
+    btn.textContent = oldText;
+  } catch(err) {
+    alert('تأكد من فتح الصفحة من المتصفح عبر رابط localhost');
+  }
 }
 
 const replies=['أهلاً بك! 😊','سأكون عندك في أسرع وقت.','ما هو نوع المشكلة بالضبط؟']; let ri=0,typT=null;
@@ -807,7 +1119,41 @@ function sendMsg(){
 
 function openSOS() { document.getElementById('sos-ov').classList.add('open'); document.body.style.overflow = 'hidden'; }
 function closeSOS() { document.getElementById('sos-ov').classList.remove('open'); document.body.style.overflow = ''; }
-function submitSOS() { document.getElementById('sos-form').style.display = 'none'; document.getElementById('sos-ok').style.display = 'block'; }
+
+// 🟢 دالة طلب الطوارئ (مربوطة بـ XAMPP) 🟢
+async function submitSOS() {
+  const type = document.getElementById('sos-type').value;
+  const phone = document.getElementById('sos-phone').value;
+  const addr = document.getElementById('sos-addr').value;
+
+  if (!type || !phone || !addr) return alert("يرجى إكمال بيانات الطوارئ للوصول إليك في أسرع وقت!");
+  
+  const svcName = type === 'electric' ? '⚡ طوارئ كهرباء' : type === 'plumbing' ? '💧 طوارئ سباكة' : '❄️ طوارئ تكييف';
+  const emergencySvg = '<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="#ef4444"/><text x="50" y="65" font-size="40" text-anchor="middle" fill="#fff">🚨</text></svg>';
+  
+  const sosData = { type, phone, address: addr };
+
+  try {
+    const res = await fetch('http://localhost/SIANAPLUS/api/sos.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(sosData)
+    });
+
+    if(res.ok) {
+      const order = { techName: 'فني طوارئ (أقرب متاح)', svc: svcName, svg: emergencySvg, userName: 'عميل طوارئ ('+phone+')', address: addr, eta: '10 - 15 دقيقة (أولوية)' };
+      sessionStorage.setItem('activeOrder', JSON.stringify(order));
+      
+      document.getElementById('sos-form').style.display = 'none'; document.getElementById('sos-ok').style.display = 'block';
+      renderActiveOrder();
+    } else {
+      alert('حدث خطأ في نظام الطوارئ.');
+    }
+  } catch(err) {
+    alert('تأكد من فتح الصفحة من المتصفح عبر رابط localhost');
+  }
+}
+
 function getLocation() {
   const a = document.getElementById('sos-addr'); a.placeholder = "جاري تحديد الموقع...";
   if(navigator.geolocation){ navigator.geolocation.getCurrentPosition(pos=>{a.value=`إحداثياتك: ${pos.coords.latitude.toFixed(5)}, ${pos.coords.longitude.toFixed(5)}`;}); }
