@@ -9,33 +9,9 @@
 <link rel="stylesheet" href="shared.css"/>
 <style>
 /* ── HERO (الواجهة ثابتة مع الصورة كخلفية وبدون تروس) ── */
-.hero {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  background-image: url('Image 2026-03-30 at 13.28.39.jpeg'); 
-  background-size: cover;
-  background-position: center;
-  padding: 10rem 5% 15rem; 
-  overflow: hidden;
-}
-.hero::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-color: rgba(10, 22, 40, 0.85); 
-  z-index: 1;
-}
-.hero::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at center, transparent 0%, var(--navy) 100%);
-  z-index: 2;
-}
-
+.hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; background-image: url('Image 2026-03-30 at 13.28.39.jpeg'); background-size: cover; background-position: center; padding: 10rem 5% 15rem; overflow: hidden; }
+.hero::before { content: ''; position: absolute; inset: 0; background-color: rgba(10, 22, 40, 0.85); z-index: 1; }
+.hero::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at center, transparent 0%, var(--navy) 100%); z-index: 2; }
 .hero-content { position: relative; z-index: 10; flex: 1; max-width: 720px; text-align: center; margin: 0 auto; }
 .hero-badge { display: inline-flex; align-items: center; gap:.45rem; background:rgba(201,168,76,.15); border:1px solid rgba(201,168,76,.35); border-radius:100px; padding:.38rem .95rem; font-size:.78rem; color:var(--gold-light); font-weight:600; margin-bottom:1.6rem; animation:fadeUp .6s ease both }
 .hero-badge::before{ content:'✦'; font-size:.65rem; }
@@ -44,7 +20,6 @@
 .hero h1 em::after { content:''; position:absolute; bottom:-4px; right:0; left:0; height:3px; background:linear-gradient(90deg,var(--gold),transparent); border-radius:3px }
 .hero-text { font-size:1.1rem; color:var(--white); line-height:1.8; max-width:640px; margin: 0 auto 2.5rem; animation:fadeUp .6s .18s ease both }
 .hero-actions { display:flex; gap:.9rem; justify-content:center; flex-wrap:wrap; animation:fadeUp .6s .26s ease both }
-
 .hero-stats { position:absolute; bottom:3rem; left:5%; right:5%; display:flex; gap:2px; z-index:10; animation:fadeUp .6s .4s ease both; justify-content: center; }
 .stat-card { flex: 0 1 200px; padding:1.1rem 1rem; background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1); text-align:center }
 .stat-card:first-child{ border-radius:10px 2px 2px 10px }
@@ -52,43 +27,19 @@
 .stat-num{ font-family:'Tajawal',sans-serif; font-size:1.6rem; font-weight:800; color:var(--gold) }
 .stat-lbl{ font-size:.72rem; color:var(--white); margin-top:.1rem }
 
-
-/* ── 👇 التروس والمعدات المتحركة في الأقسام السفلية الفارغة 👇 ── */
-.bg-tools-container {
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  pointer-events: none;
-  overflow: hidden;
-  z-index: 0; /* خلف المحتوى الأساسي للأقسام السفلية */
-}
-/* تعديل الأقسام لتكون relative حتى تحتفظ بالمعدات بداخلها */
+/* ── التروس والمعدات ── */
+.bg-tools-container { position: absolute; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; overflow: hidden; z-index: 0; }
 .why-sec, .svc-sec, .test-sec { position: relative; }
-
-.bg-tool {
-  position: absolute;
-  opacity: 0.04; /* شفافية خفيفة جداً لعدم التشتيت */
-  color: var(--gold);
-}
-.bg-tool svg {
-  width: 100%; height: 100%; fill: currentColor;
-}
-
-/* توزيع التروس في قسم "لماذا نحن" */
+.bg-tool { position: absolute; opacity: 0.04; color: var(--gold); }
+.bg-tool svg { width: 100%; height: 100%; fill: currentColor; }
 .t-why-1 { width: 140px; top: 10%; right: -30px; animation: spinGear 40s linear infinite; }
 .t-why-2 { width: 80px; bottom: 15%; left: 5%; animation: floatSpace 8s ease-in-out infinite 1s; }
-
-/* توزيع التروس والمفاتيح في قسم "خدماتنا" */
 .t-svc-1 { width: 180px; top: -40px; left: -50px; animation: spinGear 50s linear infinite reverse; }
 .t-svc-2 { width: 90px; bottom: 20%; right: 8%; transform: rotate(45deg); animation: floatSpace 6s ease-in-out infinite; }
-
-/* توزيع التروس في قسم "آراء العملاء" */
 .t-test-1 { width: 120px; top: 20%; left: -20px; animation: spinGear 35s linear infinite; }
 .t-test-2 { width: 100px; bottom: -20px; right: -20px; animation: spinGear 45s linear infinite reverse; }
-
 @keyframes spinGear { 100% { transform: rotate(360deg); } }
 @keyframes floatSpace { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
-/* ── 👆 نهاية تنسيقات المعدات الخلفية 👆 ── */
-
 
 /* ── WHY ── */
 .why-sec{background:var(--navy-mid)}
@@ -143,24 +94,8 @@
 .c-item{display:flex;align-items:center;gap:.55rem;color:var(--body-text);font-size:.88rem}
 
 /* ── RESPONSIVE ── */
-@media(max-width:900px){
-  .hero{padding:10rem 5% 18rem} 
-  .hero-content{max-width:100%}
-  .hero-text{margin-right:auto;margin-left:auto}
-  .hero-actions{justify-content:center}
-  .hero-stats{bottom:2rem;flex-wrap:wrap;gap:4px; justify-content: space-around;}
-  .stat-card{min-width:calc(50% - 4px); flex: 0 1 calc(50% - 4px); border-radius:6px!important}
-  .about-sec{grid-template-columns:1fr}
-  .about-visual{order:-1}
-}
-@media(max-width:600px){
-  .hero{padding:9rem 4% 19rem}
-  .hero h1 { font-size:clamp(1.8rem, 8vw, 2.5rem); } 
-  .hero-actions{flex-direction:column;gap:.7rem}
-  .hero-actions a{width:100%;justify-content:center}
-  .contact-items{flex-direction:column;align-items:center;gap:1rem}
-  .bg-tool { opacity: 0.02; } /* تقليل التروس جدا في الموبايل */
-}
+@media(max-width:900px){ .hero{padding:10rem 5% 18rem} .hero-content{max-width:100%} .hero-text{margin-right:auto;margin-left:auto} .hero-actions{justify-content:center} .hero-stats{bottom:2rem;flex-wrap:wrap;gap:4px; justify-content: space-around;} .stat-card{min-width:calc(50% - 4px); flex: 0 1 calc(50% - 4px); border-radius:6px!important} .about-sec{grid-template-columns:1fr} .about-visual{order:-1} }
+@media(max-width:600px){ .hero{padding:9rem 4% 19rem} .hero h1 { font-size:clamp(1.8rem, 8vw, 2.5rem); } .hero-actions{flex-direction:column;gap:.7rem} .hero-actions a{width:100%;justify-content:center} .contact-items{flex-direction:column;align-items:center;gap:1rem} .bg-tool { opacity: 0.02; } }
 </style>
 </head>
 <body class="has-ebar">
@@ -200,7 +135,6 @@
 </div>
 
 <section class="hero" id="home">
-  
   <div class="hero-content">
     <div class="hero-badge">خدمة منزلية احترافية ومعتمدة</div>
     <h1>راحة بالك تبدأ من هنا..<br/><em>صيانة منزلية متكاملة</em><br/>بضغطة زر</h1>
@@ -210,7 +144,6 @@
       <a href="#services" class="btn-outline">تصفح خدماتنا ←</a>
     </div>
   </div>
-
   <div class="hero-stats">
     <div class="stat-card"><div class="stat-num">+5000</div><div class="stat-lbl">عميل سعيد</div></div>
     <div class="stat-card"><div class="stat-num">+200</div><div class="stat-lbl">فني معتمد</div></div>
@@ -221,10 +154,9 @@
 
 <section class="section why-sec" id="why">
   <div class="bg-tools-container">
-    <div class="bg-tool t-why-1"><svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.06-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.05-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.56-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22l-1.92 3.32c-.12.22-.07.49.12.61l2.03 1.58c-.04.3-.06.61-.06.94s.02.64.06.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .43-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.49-.12-.61l-2.03-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></div>
-    <div class="bg-tool t-why-2"><svg viewBox="0 0 24 24"><path d="M21.71 20.29l-9.53-9.53C12.75 9.77 13 8.4 12.64 7c-.43-1.64-1.7-2.92-3.35-3.36-1.95-.51-3.92.27-5.01 1.81l3.01 3.01c.2.2.2.51 0 .71l-1.41 1.41c-.2.2-.51.2-.71 0L2.16 7.57C.62 8.66-.16 10.63.35 12.58c.44 1.65 1.72 2.92 3.36 3.36 1.4.36 2.77.1 3.76-.48l9.53 9.53c.39.39 1.02.39 1.41 0l3.3-3.3c.39-.38.39-1.01 0-1.4z"/></svg></div>
+    <div class="bg-tool t-why-1"><svg viewBox="0 0 24 24"><path d="..."></path></svg></div>
+    <div class="bg-tool t-why-2"><svg viewBox="0 0 24 24"><path d="..."></path></svg></div>
   </div>
-
   <div class="section-tag" style="position:relative; z-index:2;">▸ لماذا نحن</div>
   <h2 class="section-title" style="position:relative; z-index:2;">لماذا نُعد الخيار الآمن والأول لأسرتك؟</h2>
   <p class="section-sub" style="position:relative; z-index:2;">لأننا لا نقدم مجرد تصليح أعطال، بل نقدم تجربة خالية من التوتر ترتكز على راحتك وأمان منزلك.</p>
@@ -239,18 +171,17 @@
 
 <section class="section svc-sec" id="services">
   <div class="bg-tools-container">
-    <div class="bg-tool t-svc-1"><svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.06-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.05-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.56-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22l-1.92 3.32c-.12.22-.07.49.12.61l2.03 1.58c-.04.3-.06.61-.06.94s.02.64.06.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .43-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.49-.12-.61l-2.03-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></div>
-    <div class="bg-tool t-svc-2"><svg viewBox="0 0 24 24"><path d="M21.71 20.29l-9.53-9.53C12.75 9.77 13 8.4 12.64 7c-.43-1.64-1.7-2.92-3.35-3.36-1.95-.51-3.92.27-5.01 1.81l3.01 3.01c.2.2.2.51 0 .71l-1.41 1.41c-.2.2-.51.2-.71 0L2.16 7.57C.62 8.66-.16 10.63.35 12.58c.44 1.65 1.72 2.92 3.36 3.36 1.4.36 2.77.1 3.76-.48l9.53 9.53c.39.39 1.02.39 1.41 0l3.3-3.3c.39-.38.39-1.01 0-1.4z"/></svg></div>
+    <div class="bg-tool t-svc-1"><svg viewBox="0 0 24 24"><path d="..."></path></svg></div>
+    <div class="bg-tool t-svc-2"><svg viewBox="0 0 24 24"><path d="..."></path></svg></div>
   </div>
-
   <div class="section-tag" style="position:relative; z-index:2;">▸ خدماتنا</div>
   <h2 class="section-title" style="position:relative; z-index:2;">حلول متكاملة تحت سقف واحد</h2>
   <p class="section-sub" style="position:relative; z-index:2;">نغطي جميع احتياجاتك المنزلية بفريق من الخبراء المتخصصين في كل مجال.</p>
   <div class="svc-grid reveal">
-    <div class="svc-card"><span class="svc-num">01</span><span class="svc-icon">🔌</span><h3>صيانة الكهرباء</h3><p>من إصلاح التماسات الكهربائية الخطيرة إلى تركيب وحدات الإضاءة وتأسيس الشبكات.</p><a href="technicians.html" class="svc-link">اطلب الخدمة ←</a></div>
-    <div class="svc-card"><span class="svc-num">02</span><span class="svc-icon">🔧</span><h3>صيانة السباكة</h3><p>وداعاً لتسربات المياه وانسداد المواسير. أحدث أدوات الكشف عن التسربات دون تكسير.</p><a href="technicians.html" class="svc-link">اطلب الخدمة ←</a></div>
-    <div class="svc-card"><span class="svc-num">03</span><span class="svc-icon">❄️</span><h3>صيانة التكييفات</h3><p>هواء نقي وبارد طوال الصيف. غسيل عميق، شحن فريون، ومعالجة ضعف التبريد لجميع الماركات.</p><a href="technicians.html" class="svc-link">اطلب الخدمة ←</a></div>
-    <div class="svc-card"><span class="svc-num">04</span><span class="svc-icon">🏠</span><h3>صيانة الأجهزة المنزلية</h3><p>تعطلت الغسالة أو الثلاجة؟ خبراؤنا يعيدون أجهزتك للعمل بكفاءتها الأولى مع قطع غيار أصلية.</p><a href="technicians.html" class="svc-link">اطلب الخدمة ←</a></div>
+    <div class="svc-card"><span class="svc-num">01</span><span class="svc-icon">🔌</span><h3>صيانة الكهرباء</h3><p>من إصلاح التماسات الكهربائية الخطيرة إلى تركيب وحدات الإضاءة.</p><a href="technicians.html?filter=electric" class="svc-link">اطلب الخدمة ←</a></div>
+    <div class="svc-card"><span class="svc-num">02</span><span class="svc-icon">🔧</span><h3>صيانة السباكة</h3><p>وداعاً لتسربات المياه وانسداد المواسير. أدوات للكشف دون تكسير.</p><a href="technicians.html?filter=plumbing" class="svc-link">اطلب الخدمة ←</a></div>
+    <div class="svc-card"><span class="svc-num">03</span><span class="svc-icon">❄️</span><h3>صيانة التكييفات</h3><p>هواء نقي وبارد. غسيل عميق، شحن فريون، ومعالجة ضعف التبريد.</p><a href="technicians.html?filter=ac" class="svc-link">اطلب الخدمة ←</a></div>
+    <div class="svc-card"><span class="svc-num">04</span><span class="svc-icon">🏠</span><h3>صيانة الأجهزة المنزلية</h3><p>تعطلت الغسالة؟ خبراؤنا يعيدون أجهزتك للعمل بكفاءة مع قطع أصلية.</p><a href="technicians.html?filter=appliances" class="svc-link">اطلب الخدمة ←</a></div>
   </div>
   <div style="margin-top:2.2rem; position:relative; z-index:2;"><a href="technicians.html" class="btn-primary">📋 تصفح جميع خدماتنا</a></div>
 </section>
@@ -271,10 +202,9 @@
 
 <section class="section test-sec" id="testimonials">
   <div class="bg-tools-container">
-    <div class="bg-tool t-test-1"><svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.06-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.05-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.56-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22l-1.92 3.32c-.12.22-.07.49.12.61l2.03 1.58c-.04.3-.06.61-.06.94s.02.64.06.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .43-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.49-.12-.61l-2.03-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></div>
-    <div class="bg-tool t-test-2"><svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.06-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.05-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.56-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22l-1.92 3.32c-.12.22-.07.49.12.61l2.03 1.58c-.04.3-.06.61-.06.94s.02.64.06.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .43-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.49-.12-.61l-2.03-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></div>
+    <div class="bg-tool t-test-1"><svg viewBox="0 0 24 24"><path d="..."></path></svg></div>
+    <div class="bg-tool t-test-2"><svg viewBox="0 0 24 24"><path d="..."></path></svg></div>
   </div>
-
   <div class="section-tag" style="position:relative; z-index:2;">▸ آراء العملاء</div>
   <h2 class="section-title" style="position:relative; z-index:2;">ماذا يقول عملاؤنا؟</h2>
   <p class="section-sub" style="position:relative; z-index:2;">ثقة عملائنا هي أكبر إنجازاتنا.</p>
@@ -310,7 +240,6 @@
 <a href="technicians.html" class="float-cta">⚡ اطلب فني الآن</a>
 
 <script>
-// ── NAV USER STATUS ──
 const status=sessionStorage.getItem('loggedIn');
 const via=sessionStorage.getItem('via')||'';
 const name=sessionStorage.getItem('userName')||'';
@@ -328,22 +257,15 @@ if(status==='true'){
   badge.style.cssText='display:inline-block;font-size:.76rem;color:var(--muted);font-weight:600;padding:.28rem .7rem;background:rgba(255,255,255,.05);border-radius:6px;border:1px solid rgba(255,255,255,.1)';
   badge.textContent='👤 زائر';
 }
-
-// ── HAMBURGER ──
 function toggleMenu(){
-  const ham=document.getElementById('ham');
-  const menu=document.getElementById('mob-menu');
-  ham.classList.toggle('open');
-  menu.classList.toggle('open');
+  const ham=document.getElementById('ham'), menu=document.getElementById('mob-menu');
+  ham.classList.toggle('open'); menu.classList.toggle('open');
   document.body.style.overflow=menu.classList.contains('open')?'hidden':'';
 }
 function closeMenu(){
-  document.getElementById('ham').classList.remove('open');
-  document.getElementById('mob-menu').classList.remove('open');
+  document.getElementById('ham').classList.remove('open'); document.getElementById('mob-menu').classList.remove('open');
   document.body.style.overflow='';
 }
-
-// ── SCROLL REVEAL ──
 const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');})},{threshold:.1});
 document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 </script>

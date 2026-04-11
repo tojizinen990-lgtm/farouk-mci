@@ -269,7 +269,7 @@ function setErr(id,show){const el=document.getElementById(id);if(el)el.classList
 function setIE(id,has){const el=document.getElementById(id);if(el)el.classList.toggle('ie',has);}
 
 function redirect(){
-  window.location.href='index.html';
+  window.location.href='technicians.html';
 }
 
 // ===============================================
@@ -302,7 +302,8 @@ async function doLogin(){
       sessionStorage.setItem('loggedIn', 'true');
       sessionStorage.setItem('userName', data.userName);
       sessionStorage.setItem('token', data.token); 
-      setTimeout(() => { window.location.href = 'index.html'; }, 1100);
+      // 🟢 التحويل التلقائي لصفحة الفنيين بعد الدخول
+      setTimeout(() => { window.location.href = 'technicians.html'; }, 1100);
     } else {
       showToast('❌ ' + data.error, 'err');
       btn.classList.remove('ld'); btn.textContent='🔓 تسجيل الدخول';
@@ -365,12 +366,14 @@ function goSocial(p){
     sessionStorage.setItem('loggedIn','true');
     sessionStorage.setItem('via',p);
     showToast('✅ تم الدخول بنجاح!','ok');
-    setTimeout(()=>{window.location.href='index.html';},900);
+    // 🟢 التحويل التلقائي لصفحة الفنيين بعد الدخول كزائر أو سوشيال
+    setTimeout(()=>{window.location.href='index.html  ';},900);
   },1700);
 }
 
 function goGuest(){
   showToast('👤 دخول كزائر...','ok');
+  // 🟢 التحويل التلقائي لصفحة الفنيين بعد الدخول كزائر أو سوشيال
   setTimeout(()=>{sessionStorage.setItem('loggedIn','guest');window.location.href='index.html';},700);
 }
 
