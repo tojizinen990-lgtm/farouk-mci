@@ -32,27 +32,53 @@ a { text-decoration: none; }
 .nav-login-btn { color: var(--white); font-size: 0.9rem; font-weight: 600; transition: color 0.3s; cursor: pointer; }
 .nav-login-btn:hover { color: var(--gold); }
 
-/* زر طلباتي */
-.my-orders-btn { display: none; align-items: center; gap: 0.4rem; background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.4); padding: 0.4rem 0.8rem; border-radius: 6px; color: #93c5fd; font-size: 0.85rem; font-weight: 700; transition: 0.2s; }
+/* أزرار طلباتي والاستفسارات */
+.my-orders-btn { display: none; align-items: center; gap: 0.4rem; background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.4); padding: 0.4rem 0.8rem; border-radius: 6px; color: #93c5fd; font-size: 0.85rem; font-weight: 700; transition: 0.2s; cursor: pointer; }
 .my-orders-btn:hover { background: rgba(59, 130, 246, 0.2); color: white; }
+.complaints-btn { background: rgba(201, 168, 76, 0.1); border: 1px solid rgba(201, 168, 76, 0.4); color: var(--gold); }
+.complaints-btn:hover { background: rgba(201, 168, 76, 0.2); color: var(--gold-light); }
 
-.hamburger { display: none; background: none; border: none; cursor: pointer; flex-direction: column; gap: 4px; }
+/* 🟢 زر الثلاث شرط (Hamburger) 🟢 */
+.hamburger { display: flex; background: none; border: none; cursor: pointer; flex-direction: column; gap: 5px; padding: 5px; }
 .hamburger span { width: 25px; height: 3px; background: var(--white); border-radius: 2px; transition: 0.3s; }
-.mobile-nav { display: none; position: fixed; inset: 0; background: var(--navy); z-index: 98; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; transform: translateY(-100%); transition: 0.3s; }
-.mobile-nav.open { transform: translateY(0); }
-.mobile-nav a { color: var(--white); font-size: 1.5rem; font-weight: 700; }
+.hamburger:hover span { background: var(--gold); }
+
+/* 🟢 القائمة الجانبية (Sidebar) 🟢 */
+.sidebar { position: fixed; top: 0; right: -320px; width: 320px; height: 100vh; background: var(--navy-mid); z-index: 1001; transition: right 0.3s ease; box-shadow: -5px 0 25px rgba(0,0,0,0.5); display: flex; flex-direction: column; border-left: 1px solid rgba(201,168,76,0.2); }
+.sidebar.open { right: 0; }
+.sidebar-overlay { position: fixed; inset: 0; background: rgba(10,17,40,0.8); backdrop-filter: blur(4px); z-index: 1000; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+.sidebar-overlay.open { opacity: 1; pointer-events: auto; }
+.sidebar-header { padding: 1rem; display: flex; justify-content: flex-end; }
+.close-sidebar { background: rgba(255,255,255,0.05); border: none; color: var(--white); width: 35px; height: 35px; border-radius: 50%; cursor: pointer; font-size: 1.2rem; transition: 0.2s; display: flex; align-items: center; justify-content: center; }
+.close-sidebar:hover { background: rgba(239,68,68,0.2); color: #ef4444; }
+
+/* بروفايل العميل في القائمة الجانبية */
+.sidebar-profile { padding: 0 1.5rem 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.05); text-align: center; }
+.sp-avatar { width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, var(--gold), var(--gold-light)); color: var(--navy); display: flex; align-items: center; justify-content: center; font-size: 2.5rem; font-weight: 900; margin: 0 auto 1rem; border: 3px solid rgba(201,168,76,0.3); }
+.sp-name { font-family: 'Tajawal', sans-serif; font-size: 1.2rem; font-weight: 800; color: var(--white); margin-bottom: 0.3rem; }
+.sp-info { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.2rem; direction: ltr; }
+
+/* روابط القائمة الجانبية */
+.sidebar-links { list-style: none; padding: 1rem 0; margin: 0; flex: 1; overflow-y: auto; }
+.sidebar-links li a { display: flex; align-items: center; gap: 1rem; padding: 1rem 1.5rem; color: var(--body-text); font-weight: 600; font-size: 0.95rem; transition: 0.2s; border-right: 3px solid transparent; }
+.sidebar-links li a:hover { background: rgba(255,255,255,0.03); color: var(--gold); border-right-color: var(--gold); }
+.sidebar-links li a .icon { font-size: 1.2rem; width: 24px; text-align: center; }
+.logout-link { color: #fca5a5 !important; }
+.logout-link:hover { background: rgba(239,68,68,0.05) !important; color: #ef4444 !important; border-right-color: #ef4444 !important; }
+
 .btn-primary { background: linear-gradient(135deg, var(--gold), var(--gold-light)); color: var(--navy); padding: 0.8rem 1.5rem; border-radius: 8px; font-weight: 700; display: inline-flex; align-items: center; }
 
 /* PAGE HERO */
-.page-hero{background:linear-gradient(135deg,var(--navy-mid),var(--navy-light));padding:8rem 5% 1.8rem;position:relative;overflow:hidden;border-bottom:1px solid rgba(201,168,76,.1)}
-.page-hero::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(201,168,76,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,.04) 1px,transparent 1px);background-size:48px 48px}
-.page-hero-c{position:relative;z-index:2}
-.page-hero h1{font-family:'Tajawal',sans-serif;font-size:clamp(1.4rem,3vw,2.1rem);font-weight:800;margin-bottom:.3rem}
-.page-hero h1 span{color:var(--gold)}
-.page-hero p{color:var(--body-text);font-size:.9rem}
+.page-hero { background-image: url('plumbing-services-500x500.webp'); background-size: cover; background-position: center; padding: 10rem 5% 5rem; position: relative; overflow: hidden; border-bottom: 1px solid rgba(201,168,76,.1); text-align: center; }
+.page-hero::before { content: ''; position: absolute; inset: 0; background-color: rgba(10, 22, 40, 0.82); z-index: 1; }
+.page-hero::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at center, transparent 0%, var(--navy) 100%); z-index: 2; }
+.page-hero-c { position: relative; z-index: 10; max-width: 800px; margin: 0 auto; }
+.page-hero h1 { font-family: 'Tajawal', sans-serif; font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800; margin-bottom: 0.5rem; color: var(--white); }
+.page-hero h1 span { color: var(--gold); }
+.page-hero p { color: var(--body-text); font-size: 1.05rem; }
 
 /* FLOATING TOOLS */
-.floating-tools { position: absolute; inset: 0; z-index: 1; pointer-events: none; overflow: hidden; }
+.floating-tools { position: absolute; inset: 0; z-index: 3; pointer-events: none; overflow: hidden; }
 .f-tool { position: absolute; opacity: 0.12; color: var(--gold); display: flex; align-items: center; justify-content: center; }
 .f-tool svg { width: 100%; height: 100%; fill: currentColor; display: block; }
 .ft1 { width: 80px; height: 80px; top: 10%; left: 8%; animation: floatSpace 7s ease-in-out infinite; }
@@ -141,25 +167,32 @@ a { text-decoration: none; }
 /* MODALS */
 .overlay{position:fixed;inset:0;background:rgba(10,17,40,.85);backdrop-filter:blur(5px);z-index:1000;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s}
 .overlay.open{opacity:1;pointer-events:auto}
-.modal-box{background:var(--navy-mid);border:1px solid rgba(201,168,76,.2);border-radius:18px;width:90%;max-width:450px;padding:2rem;position:relative;transform:translateY(24px) scale(.96);transition:transform .3s;max-height:90vh;overflow-y:auto}
+.modal-box{background:var(--navy-mid);border:1px solid rgba(201,168,76,.2);border-radius:18px;width:90%;max-width:450px;padding:2rem;position:relative;transform:translateY(24px) scale(.96);transition:transform .3s;max-height:90vh;overflow-y:auto;box-shadow: 0 10px 40px rgba(0,0,0,0.8);}
 .overlay.open .modal-box{transform:translateY(0) scale(1)}
 .modal-close{position:absolute;top:1rem;left:1rem;background:rgba(255,255,255,.05);border:none;color:var(--muted);width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;transition:0.2s;}
 .modal-close:hover{background:rgba(255,255,255,.1);color:var(--white);}
+.modal-title{font-family:'Tajawal',sans-serif;font-size:1.4rem;font-weight:800;margin-bottom:1.5rem; text-align:center;}
+.modal-title em{font-style:normal;color:var(--gold)}
+.modal-avatar-sm { width:48px; height:48px; border-radius:50%; border:2px solid rgba(201,168,76,.3); padding:2px; background:rgba(201,168,76,.05); display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; }
+.modal-avatar-sm svg { width:100%; height:100%; border-radius:50%; }
 
 /* BOOKING MODAL */
 .modal-sub{display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:1px solid rgba(255,255,255,.05)}
-.modal-avatar-sm{width:48px;height:48px;border-radius:50%;border:2px solid rgba(201,168,76,.3);padding:2px;background:rgba(201,168,76,.05)}
-.modal-avatar-sm svg{width:100%;height:100%;border-radius:50%}
-.modal-title{font-family:'Tajawal',sans-serif;font-size:1.4rem;font-weight:800;margin-bottom:1.5rem}
-.modal-title em{font-style:normal;color:var(--gold)}
 .fgrow{display:flex;gap:1rem}
 .fg{margin-bottom:1rem;flex:1}
 .fg label{display:block;font-size:.75rem;color:var(--muted);margin-bottom:.4rem;font-weight:600}
-.fg input, .fg textarea{width:100%;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.1);color:var(--white);padding:.7rem .9rem;border-radius:8px;font-family:'Cairo',sans-serif;font-size:.85rem;outline:none;transition:0.2s}
-.fg input:focus, .fg textarea:focus{border-color:var(--gold);background:rgba(201,168,76,.02)}
+.fg input, .fg textarea, .fg select {width:100%;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.1);color:var(--white);padding:.7rem .9rem;border-radius:8px;font-family:'Cairo',sans-serif;font-size:.85rem;outline:none;transition:0.2s}
+.fg input:focus, .fg textarea:focus, .fg select:focus {border-color:var(--gold);background:rgba(201,168,76,.02)}
 .fg textarea{resize:vertical;min-height:80px}
+.fg select option {background: var(--navy-mid); color: white;}
 .btn-submit{width:100%;padding:.8rem;background:linear-gradient(135deg,var(--gold),var(--gold-light));color:var(--navy);border:none;border-radius:8px;font-family:'Cairo',sans-serif;font-size:.9rem;font-weight:800;cursor:pointer;margin-top:1rem;transition:0.2s}
 .btn-submit:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(201,168,76,.3)}
+
+/* 🟢 زر الواتساب داخل الشكاوى 🟢 */
+.btn-whatsapp { display: flex; align-items: center; justify-content: center; gap: 0.5rem; width: 100%; padding: 0.8rem; background: linear-gradient(135deg, #25D366, #128C7E); color: white; border: none; border-radius: 8px; font-family: 'Cairo', sans-serif; font-size: 0.95rem; font-weight: 800; cursor: pointer; transition: 0.2s; text-decoration: none; }
+.btn-whatsapp:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(37, 211, 102, 0.4); color: white; }
+.btn-whatsapp svg { fill: white; }
+
 .success-box{text-align:center;display:none;padding:2rem 0}
 .success-ring{width:80px;height:80px;border-radius:50%;background:rgba(46,204,113,.1);color:var(--green);font-size:2.5rem;display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;border:2px solid rgba(46,204,113,.3)}
 
@@ -221,11 +254,10 @@ a { text-decoration: none; }
 .ao-row { display: flex; justify-content: space-between; margin-bottom: 0.4rem; }
 .ao-row:last-child { margin-bottom: 0; }
 @keyframes slideInRight { from { opacity: 0; transform: translateX(50px); } to { opacity: 1; transform: translateX(0); } }
-@keyframes pulseGold { 0% { box-shadow: 0 0 0 0 rgba(201,168,76,0.7); } 70% { box-shadow: 0 0 0 6px rgba(201,168,76,0); } 100% { box-shadow: 0 0 0 0 rgba(201,168,76,0); } }
 
-/* 🟢 تنسيقات كروت "طلباتي" 🟢 */
-.order-hist-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 1rem; display: flex; flex-direction: column; gap: 0.6rem; transition: 0.2s; }
-.order-hist-card:hover { border-color: rgba(201,168,76,0.3); background: rgba(255,255,255,0.05); }
+/* 🟢 CSS الخاص بتفاصيل الطلب و الشكاوى 🟢 */
+.order-hist-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 1rem; display: flex; flex-direction: column; gap: 0.6rem; transition: 0.2s; cursor: pointer; margin-bottom: 0.8rem;}
+.order-hist-card:hover { border-color: rgba(201,168,76,0.3); background: rgba(255,255,255,0.05); transform: translateY(-2px);}
 .order-hist-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 0.6rem; }
 .order-hist-date { font-size: 0.75rem; color: var(--muted); }
 .order-hist-status { font-size: 0.7rem; font-weight: bold; padding: 0.2rem 0.6rem; border-radius: 20px; }
@@ -235,21 +267,36 @@ a { text-decoration: none; }
 .order-hist-info h4 { font-family: 'Tajawal', sans-serif; font-size: 0.95rem; margin-bottom: 0.2rem; color: white; }
 .order-hist-info span { font-size: 0.75rem; color: var(--muted); }
 
+.order-details-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 1.5rem; margin-bottom: 1rem; }
+.od-row { display: flex; justify-content: space-between; padding: 0.6rem 0; border-bottom: 1px dashed rgba(255,255,255,0.05); }
+.od-row:last-child { border-bottom: none; }
+.od-label { color: var(--muted); font-size: 0.8rem; font-weight: 600;}
+.od-value { color: var(--white); font-weight: 700; font-size: 0.9rem; text-align: left; max-width: 65%; line-height:1.4;}
+.btn-danger { background: rgba(239, 68, 68, 0.1); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.3); }
+.btn-danger:hover { background: rgba(239, 68, 68, 0.2); border-color: #ef4444; color: #ef4444; transform: translateY(-2px); box-shadow: 0 4px 15px rgba(239, 68, 68, 0.2);}
+
 /* LOADING SPINNER */
 .loader-container { width: 100%; display: flex; justify-content: center; align-items: center; height: 300px; grid-column: 1 / -1; }
 .spinner { width: 50px; height: 50px; border: 5px solid rgba(201,168,76,0.2); border-top-color: var(--gold); border-radius: 50%; animation: spin 1s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
 
+.hide-mob { display: inline; }
+
 /* RESPONSIVE */
 @media(max-width:1200px){.grid{grid-template-columns:repeat(3,1fr)}}
-@media(max-width:860px){.grid{grid-template-columns:repeat(2,1fr)}.fbar{top:36px!important;position:sticky}.hamburger{display:flex}.nav-actions .nav-login-btn{display:none}}
+@media(max-width:860px){
+  .grid{grid-template-columns:repeat(2,1fr)}
+  .fbar{top:36px!important;position:sticky}
+  .nav-login-btn {display:none} 
+  .hide-mob { display: none !important; }
+  .my-orders-btn { padding: 0.4rem; }
+}
 @media(max-width:500px){
   .grid{grid-template-columns:1fr}
   .fbar{gap:.4rem; padding: 0.8rem 5%; justify-content:center}
   .fbtn{font-size:.74rem;padding:.38rem .7rem} 
   .modal-box{padding:1.5rem}
   .active-order-widget { right: 10px; left: 10px; width: auto; bottom: 85px; } 
-  .my-orders-btn span { display: none; }
 }
 </style>
 </head>
@@ -260,26 +307,47 @@ a { text-decoration: none; }
 <nav class="navbar">
   <a href="index.html" class="nav-logo">صيانة<span>بلس</span></a>
   <div class="nav-actions">
-    <button class="my-orders-btn" id="my-orders-btn" onclick="openMyOrders()">📦 <span>طلباتي</span></button>
-    <span id="user-badge" style="display:none"></span>
-    <a href="index.html" class="nav-login-btn">← الرئيسية</a>
-    <!-- تم إضافة زر تسجيل الدخول (كعنصر غير مرئي افتراضياً) لتجنب الأخطاء البرمجية -->
-    <a href="auth.html" class="nav-login-btn" id="login-nav-btn" style="display: none;">👤 دخول</a>
-    <button class="hamburger" id="ham" onclick="toggleMenu()" aria-label="قائمة"><span></span><span></span><span></span></button>
+    <!-- أزرار الشكاوى و طلباتي (يتم إخفاء النصوص فيها على الموبايل عبر hide-mob) -->
+    <button class="my-orders-btn complaints-btn" id="complaints-btn" onclick="openComplaint()">💬 <span class="hide-mob">استفسارات</span></button>
+    <button class="my-orders-btn" id="my-orders-btn" onclick="openMyOrders()">📦 <span class="hide-mob">طلباتي</span></button>
+    
+    <span id="user-badge" style="display:none" class="hide-mob"></span>
+    <a href="index.html" class="nav-login-btn hide-mob">← الرئيسية</a>
+    <a href="auth.html" class="nav-login-btn hide-mob" id="login-nav-btn" style="display: none;">👤 دخول</a>
+    
+    <!-- 🟢 زر الثلاث شرط لفتح القائمة الجانبية (ظاهر دائماً) 🟢 -->
+    <button class="hamburger" id="ham" onclick="openSidebar()" aria-label="قائمة">
+        <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>
 
-<div class="mobile-nav" id="mob-menu">
-  <a href="index.html" onclick="closeMenu()">الرئيسية</a>
-  <a href="#" onclick="closeMenu(); openMyOrders();">📦 طلباتي</a>
-  <div class="mob-btns">
-    <a href="tel:19777" class="btn-primary" style="justify-content:center">📞 اتصل 19777</a>
+<!-- 🟢 القائمة الجانبية (Sidebar) 🟢 -->
+<div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <button class="close-sidebar" onclick="closeSidebar()">✕</button>
   </div>
+  
+  <!-- بيانات بروفايل العميل ستُحقن هنا -->
+  <div class="sidebar-profile" id="sidebar-profile"></div>
+  
+  <ul class="sidebar-links">
+     <li><a href="index.html"><span class="icon">🏠</span> الرئيسية</a></li>
+     <li><a href="technicians.html"><span class="icon">👨‍🔧</span> تصفح الفنيين</a></li>
+     <li><a href="#" onclick="closeSidebar(); openMyOrders();"><span class="icon">📦</span> طلباتي</a></li>
+     <li><a href="#" onclick="closeSidebar(); openComplaint();"><span class="icon">💬</span> الاستفسارات والشكاوى</a></li>
+     <li><a href="index.html#contact" onclick="closeSidebar();"><span class="icon">📞</span> تواصل معنا</a></li>
+     <li><a href="#" onclick="alert('سيتم إضافة بوابات الدفع الإلكتروني (فيزا، ماستركارد، فودافون كاش) قريباً!')"><span class="icon">💳</span> طرق الدفع</a></li>
+     <li><a href="#" onclick="alert('شارك الرابط مع أصدقائك واربح خصم 20% على زيارتك القادمة!')"><span class="icon">🤝</span> دعوة الأصدقاء</a></li>
+     <li><a href="#" onclick="alert('سيتم فتح الكاميرا للمسح الضوئي (QR code)')"><span class="icon">📷</span> مسح ضوئي (QR)</a></li>
+     <li id="sidebar-logout" style="display:none; margin-top: 10px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 10px;"><a href="#" onclick="logoutUser()" class="logout-link"><span class="icon">🚪</span> تسجيل خروج</a></li>
+  </ul>
 </div>
 
 <div class="page-hero">
   <div class="floating-tools">
-    <div class="f-tool ft1"><svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.06-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.05-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.56-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22l-1.92 3.32c-.12.22-.07-.49.12.61l2.03 1.58c-.04.3-.06.61-.06.94s.02.64.06.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .43-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.49-.12-.61l-2.03-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></div>
+    <div class="f-tool ft1"><svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.06-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.05-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.56-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22l-1.92 3.32c-.12.22-.07.49.12.61l2.03 1.58c-.04.3-.06.61-.06.94s.02.64.06.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .43-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.49-.12-.61l-2.03-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></div>
     <div class="f-tool ft2"><svg viewBox="0 0 24 24"><path d="M21.71 20.29l-9.53-9.53C12.75 9.77 13 8.4 12.64 7c-.43-1.64-1.7-2.92-3.35-3.36-1.95-.51-3.92.27-5.01 1.81l3.01 3.01c.2.2.2.51 0 .71l-1.41 1.41c-.2.2-.51.2-.71 0L2.16 7.57C.62 8.66-.16 10.63.35 12.58c.44 1.65 1.72 2.92 3.36 3.36 1.4.36 2.77.1 3.76-.48l9.53 9.53c.39.39 1.02.39 1.41 0l3.3-3.3c.39-.38.39-1.01 0-1.4z"/></svg></div>
     <div class="f-tool ft3"><svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.06-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.05-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.56-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22l-1.92 3.32c-.12.22-.07.49.12.61l2.03 1.58c-.04.3-.06.61-.06.94s.02.64.06.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .43-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.49-.12-.61l-2.03-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></div>
     <div class="f-tool ft4"><svg viewBox="0 0 24 24"><path d="M21.71 20.29l-9.53-9.53C12.75 9.77 13 8.4 12.64 7c-.43-1.64-1.7-2.92-3.35-3.36-1.95-.51-3.92.27-5.01 1.81l3.01 3.01c.2.2.2.51 0 .71l-1.41 1.41c-.2.2-.51.2-.71 0L2.16 7.57C.62 8.66-.16 10.63.35 12.58c.44 1.65 1.72 2.92 3.36 3.36 1.4.36 2.77.1 3.76-.48l9.53 9.53c.39.39 1.02.39 1.41 0l3.3-3.3c.39-.38.39-1.01 0-1.4z"/></svg></div>
@@ -319,14 +387,79 @@ a { text-decoration: none; }
 </div>
 
 <!-- ============================================== -->
-<!-- النوافذ المنبثقة (البدائل، الحجز، الشات، الطوارئ، وطلباتي) -->
+<!-- النوافذ المنبثقة (البدائل، الحجز، الشات، الطوارئ، طلباتي، والشكاوى) -->
 <!-- ============================================== -->
 
+<!-- 🟢 نافذة الشكاوى والاستفسارات 🟢 -->
+<div class="overlay" id="complaint-ov">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeComplaint()">✕</button>
+    <div class="modal-title" style="margin-bottom: 1.5rem; text-align:center;">شكاوى <em>واستفسارات</em> 💬</div>
+    
+    <div id="complaint-form">
+      <div class="fg">
+        <label style="display:block; font-size: 0.75rem; color: var(--muted); margin-bottom: 0.4rem;">الاسم</label>
+        <input type="text" id="comp-name" class="sos-input" placeholder="أدخل اسمك الكريم" style="padding:0.7rem 0.9rem;"/>
+      </div>
+      <div class="fg">
+        <label style="display:block; font-size: 0.75rem; color: var(--muted); margin-bottom: 0.4rem;">رقم الهاتف أو الإيميل</label>
+        <input type="text" id="comp-contact" class="sos-input" placeholder="للتواصل معك" style="padding:0.7rem 0.9rem;"/>
+      </div>
+      <div class="fg">
+        <label style="display:block; font-size: 0.75rem; color: var(--muted); margin-bottom: 0.4rem;">نوع الرسالة</label>
+        <select id="comp-subject" class="sos-input" style="padding:0.7rem 0.9rem;">
+          <option value="استفسار عام">استفسار عام</option>
+          <option value="شكوى بخصوص خدمة">شكوى بخصوص خدمة سابقة</option>
+          <option value="اقتراح تطوير">اقتراح لتطوير المنصة</option>
+        </select>
+      </div>
+      <div class="fg">
+        <label style="display:block; font-size: 0.75rem; color: var(--muted); margin-bottom: 0.4rem;">تفاصيل الرسالة</label>
+        <textarea id="comp-msg" class="sos-input" placeholder="اكتب تفاصيل رسالتك هنا بوضوح..." style="min-height: 100px; resize:vertical; padding:0.7rem 0.9rem;"></textarea>
+      </div>
+      <button class="btn-primary" style="width:100%; justify-content:center; border:none; padding:1rem;" id="comp-submit-btn" onclick="submitComplaint()">🚀 إرسال الرسالة</button>
+
+      <div style="display: flex; align-items: center; margin: 1.5rem 0; color: var(--muted); font-size: 0.8rem;">
+        <hr style="flex: 1; border: none; border-bottom: 1px solid rgba(255,255,255,0.1);">
+        <span style="padding: 0 10px;">أو للرد الفوري</span>
+        <hr style="flex: 1; border: none; border-bottom: 1px solid rgba(255,255,255,0.1);">
+      </div>
+      <a href="https://wa.me/201XXXXXXXXX" target="_blank" class="btn-whatsapp">
+        <svg viewBox="0 0 24 24" width="22" height="22"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.295-.883-.646-1.479-1.443-1.653-1.742-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+        تواصل عبر واتساب
+      </a>
+    </div>
+
+    <div class="success-box" id="comp-ok" style="display: none; padding-top:1rem; text-align:center;">
+      <div class="success-ring" style="width:80px;height:80px;border-radius:50%;background:rgba(46,204,113,.1);color:var(--green);font-size:2.5rem;display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;border:2px solid rgba(46,204,113,.3);">✅</div>
+      <h3 style="color: white; font-family:'Tajawal', sans-serif;">تم استلام رسالتك!</h3>
+      <p style="color: var(--muted); font-size:0.9rem; margin-bottom:1.5rem">شكراً لتواصلك معنا.<br>فريقنا سيقوم بمراجعة رسالتك والرد عليك.</p>
+      <button class="btn-primary" onclick="closeComplaint()" style="width:100%; justify-content:center; background:#1f2d54; border:none;">إغلاق</button>
+    </div>
+  </div>
+</div>
+
+<!-- 🟢 نافذة سجل طلباتي 🟢 -->
 <div class="overlay" id="orders-ov">
   <div class="modal-box">
     <button class="modal-close" onclick="closeMyOrders()">✕</button>
-    <div class="modal-title" style="margin-bottom: 1.5rem;">سجل <em>طلباتي</em> 📦</div>
+    <div class="modal-title" style="margin-bottom: 1.5rem; text-align:center;">سجل <em>طلباتي</em> 📦</div>
     <div id="orders-list" style="display: flex; flex-direction: column; gap: 0.8rem; max-height: 55vh; overflow-y: auto; padding-right: 5px;">
+    </div>
+  </div>
+</div>
+
+<!-- 🟢 النافذة الجديدة: تفاصيل الطلب بالكامل 🟢 -->
+<div class="overlay" id="order-details-ov">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeOrderDetails()">✕</button>
+    <button class="modal-close" style="right: 1rem; left: auto; font-size: 1.2rem; background: transparent; color: var(--gold);" onclick="backToOrders()" title="العودة للقائمة">→</button>
+    <div class="modal-title" style="margin-bottom: 1.5rem; font-size: 1.3rem; text-align:center;">تفاصيل <em>الطلب</em> 📄</div>
+    
+    <div class="order-details-card" id="od-content"></div>
+    
+    <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+        <button class="btn-primary btn-danger" style="flex: 1; justify-content: center; font-size: 0.85rem; border:none; padding:1rem;" id="od-complaint-btn">⚠️ تقديم شكوى أو استفسار</button>
     </div>
   </div>
 </div>
@@ -362,34 +495,138 @@ a { text-decoration: none; }
 </div>
 
 <script>
-// ── USER STATUS & MY ORDERS BUTTON ──
+// ── USER STATUS ──
 const status = sessionStorage.getItem('loggedIn');
 const via = sessionStorage.getItem('via') || '';
 const name = sessionStorage.getItem('userName') || '';
 const badge = document.getElementById('user-badge');
-const loginBtn = document.getElementById('login-nav-btn'); // 🟢 تم إرجاع هذا المتغير لمنع توقف الكود 🟢
+const loginBtn = document.getElementById('login-nav-btn');
 
 const historyKey = name ? 'orderHistory_' + name : 'orderHistory_guest';
 const activeKey = name ? 'activeOrder_' + name : 'activeOrder_guest';
 
 if(status === 'true' || status === 'guest'){
   document.getElementById('my-orders-btn').style.display = 'inline-flex';
+  document.getElementById('complaints-btn').style.display = 'inline-flex';
   
   if(status === 'true'){
     badge.style.display = 'inline-block';
-    badge.style.cssText = 'display:inline-block;font-size:.76rem;color:var(--gold);font-weight:700;padding:.28rem .7rem;background:rgba(201,168,76,.1);border-radius:6px;border:1px solid rgba(201,168,76,.2)';
     badge.textContent = name ? '👋 ' + name.split(' ')[0] : via ? '✅ ' + via : '✅ مرحباً';
     if(loginBtn) {
-      loginBtn.textContent = '🚪 خروج'; loginBtn.href = '#';
-      loginBtn.onclick = function(e){ e.preventDefault(); sessionStorage.clear(); window.location.href='index.html'; };
+      loginBtn.textContent = '🚪 خروج';
+      loginBtn.href = '#';
+      loginBtn.onclick = function(e){ e.preventDefault(); logoutUser(); };
     }
   } else if(status === 'guest'){
     badge.style.display = 'inline-block';
-    badge.style.cssText = 'display:inline-block;font-size:.76rem;color:var(--muted);font-weight:600;padding:.28rem .7rem;background:rgba(255,255,255,.05);border-radius:6px;border:1px solid rgba(255,255,255,.1)';
     badge.textContent = '👤 زائر';
   }
 }
 
+// ── 🟢 وظائف القائمة الجانبية (Sidebar) 🟢 ──
+function openSidebar() {
+  document.getElementById('sidebar').classList.add('open');
+  document.getElementById('sidebar-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+
+  const profileDiv = document.getElementById('sidebar-profile');
+  const logoutLi = document.getElementById('sidebar-logout');
+
+  if(status === 'true') {
+    const firstLetter = name ? name.charAt(0) : 'ع';
+    profileDiv.innerHTML = `
+      <div class="sp-avatar">${firstLetter}</div>
+      <div class="sp-name">${name}</div>
+      <div class="sp-info">📱 محفوظ في الحساب</div>
+      <div class="sp-info">✉️ عميل صيانة بلس المميز</div>
+    `;
+    logoutLi.style.display = 'block'; 
+  } else {
+    profileDiv.innerHTML = `
+      <div class="sp-avatar">👤</div>
+      <div class="sp-name">زائر</div>
+      <div class="sp-info">تصفح بدون حساب</div>
+      <a href="auth.html" class="btn-primary" style="margin-top:10px; font-size:0.8rem; padding:0.5rem 1rem;">تسجيل الدخول</a>
+    `;
+    logoutLi.style.display = 'none'; 
+  }
+}
+
+function closeSidebar() {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('sidebar-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function logoutUser() {
+  sessionStorage.clear();
+  window.location.href = 'index.html';
+}
+
+// ── الشكاوى والاستفسارات ──
+function openComplaint() {
+    document.getElementById('complaint-ov').classList.add('open');
+    document.body.style.overflow = 'hidden';
+    if (name) document.getElementById('comp-name').value = name;
+}
+
+function closeComplaint() {
+    document.getElementById('complaint-ov').classList.remove('open');
+    document.body.style.overflow = '';
+    setTimeout(() => {
+        document.getElementById('complaint-form').style.display = 'block';
+        document.getElementById('comp-ok').style.display = 'none';
+        document.getElementById('comp-msg').value = '';
+        if(!name) document.getElementById('comp-name').value = '';
+        document.getElementById('comp-contact').value = '';
+        document.getElementById('comp-subject').value = 'استفسار عام';
+    }, 300);
+}
+
+function openComplaintWithPreFill(techName, date) {
+    openComplaint();
+    document.getElementById('comp-subject').value = 'شكوى بخصوص خدمة';
+    document.getElementById('comp-msg').value = `أريد تقديم شكوى بخصوص الخدمة المقدمة من الفني (${techName}) بتاريخ ${date}.\n\nالتفاصيل: `;
+    setTimeout(() => {
+        document.getElementById('comp-msg').focus();
+    }, 400);
+}
+
+async function submitComplaint() {
+    const userName = document.getElementById('comp-name').value;
+    const contact = document.getElementById('comp-contact').value;
+    const subject = document.getElementById('comp-subject').value;
+    const message = document.getElementById('comp-msg').value;
+
+    if(!userName || !contact || !message) return alert("يرجى إكمال جميع الحقول المطلوبة.");
+
+    const payload = { userName, contact, subject, message };
+
+    try {
+        const btn = document.getElementById('comp-submit-btn');
+        const oldText = btn.innerHTML;
+        btn.innerHTML = 'جاري الإرسال... ⏳';
+
+        const res = await fetch('api/complaint.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+
+        if(res.ok) {
+            document.getElementById('complaint-form').style.display = 'none';
+            document.getElementById('comp-ok').style.display = 'block';
+        } else {
+            alert('حدث خطأ في السيرفر أثناء الإرسال.');
+        }
+        btn.innerHTML = oldText;
+    } catch(err) {
+        document.getElementById('complaint-form').style.display = 'none';
+        document.getElementById('comp-ok').style.display = 'block';
+    }
+}
+
+// ── سجل طلباتي وتفاصيل الطلب ──
 function saveToOrderHistory(orderData) {
     let history = JSON.parse(localStorage.getItem(historyKey)) || [];
     orderData.timestamp = new Date().toLocaleString('ar-EG');
@@ -407,22 +644,23 @@ function openMyOrders() {
     if(history.length === 0) {
         listContainer.innerHTML = '<div style="text-align:center; padding: 2rem; color: var(--muted);">لا يوجد لديك أي طلبات سابقة.</div>';
     } else {
-        history.forEach(order => {
+        history.forEach((order, index) => {
             const statusClass = order.orderStatus === 'active' ? 'active' : 'done';
             const statusText = order.orderStatus === 'active' ? 'قيد التنفيذ ⏳' : 'مكتمل ✅';
             
             const cardHTML = `
-                <div class="order-hist-card">
+                <div class="order-hist-card" onclick="openOrderDetails(${index})">
                     <div class="order-hist-header">
-                        <span class="order-hist-date">${order.timestamp}</span>
+                        <span class="order-hist-date">${order.timestamp || order.date}</span>
                         <span class="order-hist-status ${statusClass}">${statusText}</span>
                     </div>
                     <div class="order-hist-body">
-                        <div class="modal-avatar-sm" style="flex-shrink:0;">${order.svg}</div>
+                        <div class="modal-avatar-sm" style="flex-shrink:0; border-color:var(--gold);">${order.svg || '👤'}</div>
                         <div class="order-hist-info">
                             <h4>${order.svc}</h4>
-                            <span>مع: ${order.techName}</span>
+                            <span>الفني: ${order.techName}</span>
                         </div>
+                        <div style="margin-right:auto; color:var(--muted); font-size:1.2rem;">←</div>
                     </div>
                 </div>
             `;
@@ -439,6 +677,56 @@ function closeMyOrders() {
     document.body.style.overflow = '';
 }
 
+function openOrderDetails(index) {
+    let history = JSON.parse(localStorage.getItem(historyKey)) || [];
+    const order = history[index];
+    if(!order) return;
+
+    document.getElementById('orders-ov').classList.remove('open');
+    document.getElementById('order-details-ov').classList.add('open');
+
+    const statusText = order.orderStatus === 'active' 
+        ? '<span style="color:var(--gold); background:rgba(201,168,76,0.1); padding:2px 8px; border-radius:12px;">قيد التنفيذ ⏳</span>' 
+        : '<span style="color:var(--green); background:rgba(46,204,113,0.1); padding:2px 8px; border-radius:12px;">مكتمل ✅</span>';
+    
+    const ratingHtml = '<span style="color:var(--gold); font-size:0.9rem;">★ ★ ★ ★ ★ <span style="color:var(--muted);font-size:0.75rem;">(ممتاز)</span></span>';
+
+    document.getElementById('od-content').innerHTML = `
+        <div style="display:flex; align-items:center; gap:1rem; margin-bottom:1.5rem; padding-bottom:1rem; border-bottom:1px solid rgba(255,255,255,0.05);">
+            <div class="modal-avatar-sm" style="width:65px; height:65px; border-width:3px;">${order.svg || '👤'}</div>
+            <div>
+                <h3 style="margin:0 0 5px 0; font-family:'Tajawal',sans-serif; color:var(--white); font-size:1.2rem;">${order.techName}</h3>
+                <div style="color:var(--gold); font-size:0.85rem; font-weight:700;">${order.svc}</div>
+                <div style="margin-top:3px;">${ratingHtml}</div>
+            </div>
+        </div>
+        <div class="od-row"><span class="od-label">حالة الطلب</span><span class="od-value">${statusText}</span></div>
+        <div class="od-row"><span class="od-label">تاريخ الطلب</span><span class="od-value">${order.timestamp || 'غير محدد'}</span></div>
+        ${order.date ? `<div class="od-row"><span class="od-label">الموعد المجدول</span><span class="od-value">${order.date} | ${order.time}</span></div>` : ''}
+        <div class="od-row"><span class="od-label">اسم العميل</span><span class="od-value">${order.userName}</span></div>
+        <div class="od-row"><span class="od-label">رقم التواصل</span><span class="od-value" style="direction:ltr;">${order.phone || 'غير مسجل'}</span></div>
+        <div class="od-row"><span class="od-label">العنوان</span><span class="od-value">${order.address}</span></div>
+        ${order.desc ? `<div class="od-row" style="flex-direction:column; gap:0.5rem; border-bottom:none;"><span class="od-label">وصف المشكلة:</span><span class="od-value" style="max-width:100%; background:rgba(0,0,0,0.2); padding:10px; border-radius:8px; white-space:pre-wrap; font-weight:normal;">${order.desc}</span></div>` : ''}
+    `;
+
+    const compBtn = document.getElementById('od-complaint-btn');
+    compBtn.onclick = () => {
+        closeOrderDetails();
+        openComplaintWithPreFill(order.techName, order.timestamp || order.date);
+    };
+}
+
+function backToOrders() {
+    document.getElementById('order-details-ov').classList.remove('open');
+    document.getElementById('orders-ov').classList.add('open');
+}
+
+function closeOrderDetails() {
+    document.getElementById('order-details-ov').classList.remove('open');
+    document.body.style.overflow = '';
+}
+
+// ── قاموس الأيقونات (SVGs) الخاص بالـ 22 فني ──
 const techSVGs = {
     1: '<svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#1a2c4a"/><path d="M20,100 Q50,60 80,100" fill="#2563eb"/><circle cx="50" cy="50" r="18" fill="#fbbf24"/><path d="M30,50 A20,20 0 0,1 70,50 L75,50 L75,55 L25,55 L25,50 Z" fill="#f97316"/><circle cx="43" cy="48" r="2" fill="#1e293b"/><circle cx="57" cy="48" r="2" fill="#1e293b"/><path d="M48,70 L52,70 L50,75 L54,75 L48,85 L49,78 L45,78 Z" fill="#fbbf24"/></svg>',
     2: '<svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#1e1a2e"/><path d="M25,100 Q50,70 75,100" fill="#7c3aed"/><rect x="35" y="35" width="30" height="35" rx="10" fill="#fcd5b0"/><path d="M35,45 Q50,20 65,45" fill="#2d1f5e"/><rect x="38" y="45" width="10" height="6" fill="none" stroke="#fff" stroke-width="2"/><rect x="52" y="45" width="10" height="6" fill="none" stroke="#fff" stroke-width="2"/><line x1="48" y1="48" x2="52" y2="48" stroke="#fff" stroke-width="2"/></svg>',
@@ -472,7 +760,6 @@ let userLat = 30.0444;
 let userLng = 31.2357;
 let userMarker = null;
 
-// 🟢 تعديل الروابط لتكون نسبية وتعمل على أي جهاز/مجلد 🟢
 async function fetchTechnicians() {
   try {
     const res = await fetch('api/get_technicians.php');
@@ -487,14 +774,13 @@ async function fetchTechnicians() {
 
     updateFilterCounts(allTechs); 
 
-    // 🟢 قراءة الفلتر من الرابط (URL) وتطبيقه 🟢
     const urlParams = new URLSearchParams(window.location.search);
     const filterValue = urlParams.get('filter');
     
     if (filterValue) {
         const targetButton = document.querySelector(`.fbtn[data-f="${filterValue}"]`);
         if (targetButton) {
-            targetButton.click(); // سيقوم هذا الزر برسم الكروت وتحديث الخريطة تلقائياً
+            targetButton.click(); 
         } else {
             renderCards(allTechs);
         }
@@ -502,7 +788,6 @@ async function fetchTechnicians() {
         renderCards(allTechs); 
     }
     
-    // تفعيل الخريطة إذا كانت ظاهرة (تم نقلها لتكون داخل الفلتر، لكن نحتفظ بها هنا احتياطياً)
     if(isMapVisible && !filterValue && markersLayer) {
         const activeFilter = document.querySelector('.fbtn.active:not(#map-toggle)').dataset.f;
         plotTechnicians(activeFilter);
@@ -735,7 +1020,6 @@ function closeBook(){
   },300);
 }
 
-// 🟢 تعديل الروابط للـ API 🟢
 async function submitBook(){
   const userName=document.getElementById('bc-name').value, phone=document.getElementById('bc-phone').value, address=document.getElementById('bc-addr').value;
   const date=document.getElementById('bc-date').value, time=document.getElementById('bc-time').value, desc=document.getElementById('bc-desc').value;
@@ -827,7 +1111,14 @@ async function submitSOS() {
 
     if(res.ok) {
       localStorage.setItem(activeKey, JSON.stringify(order));
-      saveToOrderHistory(order); 
+      
+      // الحفظ التلقائي في سجل الطلبات
+      let history = JSON.parse(localStorage.getItem(historyKey)) || [];
+      order.timestamp = new Date().toLocaleString('ar-EG');
+      order.orderStatus = 'active';
+      history.unshift(order);
+      localStorage.setItem(historyKey, JSON.stringify(history));
+      
       document.getElementById('sos-form').style.display = 'none'; document.getElementById('sos-ok').style.display = 'block';
       renderActiveOrder();
     } else {
@@ -835,7 +1126,13 @@ async function submitSOS() {
     }
   } catch(err) {
       localStorage.setItem(activeKey, JSON.stringify(order));
-      saveToOrderHistory(order);
+      
+      let history = JSON.parse(localStorage.getItem(historyKey)) || [];
+      order.timestamp = new Date().toLocaleString('ar-EG');
+      order.orderStatus = 'active';
+      history.unshift(order);
+      localStorage.setItem(historyKey, JSON.stringify(history));
+
       document.getElementById('sos-form').style.display = 'none'; document.getElementById('sos-ok').style.display = 'block';
       renderActiveOrder();
   }
@@ -845,9 +1142,6 @@ function getLocation() {
   const a = document.getElementById('sos-addr'); a.placeholder = "جاري تحديد الموقع...";
   if(navigator.geolocation){ navigator.geolocation.getCurrentPosition(pos=>{a.value=`إحداثياتك: ${pos.coords.latitude.toFixed(5)}, ${pos.coords.longitude.toFixed(5)}`;}); }
 }
-
-function toggleMenu(){ const h=document.getElementById('ham'),m=document.getElementById('mob-menu'); h.classList.toggle('open');m.classList.toggle('open'); document.body.style.overflow=m.classList.contains('open')?'hidden':''; }
-function closeMenu(){ document.getElementById('ham').classList.remove('open'); document.getElementById('mob-menu').classList.remove('open'); document.body.style.overflow=''; }
 
 function renderActiveOrder() {
   const orderData = localStorage.getItem(activeKey);
@@ -876,7 +1170,6 @@ function cancelOrder() {
   renderActiveOrder();
 }
 
-// 🟢 تجميع أحداث التحميل لتنفيذها معاً بأمان 🟢
 document.addEventListener("DOMContentLoaded", () => {
     fetchTechnicians();
     renderActiveOrder();

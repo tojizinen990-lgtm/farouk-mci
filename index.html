@@ -8,6 +8,67 @@
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="shared.css"/>
 <style>
+/* ── CSS VARIABLES ── */
+:root {
+  --navy: #0a1128; --navy-mid: #141f3e; --navy-light: #1f2d54;
+  --gold: #c9a84c; --gold-light: #e8c66a; --white: #ffffff;
+  --body-text: #e2e8f0; --muted: #94a3b8; --green: #2ecc71; --blue: #3b82f6;
+  --red: #ef4444;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; }
+body { background-color: var(--navy); color: var(--white); overflow-x: hidden; scroll-behavior: smooth; }
+a { text-decoration: none; }
+
+/* ── NAVBAR & EBAR ── */
+.ebar { background: #dc2626; color: white; text-align: center; padding: 0.5rem; font-weight: 700; font-size: 0.9rem; position: fixed; top: 0; width: 100%; z-index: 100; }
+.ebar a { color: white; text-decoration: underline; }
+.navbar-offset { height: 36px; }
+.navbar { position: fixed; top: 36px; width: 100%; background: rgba(10,17,40,0.95); backdrop-filter: blur(10px); display: flex; justify-content: space-between; align-items: center; padding: 1rem 5%; z-index: 99; border-bottom: 1px solid rgba(255,255,255,0.05); transition: 0.3s; }
+.nav-logo { font-family: 'Tajawal', sans-serif; font-size: 1.5rem; font-weight: 900; color: var(--white); }
+.nav-logo span { color: var(--gold); }
+.nav-links { display: flex; gap: 1.5rem; list-style: none; }
+.nav-links a { color: var(--body-text); font-weight: 600; font-size: 0.9rem; transition: color 0.3s; }
+.nav-links a:hover { color: var(--gold); }
+.nav-actions { display: flex; gap: 1rem; align-items: center; }
+.nav-login-btn { color: var(--white); font-size: 0.9rem; font-weight: 600; transition: color 0.3s; cursor: pointer; }
+.nav-login-btn:hover { color: var(--gold); }
+.nav-cta-btn { background: linear-gradient(135deg, var(--gold), var(--gold-light)); color: var(--navy); padding: 0.5rem 1.2rem; border-radius: 6px; font-weight: 700; transition: 0.3s; }
+.nav-cta-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(201,168,76,0.3); }
+
+/* أزرار طلباتي والاستفسارات (مخفية في الشاشات الصغيرة) */
+.my-orders-btn { display: none; align-items: center; gap: 0.4rem; background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.4); padding: 0.4rem 0.8rem; border-radius: 6px; color: #93c5fd; font-size: 0.85rem; font-weight: 700; transition: 0.2s; cursor: pointer; }
+.my-orders-btn:hover { background: rgba(59, 130, 246, 0.2); color: white; }
+.complaints-btn { background: rgba(201, 168, 76, 0.1); border: 1px solid rgba(201, 168, 76, 0.4); color: var(--gold); }
+.complaints-btn:hover { background: rgba(201, 168, 76, 0.2); color: var(--gold-light); }
+
+/* 🟢 زر الثلاث شرط (Hamburger) 🟢 */
+.hamburger { display: flex; background: none; border: none; cursor: pointer; flex-direction: column; gap: 5px; padding: 5px; }
+.hamburger span { width: 25px; height: 3px; background: var(--white); border-radius: 2px; transition: 0.3s; }
+.hamburger:hover span { background: var(--gold); }
+
+/* 🟢 القائمة الجانبية (Sidebar) 🟢 */
+.sidebar { position: fixed; top: 0; right: -320px; width: 320px; height: 100vh; background: var(--navy-mid); z-index: 1001; transition: right 0.3s ease; box-shadow: -5px 0 25px rgba(0,0,0,0.5); display: flex; flex-direction: column; border-left: 1px solid rgba(201,168,76,0.2); }
+.sidebar.open { right: 0; }
+.sidebar-overlay { position: fixed; inset: 0; background: rgba(10,17,40,0.8); backdrop-filter: blur(4px); z-index: 1000; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+.sidebar-overlay.open { opacity: 1; pointer-events: auto; }
+.sidebar-header { padding: 1rem; display: flex; justify-content: flex-end; }
+.close-sidebar { background: rgba(255,255,255,0.05); border: none; color: var(--white); width: 35px; height: 35px; border-radius: 50%; cursor: pointer; font-size: 1.2rem; transition: 0.2s; display: flex; align-items: center; justify-content: center; }
+.close-sidebar:hover { background: rgba(239,68,68,0.2); color: #ef4444; }
+
+/* بروفايل العميل في القائمة الجانبية */
+.sidebar-profile { padding: 0 1.5rem 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.05); text-align: center; }
+.sp-avatar { width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, var(--gold), var(--gold-light)); color: var(--navy); display: flex; align-items: center; justify-content: center; font-size: 2.5rem; font-weight: 900; margin: 0 auto 1rem; border: 3px solid rgba(201,168,76,0.3); }
+.sp-name { font-family: 'Tajawal', sans-serif; font-size: 1.2rem; font-weight: 800; color: var(--white); margin-bottom: 0.3rem; }
+.sp-info { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.2rem; direction: ltr; }
+
+/* روابط القائمة الجانبية */
+.sidebar-links { list-style: none; padding: 1rem 0; margin: 0; flex: 1; overflow-y: auto; }
+.sidebar-links li a { display: flex; align-items: center; gap: 1rem; padding: 1rem 1.5rem; color: var(--body-text); font-weight: 600; font-size: 0.95rem; transition: 0.2s; border-right: 3px solid transparent; }
+.sidebar-links li a:hover { background: rgba(255,255,255,0.03); color: var(--gold); border-right-color: var(--gold); }
+.sidebar-links li a .icon { font-size: 1.2rem; width: 24px; text-align: center; }
+.logout-link { color: #fca5a5 !important; }
+.logout-link:hover { background: rgba(239,68,68,0.05) !important; color: #ef4444 !important; border-right-color: #ef4444 !important; }
+
 /* ── HERO ── */
 .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; background-image: url('plumbing-services-500x500.webp'); background-size: cover; background-position: center; padding: 10rem 5% 15rem; overflow: hidden; }
 .hero::before { content: ''; position: absolute; inset: 0; background-color: rgba(10, 22, 40, 0.75); z-index: 1; }
@@ -20,6 +81,9 @@
 .hero h1 em::after { content:''; position:absolute; bottom:-4px; right:0; left:0; height:3px; background:linear-gradient(90deg,var(--gold),transparent); border-radius:3px }
 .hero-text { font-size:1.1rem; color:var(--white); line-height:1.8; max-width:640px; margin: 0 auto 2.5rem; animation:fadeUp .6s .18s ease both }
 .hero-actions { display:flex; gap:.9rem; justify-content:center; flex-wrap:wrap; animation:fadeUp .6s .26s ease both }
+.btn-primary { background: linear-gradient(135deg, var(--gold), var(--gold-light)); color: var(--navy); padding: 0.8rem 1.5rem; border-radius: 8px; font-weight: 700; display: inline-flex; align-items: center; cursor: pointer; border: none; }
+.btn-outline { background: transparent; border: 1px solid var(--gold); color: var(--gold); padding: 0.8rem 1.5rem; border-radius: 8px; font-weight: 700; display: inline-flex; align-items: center; transition: 0.3s; }
+.btn-outline:hover { background: rgba(201,168,76,0.1); }
 .hero-stats { position:absolute; bottom:3rem; left:5%; right:5%; display:flex; gap:2px; z-index:10; animation:fadeUp .6s .4s ease both; justify-content: center; }
 .stat-card { flex: 0 1 200px; padding:1.1rem 1rem; background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1); text-align:center }
 .stat-card:first-child{ border-radius:10px 2px 2px 10px }
@@ -29,7 +93,12 @@
 
 /* ── التروس والمعدات ── */
 .bg-tools-container { position: absolute; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; overflow: hidden; z-index: 0; }
-.why-sec, .svc-sec, .test-sec { position: relative; }
+.section { padding: 5rem 5%; }
+.section-title { font-family: 'Tajawal', sans-serif; font-size: 2.2rem; font-weight: 800; margin-bottom: 1rem; color: var(--white); }
+.section-sub { color: var(--muted); font-size: 1rem; margin-bottom: 3rem; max-width: 600px; line-height: 1.6; }
+.section-tag { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; color: var(--gold); font-weight: 700; margin-bottom: 0.8rem; letter-spacing: 1px; }
+
+.why-sec, .svc-sec, .test-sec, .for-you-sec { position: relative; }
 .bg-tool { position: absolute; opacity: 0.04; color: var(--gold); display: flex; align-items: center; justify-content: center; }
 .bg-tool svg { width: 100%; height: 100%; fill: currentColor; display: block; }
 .t-why-1 { width: 140px; height: 140px; top: 10%; right: -30px; animation: spinGear 40s linear infinite; }
@@ -71,6 +140,17 @@
 .about-badge{position:absolute;bottom:-1.4rem;right:-1.4rem;background:var(--gold);color:var(--navy);border-radius:12px;padding:.9rem 1.3rem;font-family:'Tajawal',sans-serif;font-size:.85rem;font-weight:800;box-shadow:0 8px 28px rgba(201,168,76,.4);text-align:center}
 .about-badge strong{font-size:1.6rem;display:block}
 
+/* 🟢 ── FOR YOU (من أجلك) ── 🟢 */
+.for-you-sec { background: linear-gradient(135deg, var(--navy-mid), var(--navy)); position: relative; }
+.fy-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; margin-top: 3rem; position: relative; z-index: 2; }
+.fy-card { background: rgba(201,168,76,0.05); border: 1px solid rgba(201,168,76,0.2); border-radius: 16px; padding: 2.5rem 1.5rem; text-align: center; transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s; position: relative; overflow: hidden; }
+.fy-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, transparent, var(--gold), transparent); transform: scaleX(0); transition: transform 0.4s; }
+.fy-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.5); background: rgba(201,168,76,0.08); border-color: rgba(201,168,76,0.4); }
+.fy-card:hover::before { transform: scaleX(1); }
+.fy-icon { font-size: 3.5rem; margin-bottom: 1.2rem; display: inline-block; filter: drop-shadow(0 4px 10px rgba(201,168,76,0.3)); animation: floatSpace 6s ease-in-out infinite; }
+.fy-card h3 { font-family: 'Tajawal', sans-serif; font-size: 1.35rem; font-weight: 900; color: var(--gold); margin-bottom: 0.8rem; }
+.fy-card p { font-size: 0.95rem; color: var(--body-text); line-height: 1.8; margin: 0; }
+
 /* ── TESTIMONIALS ── */
 .test-sec{background:var(--navy)}
 .test-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.3rem;margin-top:2.5rem; position:relative; z-index:2;}
@@ -93,28 +173,55 @@
 .contact-items{display:flex;justify-content:center;flex-wrap:wrap;gap:1.8rem;margin:1.8rem 0}
 .c-item{display:flex;align-items:center;gap:.55rem;color:var(--body-text);font-size:.88rem}
 
-/* 🟢 الطوارئ (SOS) 🟢 */
-.sos-btn-float { position: fixed !important; bottom: 80px !important; left: 20px !important; z-index: 990 !important; background: linear-gradient(135deg, #ef4444, #b91c1c) !important; color: white !important; border: none !important; padding: 14px 28px !important; border-radius: 50px !important; font-family: 'Cairo', sans-serif !important; font-size: 1.1rem !important; font-weight: 900 !important; cursor: pointer !important; box-shadow: 0 4px 15px rgba(239, 68, 68, 0.5) !important; animation: pulseRed 1.5s infinite !important; display: flex !important; align-items: center !important; gap: 8px !important; }
-.sos-btn-float:hover { transform: scale(1.05) !important; }
-@keyframes pulseRed { 0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(239, 68, 68, 0); } 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); } }
+/* ── MODALS (الشكاوى والطلبات والتفاصيل والطوارئ) ── */
 .sos-ov { position: fixed !important; inset: 0 !important; background: rgba(10,17,40,.85) !important; backdrop-filter: blur(5px) !important; z-index: 1000 !important; display: flex !important; align-items: center !important; justify-content: center !important; opacity: 0; pointer-events: none; transition: opacity .3s !important; }
 .sos-ov.open { opacity: 1; pointer-events: auto; }
-.sos-box { background: var(--navy-mid) !important; border-top: 4px solid #ef4444 !important; border-radius: 18px !important; width: 90% !important; max-width: 450px !important; padding: 2rem !important; position: relative !important; transform: translateY(24px) scale(.96); transition: transform .3s !important; max-height: 90vh !important; overflow-y: auto !important; box-shadow: 0 10px 40px rgba(0,0,0,0.8) !important; }
-.sos-ov.open .sos-box { transform: translateY(0) scale(1); }
-.sos-header { text-align: center; margin-bottom: 1.5rem; }
-.sos-icon { font-size: 3rem; animation: shake 0.5s infinite; display: inline-block; }
-@keyframes shake { 0% { transform: rotate(0deg); } 25% { transform: rotate(10deg); } 50% { transform: rotate(0deg); } 75% { transform: rotate(-10deg); } 100% { transform: rotate(0deg); } }
-.sos-input { width: 100%; background: rgba(255,255,255,.05) !important; border: 1px solid rgba(239,68,68,.3) !important; color: white !important; padding: 0.8rem !important; border-radius: 8px !important; font-family: 'Cairo', sans-serif !important; outline: none !important; margin-bottom: 1rem !important; }
-.sos-input:focus { border-color: #ef4444 !important; background: rgba(239,68,68,.05) !important; }
+.modal-box { background: var(--navy-mid) !important; border: 1px solid rgba(201,168,76,.2) !important; border-radius: 18px !important; width: 90% !important; max-width: 450px !important; padding: 2rem !important; position: relative !important; transform: translateY(24px) scale(.96); transition: transform .3s !important; max-height: 90vh !important; overflow-y: auto !important; box-shadow: 0 10px 40px rgba(0,0,0,0.8) !important; }
+.sos-ov.open .modal-box { transform: translateY(0) scale(1); }
+.modal-close { position: absolute !important; top: 1rem !important; left: 1rem !important; background: rgba(255,255,255,.05) !important; border: none !important; color: var(--muted) !important; width: 32px !important; height: 32px !important; border-radius: 50% !important; cursor: pointer !important; font-size: 1rem !important; display: flex !important; align-items: center !important; justify-content: center !important; transition: 0.2s !important; }
+.modal-close:hover { background: rgba(255,255,255,.1) !important; color: var(--white) !important; }
+.modal-title { font-family: 'Tajawal', sans-serif; font-size: 1.4rem; font-weight: 800; margin-bottom: 1.5rem; text-align: center; }
+.modal-title em { font-style: normal; color: var(--gold); }
+.sos-input { width: 100%; background: rgba(255,255,255,.05) !important; border: 1px solid rgba(255,255,255,.1) !important; color: white !important; padding: 0.8rem !important; border-radius: 8px !important; font-family: 'Cairo', sans-serif !important; outline: none !important; margin-bottom: 1rem !important; }
+.sos-input:focus { border-color: var(--gold) !important; background: rgba(201,168,76,.05) !important; }
 .sos-input option { background: var(--navy-mid) !important; color: white !important; }
 .btn-gps { background: rgba(59, 130, 246, 0.2) !important; border: 1px solid #3b82f6 !important; color: white !important; border-radius: 8px !important; width: 45px !important; height: 45px !important; display: flex !important; align-items: center !important; justify-content: center !important; cursor: pointer !important; font-size: 1.2rem !important; transition: 0.2s !important; flex-shrink: 0 !important; margin-bottom: 1rem !important;}
 .btn-gps:hover { background: #3b82f6 !important; }
 .btn-sos-submit { width: 100% !important; padding: 1rem !important; background: linear-gradient(135deg, #ef4444, #b91c1c) !important; color: white !important; border: none !important; border-radius: 8px !important; font-family: 'Cairo', sans-serif !important; font-size: 1.1rem !important; font-weight: 800 !important; cursor: pointer !important; margin-top: 0.5rem !important; transition: 0.2s !important; box-shadow: 0 5px 15px rgba(239, 68, 68, 0.3) !important; }
 .btn-sos-submit:hover { transform: translateY(-2px) !important; box-shadow: 0 8px 20px rgba(239, 68, 68, 0.5) !important; }
-.sos-close { position: absolute !important; top: 1rem !important; left: 1rem !important; background: rgba(255,255,255,.05) !important; border: none !important; color: var(--muted) !important; width: 32px !important; height: 32px !important; border-radius: 50% !important; cursor: pointer !important; font-size: 1rem !important; display: flex !important; align-items: center !important; justify-content: center !important; transition: 0.2s !important; }
-.sos-close:hover { background: rgba(255,255,255,.1) !important; color: var(--white) !important; }
 
-/* 🟢 ويدجت تتبع الطلب النشط 🟢 */
+/* الطوارئ (SOS) Floating */
+.sos-btn-float { position: fixed !important; bottom: 80px !important; left: 20px !important; z-index: 990 !important; background: linear-gradient(135deg, #ef4444, #b91c1c) !important; color: white !important; border: none !important; padding: 14px 28px !important; border-radius: 50px !important; font-family: 'Cairo', sans-serif !important; font-size: 1.1rem !important; font-weight: 900 !important; cursor: pointer !important; box-shadow: 0 4px 15px rgba(239, 68, 68, 0.5) !important; animation: pulseRed 1.5s infinite !important; display: flex !important; align-items: center !important; gap: 8px !important; }
+.sos-btn-float:hover { transform: scale(1.05) !important; }
+@keyframes pulseRed { 0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(239, 68, 68, 0); } 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); } }
+
+/* 🟢 CSS الخاص بتفاصيل الطلب و الشكاوى 🟢 */
+.order-hist-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 1rem; display: flex; flex-direction: column; gap: 0.6rem; transition: 0.2s; cursor: pointer; margin-bottom: 0.8rem;}
+.order-hist-card:hover { border-color: rgba(201,168,76,0.3); background: rgba(255,255,255,0.05); transform: translateY(-2px);}
+.order-hist-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 0.6rem; }
+.order-hist-date { font-size: 0.75rem; color: var(--muted); }
+.order-hist-status { font-size: 0.7rem; font-weight: bold; padding: 0.2rem 0.6rem; border-radius: 20px; }
+.order-hist-status.active { background: rgba(201,168,76,0.15); color: var(--gold); border: 1px solid var(--gold); }
+.order-hist-status.done { background: rgba(46,204,113,0.15); color: var(--green); border: 1px solid var(--green); }
+.order-hist-body { display: flex; align-items: center; gap: 1rem; padding-top: 0.4rem; }
+.order-hist-info h4 { font-family: 'Tajawal', sans-serif; font-size: 0.95rem; margin-bottom: 0.2rem; color: white; }
+.order-hist-info span { font-size: 0.75rem; color: var(--muted); }
+.modal-avatar-sm { width:48px; height:48px; border-radius:50%; border:2px solid rgba(201,168,76,.3); padding:2px; background:rgba(201,168,76,.05); display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; }
+.modal-avatar-sm svg { width:100%; height:100%; border-radius:50%; }
+
+.order-details-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 1.5rem; margin-bottom: 1rem; }
+.od-row { display: flex; justify-content: space-between; padding: 0.6rem 0; border-bottom: 1px dashed rgba(255,255,255,0.05); }
+.od-row:last-child { border-bottom: none; }
+.od-label { color: var(--muted); font-size: 0.8rem; font-weight: 600;}
+.od-value { color: var(--white); font-weight: 700; font-size: 0.9rem; text-align: left; max-width: 65%; line-height:1.4;}
+.btn-danger { background: rgba(239, 68, 68, 0.1); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.3); }
+.btn-danger:hover { background: rgba(239, 68, 68, 0.2); border-color: #ef4444; color: #ef4444; transform: translateY(-2px); box-shadow: 0 4px 15px rgba(239, 68, 68, 0.2);}
+
+.btn-whatsapp { display: flex; align-items: center; justify-content: center; gap: 0.5rem; width: 100%; padding: 0.8rem; background: linear-gradient(135deg, #25D366, #128C7E); color: white; border: none; border-radius: 8px; font-family: 'Cairo', sans-serif; font-size: 0.95rem; font-weight: 800; cursor: pointer; transition: 0.2s; text-decoration: none; }
+.btn-whatsapp:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(37, 211, 102, 0.4); color: white; }
+.btn-whatsapp svg { fill: white; }
+
+/* ويدجت تتبع الطلب النشط */
 .active-order-widget { position: fixed; bottom: 30px; right: 30px; width: 320px; background: var(--navy-mid); border: 1px solid var(--gold); border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.6); z-index: 995; display: none; flex-direction: column; overflow: hidden; animation: slideInRight 0.4s ease forwards; }
 .ao-header { background: rgba(201,168,76,0.1); padding: 0.6rem 1rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(201,168,76,0.2); }
 .ao-status { font-size: 0.8rem; color: var(--gold); font-weight: 700; display: flex; align-items: center; gap: 0.4rem; }
@@ -131,9 +238,8 @@
 .ao-row { display: flex; justify-content: space-between; margin-bottom: 0.4rem; }
 .ao-row:last-child { margin-bottom: 0; }
 @keyframes slideInRight { from { opacity: 0; transform: translateX(50px); } to { opacity: 1; transform: translateX(0); } }
-@keyframes pulseGold { 0% { box-shadow: 0 0 0 0 rgba(201,168,76,0.7); } 70% { box-shadow: 0 0 0 6px rgba(201,168,76,0); } 100% { box-shadow: 0 0 0 0 rgba(201,168,76,0); } }
 
-/* 🟢 نافذة التقييم (Reviews Modal) 🟢 */
+/* نافذة التقييم (Reviews Modal) */
 .review-box { background: var(--navy-mid); border-top: 4px solid var(--gold); border-radius: 18px; width: 90%; max-width: 450px; padding: 2rem; position: relative; transform: translateY(24px) scale(.96); transition: transform .3s; box-shadow: 0 10px 40px rgba(0,0,0,0.8); }
 .sos-ov.open .review-box { transform: translateY(0) scale(1); }
 .star-rating-container { display: flex; justify-content: center; gap: 8px; margin: 1.5rem 0; direction: ltr; }
@@ -144,7 +250,14 @@
 .review-textarea:focus { border-color: var(--gold); background: rgba(201,168,76,0.05); }
 
 /* RESPONSIVE */
-@media(max-width:900px){ .hero{padding:10rem 5% 18rem} .hero-content{max-width:100%} .hero-text{margin-right:auto;margin-left:auto} .hero-actions{justify-content:center} .hero-stats{bottom:2rem;flex-wrap:wrap;gap:4px; justify-content: space-around;} .stat-card{min-width:calc(50% - 4px); flex: 0 1 calc(50% - 4px); border-radius:6px!important} .about-sec{grid-template-columns:1fr} .about-visual{order:-1} }
+@media(max-width:900px){ 
+  .hero{padding:10rem 5% 18rem} .hero-content{max-width:100%} .hero-text{margin-right:auto;margin-left:auto} .hero-actions{justify-content:center} .hero-stats{bottom:2rem;flex-wrap:wrap;gap:4px; justify-content: space-around;} .stat-card{min-width:calc(50% - 4px); flex: 0 1 calc(50% - 4px); border-radius:6px!important} 
+  .about-sec{grid-template-columns:1fr} .about-visual{order:-1} 
+  .hide-mob { display: none; }
+  .nav-links { display: none; }
+  .nav-cta-btn { display: none; }
+  .my-orders-btn { padding: 0.4rem; }
+}
 @media(max-width:600px){ .hero{padding:9rem 4% 19rem} .hero h1 { font-size:clamp(1.8rem, 8vw, 2.5rem); } .hero-actions{flex-direction:column;gap:.7rem} .hero-actions a{width:100%;justify-content:center} .contact-items{flex-direction:column;align-items:center;gap:1rem} .bg-tool { opacity: 0.02; } .active-order-widget { right: 10px; left: 10px; width: auto; bottom: 85px; } }
 </style>
 </head>
@@ -155,33 +268,52 @@
 
 <nav class="navbar">
   <a href="index.html" class="nav-logo">صيانة<span>بلس</span></a>
-  <ul class="nav-links">
+  
+  <ul class="nav-links hide-mob">
     <li><a href="#services">خدماتنا</a></li>
     <li><a href="#why">لماذا نحن</a></li>
     <li><a href="#about">من نحن</a></li>
+    <li><a href="#for-you">من أجلك</a></li>
     <li><a href="#testimonials">آراء العملاء</a></li>
-    <li><a href="#contact">تواصل معنا</a></li>
   </ul>
+
   <div class="nav-actions">
-    <span id="user-badge" style="display:none"></span>
-    <a href="auth.html" class="nav-login-btn" id="login-nav-btn">👤 دخول</a>
-    <a href="tel:19777" class="nav-cta-btn">📞 19777</a>
-    <button class="hamburger" id="ham" onclick="toggleMenu()" aria-label="قائمة">
-      <span></span><span></span><span></span>
+    <!-- أزرار الشكاوى و طلباتي -->
+    <button class="my-orders-btn complaints-btn" id="complaints-btn" onclick="openComplaint()">💬 <span class="hide-mob">استفسارات</span></button>
+    <button class="my-orders-btn" id="my-orders-btn" onclick="openMyOrders()">📦 <span class="hide-mob">طلباتي</span></button>
+
+    <span id="user-badge" style="display:none" class="hide-mob"></span>
+    <a href="auth.html" class="nav-login-btn hide-mob" id="login-nav-btn">👤 دخول</a>
+    <a href="tel:19777" class="nav-cta-btn hide-mob">📞 19777</a>
+    
+    <!-- 🟢 زر الثلاث شرط لفتح القائمة الجانبية (ظاهر دائماً) 🟢 -->
+    <button class="hamburger" id="ham" onclick="openSidebar()" aria-label="قائمة">
+        <span></span><span></span><span></span>
     </button>
   </div>
 </nav>
 
-<div class="mobile-nav" id="mob-menu">
-  <a href="#services" onclick="closeMenu()">خدماتنا</a>
-  <a href="#why" onclick="closeMenu()">لماذا نحن</a>
-  <a href="#about" onclick="closeMenu()">من نحن</a>
-  <a href="#testimonials" onclick="closeMenu()">آراء العملاء</a>
-  <a href="#contact" onclick="closeMenu()">تواصل معنا</a>
-  <div class="mob-btns">
-    <a href="auth.html" class="btn-primary" style="justify-content:center">👤 تسجيل الدخول</a>
-    <a href="tel:19777" class="btn-outline" style="justify-content:center">📞 19777</a>
+<!-- 🟢 القائمة الجانبية (Sidebar) 🟢 -->
+<div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <button class="close-sidebar" onclick="closeSidebar()">✕</button>
   </div>
+  
+  <!-- بيانات بروفايل العميل ستُحقن هنا -->
+  <div class="sidebar-profile" id="sidebar-profile"></div>
+  
+  <ul class="sidebar-links">
+     <li><a href="index.html"><span class="icon">🏠</span> الرئيسية</a></li>
+     <li><a href="technicians.html"><span class="icon">👨‍🔧</span> تصفح الفنيين</a></li>
+     <li><a href="#" onclick="closeSidebar(); openMyOrders();"><span class="icon">📦</span> طلباتي</a></li>
+     <li><a href="#" onclick="closeSidebar(); openComplaint();"><span class="icon">💬</span> الاستفسارات والشكاوى</a></li>
+     <li><a href="#contact" onclick="closeSidebar();"><span class="icon">📞</span> تواصل معنا</a></li>
+     <li><a href="#" onclick="alert('سيتم إضافة بوابات الدفع الإلكتروني (فيزا، ماستركارد، فودافون كاش) قريباً!')"><span class="icon">💳</span> طرق الدفع</a></li>
+     <li><a href="#" onclick="alert('شارك الرابط مع أصدقائك واربح خصم 20% على زيارتك القادمة!')"><span class="icon">🤝</span> دعوة الأصدقاء</a></li>
+     <li><a href="#" onclick="alert('سيتم فتح الكاميرا للمسح الضوئي (QR code)')"><span class="icon">📷</span> مسح ضوئي (QR)</a></li>
+     <li id="sidebar-logout" style="display:none; margin-top: 10px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 10px;"><a href="#" onclick="logoutUser()" class="logout-link"><span class="icon">🚪</span> تسجيل خروج</a></li>
+  </ul>
 </div>
 
 <section class="hero" id="home">
@@ -250,6 +382,36 @@
   </div>
 </section>
 
+<!-- 🟢 قسم "من أجلك" (الضمانات والحقوق) 🟢 -->
+<section class="section for-you-sec" id="for-you">
+  <div class="section-tag" style="justify-content: center;">▸ من أجلك</div>
+  <h2 class="section-title" style="text-align: center;">أمانك وحقوقك أولويتنا</h2>
+  <p class="section-sub" style="text-align: center; max-width: 750px; margin: 0 auto;">لأننا نهدف لبناء علاقة ثقة تدوم طويلاً، صممنا سياساتنا لتكون في صفك دائماً. استمتع بخدماتنا وأنت مطمئن تماماً، فهذه حقوقك المضمونة:</p>
+  
+  <div class="fy-grid reveal">
+    <!-- كارت الضمان الفني -->
+    <div class="fy-card">
+      <span class="fy-icon">🛡️</span>
+      <h3>ضمان فني شامل (7 أيام)</h3>
+      <p>نثق في كفاءة فنيينا. إذا تكرر نفس العطل الفني خلال أسبوع كامل من إجراء الصيانة، نلتزم بإصلاحه مجاناً بالكامل دون أي رسوم إضافية.</p>
+    </div>
+    
+    <!-- كارت ضمان قطع الغيار -->
+    <div class="fy-card">
+      <span class="fy-icon">⚙️</span>
+      <h3>ضمان قطع الغيار (14 يوم)</h3>
+      <p>جميع قطع الغيار التي نوفرها أصلية ومضمونة. نمنحك أسبوعين من الضمان لتبديلها فوراً وبلا نقاش في حال ظهور أي عيب صناعة بها.</p>
+    </div>
+    
+    <!-- كارت حقوق العميل -->
+    <div class="fy-card">
+      <span class="fy-icon">⚖️</span>
+      <h3>حقوقك الذهبية محفوظة</h3>
+      <p>من حقك معرفة التكلفة بشفافية قبل البدء، ونضمن لك التزاماً صارماً بالمواعيد، وترك مكان العمل نظيفاً ومرتباً كما كان تماماً.</p>
+    </div>
+  </div>
+</section>
+
 <section class="section test-sec" id="testimonials">
   <div class="bg-tools-container">
     <div class="bg-tool t-test-1"><svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.06-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.05-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.56-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22l-1.92 3.32c-.12.22-.07.49.12.61l2.03 1.58c-.04.3-.06.61-.06.94s.02.64.06.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .43-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.49-.12-.61l-2.03-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></div>
@@ -264,11 +426,9 @@
     <div class="test-card"><div class="stars">★★★★★</div><div class="quote">"</div><p>الفني كان يرتدي زياً رسمياً ومعه بطاقة تعريفية، وقدم لي ضماناً مكتوباً. شركة تستحق الثقة.</p><div class="test-author"><div class="author-av">م</div><div><h4>Moaaz</h4><span>خدمة الأجهزة</span></div></div></div>
   </div>
   
-  <!-- 🟢 الزر المحدث ليفتح نافذة التقييم 🟢 -->
   <div style="margin-top:2.5rem;text-align:center; position:relative; z-index:2;">
     <button class="btn-primary" onclick="openReview()" style="cursor:pointer; font-family:'Cairo', sans-serif; font-size:1rem; border:none; padding:1rem 2rem;">🤝 انضم لعملائنا السعداء (أضف تقييمك)</button>
   </div>
-
 </section>
 
 <section class="section contact-sec" id="contact">
@@ -292,18 +452,93 @@
   <p style="color:var(--gold);font-weight:700">19777</p>
 </footer>
 
-<a href="technicians.html" class="float-cta">⚡ اطلب فني الآن</a>
+<!-- 🟢 الطوارئ (SOS) Floating 🟢 -->
+<button class="sos-btn-float" onclick="openSOS()">🚨 طلب طوارئ</button>
 
-<button class="sos-btn-float" onclick="openSOS()">
-  🚨 طلب طوارئ
-</button>
+<!-- ============================================== -->
+<!-- النوافذ المنبثقة للعمليات (SOS، الشكاوى، الطلبات والتفاصيل، التقييم) -->
+<!-- ============================================== -->
+
+<!-- 🟢 نافذة الشكاوى والاستفسارات 🟢 -->
+<div class="sos-ov" id="complaint-ov">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeComplaint()">✕</button>
+    <div class="modal-title" style="margin-bottom: 1.5rem; text-align:center;">شكاوى <em>واستفسارات</em> 💬</div>
+    
+    <div id="complaint-form">
+      <div class="fg">
+        <label style="display:block; font-size: 0.75rem; color: var(--muted); margin-bottom: 0.4rem;">الاسم</label>
+        <input type="text" id="comp-name" class="sos-input" placeholder="أدخل اسمك الكريم" style="padding:0.7rem 0.9rem;"/>
+      </div>
+      <div class="fg">
+        <label style="display:block; font-size: 0.75rem; color: var(--muted); margin-bottom: 0.4rem;">رقم الهاتف أو الإيميل</label>
+        <input type="text" id="comp-contact" class="sos-input" placeholder="للتواصل معك" style="padding:0.7rem 0.9rem;"/>
+      </div>
+      <div class="fg">
+        <label style="display:block; font-size: 0.75rem; color: var(--muted); margin-bottom: 0.4rem;">نوع الرسالة</label>
+        <select id="comp-subject" class="sos-input" style="padding:0.7rem 0.9rem;">
+          <option value="استفسار عام">استفسار عام</option>
+          <option value="شكوى بخصوص خدمة">شكوى بخصوص خدمة سابقة</option>
+          <option value="اقتراح تطوير">اقتراح لتطوير المنصة</option>
+        </select>
+      </div>
+      <div class="fg">
+        <label style="display:block; font-size: 0.75rem; color: var(--muted); margin-bottom: 0.4rem;">تفاصيل الرسالة</label>
+        <textarea id="comp-msg" class="sos-input" placeholder="اكتب تفاصيل رسالتك هنا بوضوح..." style="min-height: 100px; resize:vertical; padding:0.7rem 0.9rem;"></textarea>
+      </div>
+      <button class="btn-primary" style="width:100%; justify-content:center; border:none; padding:1rem;" id="comp-submit-btn" onclick="submitComplaint()">🚀 إرسال الرسالة</button>
+
+      <div style="display: flex; align-items: center; margin: 1.5rem 0; color: var(--muted); font-size: 0.8rem;">
+        <hr style="flex: 1; border: none; border-bottom: 1px solid rgba(255,255,255,0.1);">
+        <span style="padding: 0 10px;">أو للرد الفوري</span>
+        <hr style="flex: 1; border: none; border-bottom: 1px solid rgba(255,255,255,0.1);">
+      </div>
+      <a href="https://wa.me/201XXXXXXXXX" target="_blank" class="btn-whatsapp">
+        <svg viewBox="0 0 24 24" width="22" height="22"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.295-.883-.646-1.479-1.443-1.653-1.742-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+        تواصل عبر واتساب
+      </a>
+    </div>
+
+    <div class="success-box" id="comp-ok" style="display: none; padding-top:1rem; text-align:center;">
+      <div class="success-ring" style="width:80px;height:80px;border-radius:50%;background:rgba(46,204,113,.1);color:var(--green);font-size:2.5rem;display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;border:2px solid rgba(46,204,113,.3);">✅</div>
+      <h3 style="color: white; font-family:'Tajawal', sans-serif;">تم استلام رسالتك!</h3>
+      <p style="color: var(--muted); font-size:0.9rem; margin-bottom:1.5rem">شكراً لتواصلك معنا.<br>فريقنا سيقوم بمراجعة رسالتك والرد عليك.</p>
+      <button class="btn-primary" onclick="closeComplaint()" style="width:100%; justify-content:center; background:#1f2d54; border:none;">إغلاق</button>
+    </div>
+  </div>
+</div>
+
+<!-- 🟢 نافذة سجل طلباتي 🟢 -->
+<div class="sos-ov" id="orders-ov">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeMyOrders()">✕</button>
+    <div class="modal-title" style="margin-bottom: 1.5rem; text-align:center;">سجل <em>طلباتي</em> 📦</div>
+    <div id="orders-list" style="display: flex; flex-direction: column; gap: 0.8rem; max-height: 55vh; overflow-y: auto; padding-right: 5px;">
+    </div>
+  </div>
+</div>
+
+<!-- 🟢 النافذة الجديدة: تفاصيل الطلب بالكامل 🟢 -->
+<div class="sos-ov" id="order-details-ov">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeOrderDetails()">✕</button>
+    <button class="modal-close" style="right: 1rem; left: auto; font-size: 1.2rem; background: transparent; color: var(--gold);" onclick="backToOrders()" title="العودة للقائمة">→</button>
+    <div class="modal-title" style="margin-bottom: 1.5rem; font-size: 1.3rem; text-align:center;">تفاصيل <em>الطلب</em> 📄</div>
+    
+    <div class="order-details-card" id="od-content"></div>
+    
+    <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+        <button class="btn-primary btn-danger" style="flex: 1; justify-content: center; font-size: 0.85rem; border:none; padding:1rem;" id="od-complaint-btn">⚠️ تقديم شكوى أو استفسار</button>
+    </div>
+  </div>
+</div>
 
 <!-- 🟢 نافذة الطوارئ (SOS) 🟢 -->
 <div class="sos-ov" id="sos-ov">
-  <div class="sos-box">
-    <button class="sos-close" onclick="closeSOS()">✕</button>
-    <div class="sos-header">
-      <div class="sos-icon">🚨</div>
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeSOS()">✕</button>
+    <div class="sos-header" style="text-align: center; margin-bottom: 1.5rem;">
+      <div style="font-size: 3rem; animation: shake 0.5s infinite; display: inline-block;">🚨</div>
       <h2 style="color: #ef4444; font-family: 'Tajawal', sans-serif; font-weight: 900;">خدمة الطوارئ السريعة</h2>
       <p style="font-size: 0.8rem; color: var(--muted); margin-top: 0.5rem;">سيتم توجيه أقرب فني متاح إليك فوراً (زمن الوصول المتوقع: 15-30 دقيقة). <br><strong style="color: #fca5a5;">ملاحظة: تُطبق رسوم خدمة طوارئ إضافية.</strong></p>
     </div>
@@ -329,32 +564,28 @@
           <button class="btn-gps" onclick="getLocation()" title="تحديد موقعي بالـ GPS">📍</button>
         </div>
       </div>
-      <button class="btn-sos-submit" onclick="submitSOS()">🚀 أرسل الاستغاثة الآن</button>
+      <button class="btn-sos-submit" style="width: 100%; padding: 1rem; background: linear-gradient(135deg, #ef4444, #b91c1c); color: white; border: none; border-radius: 8px; font-family: 'Cairo', sans-serif; font-size: 1.1rem; font-weight: 800; cursor: pointer; transition: 0.2s;" onclick="submitSOS()">🚀 أرسل الاستغاثة الآن</button>
     </div>
 
-    <!-- رسالة النجاح الخاصة بالطوارئ -->
-    <div class="success-box" id="sos-ok" style="display: none; padding-top:1rem;">
-      <div class="success-ring" style="background: rgba(239, 68, 68, 0.1); border-color: #ef4444; color: #ef4444;">🏃</div>
+    <div class="success-box" id="sos-ok" style="display: none; padding-top:1rem; text-align: center;">
+      <div class="success-ring" style="width:80px;height:80px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;background: rgba(239, 68, 68, 0.1); border: 2px solid #ef4444; color: #ef4444; font-size:2.5rem;">🏃</div>
       <h3 style="color: #ef4444; font-family:'Tajawal', sans-serif;">تم إرسال الاستغاثة!</h3>
       <p style="color: var(--body-text); font-size:0.9rem; margin-bottom:1.5rem">جاري توجيه أقرب فني إليك..<br>يرجى إبقاء هاتفك متاحاً، سيتصل بك الفني خلال دقيقة.</p>
-      <button class="btn-primary" onclick="closeSOS()" style="width:100%; justify-content:center; background:#1f2d54; color:white; border:none;">إغلاق</button>
+      <button class="btn-primary" onclick="closeSOS()" style="width:100%; justify-content:center; background:#1f2d54; color:white; border:none; padding:1rem;">إغلاق</button>
     </div>
   </div>
 </div>
 
-<!-- ============================================================== -->
-<!-- 🟢 النافذة المنبثقة للتقييم (Review Modal) - إضافة جديدة 🟢 -->
-<!-- ============================================================== -->
+<!-- 🟢 النافذة المنبثقة للتقييم (Review Modal) 🟢 -->
 <div class="sos-ov" id="review-ov">
   <div class="review-box">
-    <button class="sos-close" onclick="closeReview()">✕</button>
-    <div class="sos-header" style="margin-bottom: 1rem;">
+    <button class="modal-close" onclick="closeReview()">✕</button>
+    <div class="sos-header" style="margin-bottom: 1rem; text-align: center;">
       <h2 style="color: var(--gold); font-family: 'Tajawal', sans-serif; font-weight: 900;">كيف كانت تجربتك معنا؟</h2>
       <p style="font-size: 0.85rem; color: var(--muted); margin-top: 0.5rem;">رأيك يساعدنا على تحسين خدماتنا ويفيد العملاء الآخرين.</p>
     </div>
     
     <div id="review-form">
-      <!-- نظام النجوم التفاعلي -->
       <div class="star-rating-container" id="star-rating">
         <span onclick="rateStar(1)" onmouseover="hoverStar(1)" onmouseout="resetStarHover()">★</span>
         <span onclick="rateStar(2)" onmouseover="hoverStar(2)" onmouseout="resetStarHover()">★</span>
@@ -386,17 +617,16 @@
       <button class="btn-primary" style="width:100%; justify-content:center; border:none; padding:1rem;" onclick="submitReview()">⭐ إرسال التقييم</button>
     </div>
 
-    <!-- رسالة نجاح التقييم -->
-    <div class="success-box" id="review-ok" style="display: none; padding-top:1rem;">
-      <div class="success-ring" style="background: rgba(201, 168, 76, 0.1); border-color: var(--gold); color: var(--gold);">🎉</div>
+    <div class="success-box" id="review-ok" style="display: none; padding-top:1rem; text-align: center;">
+      <div class="success-ring" style="width:80px;height:80px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;background: rgba(201, 168, 76, 0.1); border: 2px solid var(--gold); color: var(--gold); font-size:2.5rem;">🎉</div>
       <h3 style="color: var(--gold); font-family:'Tajawal', sans-serif;">شكراً لك!</h3>
       <p style="color: var(--body-text); font-size:0.9rem; margin-bottom:1.5rem">لقد تم استلام تقييمك بنجاح. نحن نقدر وقتك وثقتك بنا.</p>
-      <button class="btn-primary" onclick="closeReview()" style="width:100%; justify-content:center; background:#1f2d54; color:white; border:none;">إغلاق</button>
+      <button class="btn-primary" onclick="closeReview()" style="width:100%; justify-content:center; background:#1f2d54; color:white; border:none; padding: 1rem;">إغلاق</button>
     </div>
   </div>
 </div>
 
-<!-- 🟢 ويدجت تتبع الطلب النشط (يظهر في جميع الصفحات) 🟢 -->
+<!-- 🟢 ويدجت تتبع الطلب النشط 🟢 -->
 <div class="active-order-widget" id="active-order-widget">
   <div class="ao-header">
     <span class="ao-status">⏳ جاري التنفيذ</span>
@@ -420,41 +650,229 @@
 
 <script>
 // ── USER STATUS ──
-const status=sessionStorage.getItem('loggedIn');
-const via=sessionStorage.getItem('via')||'';
-const name=sessionStorage.getItem('userName')||'';
-const badge=document.getElementById('user-badge');
-const loginBtn=document.getElementById('login-nav-btn');
-if(status==='true'){
-  badge.style.display='inline-block';
-  badge.style.cssText='display:inline-block;font-size:.76rem;color:var(--gold);font-weight:700;padding:.28rem .7rem;background:rgba(201,168,76,.1);border-radius:6px;border:1px solid rgba(201,168,76,.2)';
-  badge.textContent=name?'👋 '+name.split(' ')[0]:via?'✅ '+via:'✅ مرحباً';
-  loginBtn.textContent='🚪 خروج';
-  loginBtn.href='#';
-  loginBtn.onclick=function(e){e.preventDefault();sessionStorage.clear();window.location.reload();};
-}else if(status==='guest'){
-  badge.style.display='inline-block';
-  badge.style.cssText='display:inline-block;font-size:.76rem;color:var(--muted);font-weight:600;padding:.28rem .7rem;background:rgba(255,255,255,.05);border-radius:6px;border:1px solid rgba(255,255,255,.1)';
-  badge.textContent='👤 زائر';
+const status = sessionStorage.getItem('loggedIn');
+const via = sessionStorage.getItem('via') || '';
+const name = sessionStorage.getItem('userName') || '';
+const badge = document.getElementById('user-badge');
+const loginBtn = document.getElementById('login-nav-btn');
+
+const historyKey = name ? 'orderHistory_' + name : 'orderHistory_guest';
+const activeKey = name ? 'activeOrder_' + name : 'activeOrder_guest';
+
+if(status === 'true' || status === 'guest'){
+  document.getElementById('my-orders-btn').style.display = 'inline-flex';
+  document.getElementById('complaints-btn').style.display = 'inline-flex';
+  
+  if(status === 'true'){
+    badge.style.display = 'inline-block';
+    badge.textContent = name ? '👋 ' + name.split(' ')[0] : via ? '✅ ' + via : '✅ مرحباً';
+    if(loginBtn) {
+      loginBtn.textContent = '🚪 خروج';
+      loginBtn.href = '#';
+      loginBtn.onclick = function(e){ e.preventDefault(); logoutUser(); };
+    }
+  } else if(status === 'guest'){
+    badge.style.display = 'inline-block';
+    badge.textContent = '👤 زائر';
+  }
 }
 
-function toggleMenu(){
-  const ham=document.getElementById('ham');
-  const menu=document.getElementById('mob-menu');
-  ham.classList.toggle('open');
-  menu.classList.toggle('open');
-  document.body.style.overflow=menu.classList.contains('open')?'hidden':'';
-}
-function closeMenu(){
-  document.getElementById('ham').classList.remove('open');
-  document.getElementById('mob-menu').classList.remove('open');
-  document.body.style.overflow='';
+// ── 🟢 وظائف القائمة الجانبية (Sidebar) 🟢 ──
+function openSidebar() {
+  document.getElementById('sidebar').classList.add('open');
+  document.getElementById('sidebar-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+
+  const profileDiv = document.getElementById('sidebar-profile');
+  const logoutLi = document.getElementById('sidebar-logout');
+
+  if(status === 'true') {
+    const firstLetter = name ? name.charAt(0) : 'ع';
+    profileDiv.innerHTML = `
+      <div class="sp-avatar">${firstLetter}</div>
+      <div class="sp-name">${name}</div>
+      <div class="sp-info">📱 محفوظ في الحساب</div>
+      <div class="sp-info">✉️ عميل صيانة بلس المميز</div>
+    `;
+    logoutLi.style.display = 'block'; 
+  } else {
+    profileDiv.innerHTML = `
+      <div class="sp-avatar">👤</div>
+      <div class="sp-name">زائر</div>
+      <div class="sp-info">تصفح بدون حساب</div>
+      <a href="auth.html" class="btn-primary" style="margin-top:10px; font-size:0.8rem; padding:0.5rem 1rem;">تسجيل الدخول</a>
+    `;
+    logoutLi.style.display = 'none'; 
+  }
 }
 
-const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');})},{threshold:.1});
-document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+function closeSidebar() {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('sidebar-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
 
-// ── 🟢 وظائف الطوارئ (SOS) 🟢 ──
+function logoutUser() {
+  sessionStorage.clear();
+  window.location.reload();
+}
+
+// ── الشكاوى والاستفسارات ──
+function openComplaint() {
+    document.getElementById('complaint-ov').classList.add('open');
+    document.body.style.overflow = 'hidden';
+    if (name) document.getElementById('comp-name').value = name;
+}
+
+function closeComplaint() {
+    document.getElementById('complaint-ov').classList.remove('open');
+    document.body.style.overflow = '';
+    setTimeout(() => {
+        document.getElementById('complaint-form').style.display = 'block';
+        document.getElementById('comp-ok').style.display = 'none';
+        document.getElementById('comp-msg').value = '';
+        if(!name) document.getElementById('comp-name').value = '';
+        document.getElementById('comp-contact').value = '';
+        document.getElementById('comp-subject').value = 'استفسار عام';
+    }, 300);
+}
+
+function openComplaintWithPreFill(techName, date) {
+    openComplaint();
+    document.getElementById('comp-subject').value = 'شكوى بخصوص خدمة';
+    document.getElementById('comp-msg').value = `أريد تقديم شكوى بخصوص الخدمة المقدمة من الفني (${techName}) بتاريخ ${date}.\n\nالتفاصيل: `;
+    setTimeout(() => {
+        document.getElementById('comp-msg').focus();
+    }, 400);
+}
+
+async function submitComplaint() {
+    const userName = document.getElementById('comp-name').value;
+    const contact = document.getElementById('comp-contact').value;
+    const subject = document.getElementById('comp-subject').value;
+    const message = document.getElementById('comp-msg').value;
+
+    if(!userName || !contact || !message) return alert("يرجى إكمال جميع الحقول المطلوبة.");
+
+    const payload = { userName, contact, subject, message };
+
+    try {
+        const btn = document.getElementById('comp-submit-btn');
+        const oldText = btn.innerHTML;
+        btn.innerHTML = 'جاري الإرسال... ⏳';
+
+        const res = await fetch('api/complaint.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+
+        if(res.ok) {
+            document.getElementById('complaint-form').style.display = 'none';
+            document.getElementById('comp-ok').style.display = 'block';
+        } else {
+            alert('حدث خطأ في السيرفر أثناء الإرسال.');
+        }
+        btn.innerHTML = oldText;
+    } catch(err) {
+        document.getElementById('complaint-form').style.display = 'none';
+        document.getElementById('comp-ok').style.display = 'block';
+    }
+}
+
+// ── سجل طلباتي وتفاصيل الطلب ──
+function openMyOrders() {
+    const listContainer = document.getElementById('orders-list');
+    let history = JSON.parse(localStorage.getItem(historyKey)) || [];
+    
+    listContainer.innerHTML = '';
+    
+    if(history.length === 0) {
+        listContainer.innerHTML = '<div style="text-align:center; padding: 2rem; color: var(--muted);">لا يوجد لديك أي طلبات سابقة.</div>';
+    } else {
+        history.forEach((order, index) => {
+            const statusClass = order.orderStatus === 'active' ? 'active' : 'done';
+            const statusText = order.orderStatus === 'active' ? 'قيد التنفيذ ⏳' : 'مكتمل ✅';
+            
+            const cardHTML = `
+                <div class="order-hist-card" onclick="openOrderDetails(${index})">
+                    <div class="order-hist-header">
+                        <span class="order-hist-date">${order.timestamp || order.date}</span>
+                        <span class="order-hist-status ${statusClass}">${statusText}</span>
+                    </div>
+                    <div class="order-hist-body">
+                        <div class="modal-avatar-sm" style="flex-shrink:0; border-color:var(--gold);">${order.svg || '👤'}</div>
+                        <div class="order-hist-info">
+                            <h4>${order.svc}</h4>
+                            <span>الفني: ${order.techName}</span>
+                        </div>
+                        <div style="margin-right:auto; color:var(--muted); font-size:1.2rem;">←</div>
+                    </div>
+                </div>
+            `;
+            listContainer.insertAdjacentHTML('beforeend', cardHTML);
+        });
+    }
+    
+    document.getElementById('orders-ov').classList.add('open');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeMyOrders() {
+    document.getElementById('orders-ov').classList.remove('open');
+    document.body.style.overflow = '';
+}
+
+function openOrderDetails(index) {
+    let history = JSON.parse(localStorage.getItem(historyKey)) || [];
+    const order = history[index];
+    if(!order) return;
+
+    document.getElementById('orders-ov').classList.remove('open');
+    document.getElementById('order-details-ov').classList.add('open');
+
+    const statusText = order.orderStatus === 'active' 
+        ? '<span style="color:var(--gold); background:rgba(201,168,76,0.1); padding:2px 8px; border-radius:12px;">قيد التنفيذ ⏳</span>' 
+        : '<span style="color:var(--green); background:rgba(46,204,113,0.1); padding:2px 8px; border-radius:12px;">مكتمل ✅</span>';
+    
+    const ratingHtml = '<span style="color:var(--gold); font-size:0.9rem;">★ ★ ★ ★ ★ <span style="color:var(--muted);font-size:0.75rem;">(ممتاز)</span></span>';
+
+    document.getElementById('od-content').innerHTML = `
+        <div style="display:flex; align-items:center; gap:1rem; margin-bottom:1.5rem; padding-bottom:1rem; border-bottom:1px solid rgba(255,255,255,0.05);">
+            <div class="modal-avatar-sm" style="width:65px; height:65px; border-width:3px;">${order.svg || '👤'}</div>
+            <div>
+                <h3 style="margin:0 0 5px 0; font-family:'Tajawal',sans-serif; color:var(--white); font-size:1.2rem;">${order.techName}</h3>
+                <div style="color:var(--gold); font-size:0.85rem; font-weight:700;">${order.svc}</div>
+                <div style="margin-top:3px;">${ratingHtml}</div>
+            </div>
+        </div>
+        <div class="od-row"><span class="od-label">حالة الطلب</span><span class="od-value">${statusText}</span></div>
+        <div class="od-row"><span class="od-label">تاريخ الطلب</span><span class="od-value">${order.timestamp || 'غير محدد'}</span></div>
+        ${order.date ? `<div class="od-row"><span class="od-label">الموعد المجدول</span><span class="od-value">${order.date} | ${order.time}</span></div>` : ''}
+        <div class="od-row"><span class="od-label">اسم العميل</span><span class="od-value">${order.userName}</span></div>
+        <div class="od-row"><span class="od-label">رقم التواصل</span><span class="od-value" style="direction:ltr;">${order.phone || 'غير مسجل'}</span></div>
+        <div class="od-row"><span class="od-label">العنوان</span><span class="od-value">${order.address}</span></div>
+        ${order.desc ? `<div class="od-row" style="flex-direction:column; gap:0.5rem; border-bottom:none;"><span class="od-label">وصف المشكلة:</span><span class="od-value" style="max-width:100%; background:rgba(0,0,0,0.2); padding:10px; border-radius:8px; white-space:pre-wrap; font-weight:normal;">${order.desc}</span></div>` : ''}
+    `;
+
+    const compBtn = document.getElementById('od-complaint-btn');
+    compBtn.onclick = () => {
+        closeOrderDetails();
+        openComplaintWithPreFill(order.techName, order.timestamp || order.date);
+    };
+}
+
+function backToOrders() {
+    document.getElementById('order-details-ov').classList.remove('open');
+    document.getElementById('orders-ov').classList.add('open');
+}
+
+function closeOrderDetails() {
+    document.getElementById('order-details-ov').classList.remove('open');
+    document.body.style.overflow = '';
+}
+
+// ── الطوارئ (SOS) ──
 function openSOS() {
   document.getElementById('sos-ov').classList.add('open');
   document.body.style.overflow = 'hidden';
@@ -482,11 +900,17 @@ function submitSOS() {
     return;
   }
 
-  // تفعيل الويدجت في الرئيسية
   const svcName = type === 'electric' ? '⚡ طوارئ كهرباء' : type === 'plumbing' ? '💧 طوارئ سباكة' : '❄️ طوارئ تكييف';
   const emergencySvg = '<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="#ef4444"/><text x="50" y="65" font-size="40" text-anchor="middle" fill="#fff">🚨</text></svg>';
   const order = { techName: 'فني طوارئ (أقرب متاح)', svc: svcName, svg: emergencySvg, userName: 'عميل طوارئ ('+phone+')', address: addr, eta: '10 - 15 دقيقة (أولوية)' };
-  sessionStorage.setItem('activeOrder', JSON.stringify(order));
+  
+  localStorage.setItem(activeKey, JSON.stringify(order));
+
+  let history = JSON.parse(localStorage.getItem(historyKey)) || [];
+  order.timestamp = new Date().toLocaleString('ar-EG');
+  order.orderStatus = 'active';
+  history.unshift(order);
+  localStorage.setItem(historyKey, JSON.stringify(history));
 
   document.getElementById('sos-form').style.display = 'none';
   document.getElementById('sos-ok').style.display = 'block';
@@ -514,13 +938,12 @@ function getLocation() {
   }
 }
 
-// ── 🟢 وظائف التقييم (Reviews Modal) - منطق الجافاسكريبت 🟢 ──
+// ── التقييم (Reviews Modal) ──
 let currentRating = 0;
 
 function openReview() {
   document.getElementById('review-ov').classList.add('open');
   document.body.style.overflow = 'hidden';
-  // جلب اسم المستخدم تلقائياً إذا كان مسجل الدخول
   if(name) document.getElementById('rev-name').value = name;
 }
 
@@ -531,7 +954,7 @@ function closeReview() {
     document.getElementById('review-form').style.display = 'block';
     document.getElementById('review-ok').style.display = 'none';
     document.getElementById('rev-text').value = '';
-    rateStar(0); // إعادة تعيين النجوم
+    rateStar(0); 
   }, 300);
 }
 
@@ -544,7 +967,7 @@ function hoverStar(num) {
 }
 
 function resetStarHover() {
-  rateStar(currentRating); // إعادة اللون للنجوم بناءً على التقييم الفعلي
+  rateStar(currentRating); 
 }
 
 function rateStar(num) {
@@ -574,16 +997,13 @@ function submitReview() {
     return;
   }
 
-  // هنا يمكن إضافة كود Fetch لإرسال التقييم للباك إند (php) مستقبلاً
-  // fetch('api/submit_review.php', { ... })
-
   document.getElementById('review-form').style.display = 'none';
   document.getElementById('review-ok').style.display = 'block';
 }
 
-// ── 🟢 وظائف ويدجت الطلب الجاري (Active Order Tracker) 🟢 ──
+// ── ويدجت الطلب الجاري ──
 function renderActiveOrder() {
-  const orderData = sessionStorage.getItem('activeOrder');
+  const orderData = localStorage.getItem(activeKey);
   const widget = document.getElementById('active-order-widget');
   if(orderData && (status === 'true' || status === 'guest')) {
     const order = JSON.parse(orderData);
@@ -599,10 +1019,34 @@ function renderActiveOrder() {
   }
 }
 function cancelOrder() {
-  sessionStorage.removeItem('activeOrder');
+  localStorage.removeItem(activeKey);
+  let history = JSON.parse(localStorage.getItem(historyKey)) || [];
+  if(history.length > 0 && history[0].orderStatus === 'active') {
+      history[0].orderStatus = 'done';
+      localStorage.setItem(historyKey, JSON.stringify(history));
+  }
   renderActiveOrder();
 }
-document.addEventListener("DOMContentLoaded", renderActiveOrder);
+
+// ── Animations ──
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting) {
+      e.target.style.opacity = 1;
+      e.target.style.transform = 'translateY(0)';
+    }
+  });
+}, {threshold: 0.1});
+
+document.addEventListener("DOMContentLoaded", () => {
+  renderActiveOrder();
+  document.querySelectorAll('.reveal').forEach(el => {
+    el.style.opacity = 0;
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'all 0.6s ease';
+    obs.observe(el);
+  });
+});
 </script>
 </body>
 </html>
