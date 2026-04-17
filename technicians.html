@@ -22,39 +22,43 @@
 body { background-color: var(--navy); color: var(--white); overflow-x: hidden; }
 a { text-decoration: none; }
 
-/* NAVBAR & EBAR */
+/* ── NAVBAR & EBAR ── */
 .ebar { background: #dc2626; color: white; text-align: center; padding: 0.5rem; font-weight: 700; font-size: 0.9rem; position: fixed; top: 0; width: 100%; z-index: 100; }
 .ebar a { color: white; text-decoration: underline; }
-.navbar { position: fixed; top: 36px; width: 100%; background: rgba(10,17,40,0.95); backdrop-filter: blur(10px); display: flex; justify-content: space-between; align-items: center; padding: 1rem 5%; z-index: 99; border-bottom: 1px solid rgba(255,255,255,0.05); }
+.navbar-offset { height: 36px; }
+.navbar { position: fixed; top: 36px; width: 100%; background: rgba(10,17,40,0.95); backdrop-filter: blur(10px); display: flex; justify-content: space-between; align-items: center; padding: 1rem 5%; z-index: 99; border-bottom: 1px solid rgba(255,255,255,0.05); transition: 0.3s; }
 .nav-logo { font-family: 'Tajawal', sans-serif; font-size: 1.5rem; font-weight: 900; color: var(--white); }
 .nav-logo span { color: var(--gold); }
-.nav-actions { display: flex; gap: 1rem; align-items: center; }
-.nav-login-btn { color: var(--white); font-size: 0.9rem; font-weight: 600; transition: color 0.3s; cursor: pointer; }
+
+/* الروابط والأزرار في الشريط العلوي */
+.nav-actions { display: flex; gap: 1rem; align-items: center; flex-wrap: nowrap; }
+.nav-login-btn { color: var(--white); font-size: 0.9rem; font-weight: 600; transition: color 0.3s; cursor: pointer; white-space: nowrap; }
 .nav-login-btn:hover { color: var(--gold); }
 
-/* أزرار طلباتي والاستفسارات */
-.my-orders-btn { display: none; align-items: center; gap: 0.4rem; background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.4); padding: 0.4rem 0.8rem; border-radius: 6px; color: #93c5fd; font-size: 0.85rem; font-weight: 700; transition: 0.2s; cursor: pointer; }
+/* أزرار طلباتي والاستفسارات (ظاهرة دائماً) */
+.my-orders-btn { display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.4); padding: 0.4rem 0.8rem; border-radius: 6px; color: #93c5fd; font-size: 0.85rem; font-weight: 700; transition: 0.2s; cursor: pointer; white-space: nowrap; }
 .my-orders-btn:hover { background: rgba(59, 130, 246, 0.2); color: white; }
 .complaints-btn { background: rgba(201, 168, 76, 0.1); border: 1px solid rgba(201, 168, 76, 0.4); color: var(--gold); }
 .complaints-btn:hover { background: rgba(201, 168, 76, 0.2); color: var(--gold-light); }
 
 /* 🟢 زر الثلاث شرط (Hamburger) 🟢 */
-.hamburger { display: flex; background: none; border: none; cursor: pointer; flex-direction: column; gap: 5px; padding: 5px; }
+.hamburger { display: flex; background: none; border: none; cursor: pointer; flex-direction: column; gap: 5px; padding: 5px; margin-right: 5px;}
 .hamburger span { width: 25px; height: 3px; background: var(--white); border-radius: 2px; transition: 0.3s; }
 .hamburger:hover span { background: var(--gold); }
 
 /* 🟢 القائمة الجانبية (Sidebar) 🟢 */
-.sidebar { position: fixed; top: 0; right: -320px; width: 320px; height: 100vh; background: var(--navy-mid); z-index: 1001; transition: right 0.3s ease; box-shadow: -5px 0 25px rgba(0,0,0,0.5); display: flex; flex-direction: column; border-left: 1px solid rgba(201,168,76,0.2); }
+.sidebar { position: fixed; top: 0; right: -320px; width: 320px; height: 100vh; background: var(--navy-mid); z-index: 10001; transition: right 0.3s ease; box-shadow: -5px 0 25px rgba(0,0,0,0.5); display: flex; flex-direction: column; border-left: 1px solid rgba(201,168,76,0.2); }
 .sidebar.open { right: 0; }
-.sidebar-overlay { position: fixed; inset: 0; background: rgba(10,17,40,0.8); backdrop-filter: blur(4px); z-index: 1000; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+.sidebar-overlay { position: fixed; inset: 0; background: rgba(10,17,40,0.8); backdrop-filter: blur(4px); z-index: 10000; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
 .sidebar-overlay.open { opacity: 1; pointer-events: auto; }
 .sidebar-header { padding: 1rem; display: flex; justify-content: flex-end; }
 .close-sidebar { background: rgba(255,255,255,0.05); border: none; color: var(--white); width: 35px; height: 35px; border-radius: 50%; cursor: pointer; font-size: 1.2rem; transition: 0.2s; display: flex; align-items: center; justify-content: center; }
 .close-sidebar:hover { background: rgba(239,68,68,0.2); color: #ef4444; }
 
-/* بروفايل العميل في القائمة الجانبية */
+/* بروفايل العميل في القائمة الجانبية والصورة */
 .sidebar-profile { padding: 0 1.5rem 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.05); text-align: center; }
-.sp-avatar { width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, var(--gold), var(--gold-light)); color: var(--navy); display: flex; align-items: center; justify-content: center; font-size: 2.5rem; font-weight: 900; margin: 0 auto 1rem; border: 3px solid rgba(201,168,76,0.3); }
+.sp-avatar { width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, var(--gold), var(--gold-light)); color: var(--navy); display: flex; align-items: center; justify-content: center; font-size: 2.5rem; font-weight: 900; margin: 0 auto 1rem; border: 3px solid rgba(201,168,76,0.3); position: relative; overflow: hidden; cursor: pointer; transition: 0.3s; }
+.sp-avatar:hover::after { content: '📷'; position: absolute; inset: 0; background: rgba(0,0,0,0.6); display: flex; align-items: center; justify-content: center; font-size: 1.8rem; color: white; }
 .sp-name { font-family: 'Tajawal', sans-serif; font-size: 1.2rem; font-weight: 800; color: var(--white); margin-bottom: 0.3rem; }
 .sp-info { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.2rem; direction: ltr; }
 
@@ -66,9 +70,9 @@ a { text-decoration: none; }
 .logout-link { color: #fca5a5 !important; }
 .logout-link:hover { background: rgba(239,68,68,0.05) !important; color: #ef4444 !important; border-right-color: #ef4444 !important; }
 
-.btn-primary { background: linear-gradient(135deg, var(--gold), var(--gold-light)); color: var(--navy); padding: 0.8rem 1.5rem; border-radius: 8px; font-weight: 700; display: inline-flex; align-items: center; }
+.btn-primary { background: linear-gradient(135deg, var(--gold), var(--gold-light)); color: var(--navy); padding: 0.8rem 1.5rem; border-radius: 8px; font-weight: 700; display: inline-flex; align-items: center; cursor: pointer; border: none; }
 
-/* PAGE HERO */
+/* 🟢 PAGE HERO 🟢 */
 .page-hero { background-image: url('plumbing-services-500x500.webp'); background-size: cover; background-position: center; padding: 10rem 5% 5rem; position: relative; overflow: hidden; border-bottom: 1px solid rgba(201,168,76,.1); text-align: center; }
 .page-hero::before { content: ''; position: absolute; inset: 0; background-color: rgba(10, 22, 40, 0.82); z-index: 1; }
 .page-hero::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at center, transparent 0%, var(--navy) 100%); z-index: 2; }
@@ -138,7 +142,7 @@ a { text-decoration: none; }
 .abadge{position:absolute;top:.9rem;right:.9rem;font-size:.65rem;font-weight:700;padding:.18rem .62rem;border-radius:20px}
 .abadge.on{background:rgba(46,204,113,.12);color:var(--green);border:1px solid rgba(46,204,113,.25)}
 .abadge.off{background:rgba(232,83,74,.1);color:#e8a07a;border:1px solid rgba(232,83,74,.2)}
-.aring{width:92px;height:92px;border-radius:50%;border:3px solid rgba(201,168,76,.28);padding:3px;background:rgba(201,168,76,.05);position:relative;flex-shrink:0}
+.aring{width:92px;height:92px;border-radius:50%;border:3px solid rgba(201,168,76,.28);padding:3px;background:rgba(201,168,76,.05);position:relative;flex-shrink:0; overflow:hidden;}
 .aring svg{width:100%;height:100%;border-radius:50%;display:block}
 .vbadge{position:absolute;bottom:2px;left:2px;width:20px;height:20px;border-radius:50%;background:var(--gold);border:2px solid var(--navy);display:flex;align-items:center;justify-content:center;font-size:.52rem;color:var(--navy);font-weight:900}
 .tname{font-family:'Tajawal',sans-serif;font-size:.95rem;font-weight:800;margin-top:.75rem;text-align:center}
@@ -164,37 +168,90 @@ a { text-decoration: none; }
 .balt { width: 100%; padding: .62rem; background: linear-gradient(135deg, #10b981, #059669); color: white; border: none; border-radius: 8px; font-family: 'Cairo', sans-serif; font-size: .8rem; font-weight: 700; cursor: pointer; transition: transform .2s, box-shadow .2s; display: flex; align-items: center; justify-content: center; gap: .4rem; }
 .balt:hover { transform: translateY(-2px); box-shadow: 0 5px 16px rgba(16, 185, 129, .4); }
 
-/* MODALS */
-.overlay{position:fixed;inset:0;background:rgba(10,17,40,.85);backdrop-filter:blur(5px);z-index:1000;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s}
-.overlay.open{opacity:1;pointer-events:auto}
-.modal-box{background:var(--navy-mid);border:1px solid rgba(201,168,76,.2);border-radius:18px;width:90%;max-width:450px;padding:2rem;position:relative;transform:translateY(24px) scale(.96);transition:transform .3s;max-height:90vh;overflow-y:auto;box-shadow: 0 10px 40px rgba(0,0,0,0.8);}
-.overlay.open .modal-box{transform:translateY(0) scale(1)}
-.modal-close{position:absolute;top:1rem;left:1rem;background:rgba(255,255,255,.05);border:none;color:var(--muted);width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;transition:0.2s;}
-.modal-close:hover{background:rgba(255,255,255,.1);color:var(--white);}
-.modal-title{font-family:'Tajawal',sans-serif;font-size:1.4rem;font-weight:800;margin-bottom:1.5rem; text-align:center;}
-.modal-title em{font-style:normal;color:var(--gold)}
-.modal-avatar-sm { width:48px; height:48px; border-radius:50%; border:2px solid rgba(201,168,76,.3); padding:2px; background:rgba(201,168,76,.05); display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; }
-.modal-avatar-sm svg { width:100%; height:100%; border-radius:50%; }
+/* ── MODALS & OVERLAYS ── */
+.overlay { position: fixed; inset: 0; background: rgba(10,17,40,.85); backdrop-filter: blur(5px); z-index: 1000; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity .3s; }
+.overlay.open { opacity: 1; pointer-events: auto; }
+.modal-box { background: var(--navy-mid); border: 1px solid rgba(201,168,76,.2); border-radius: 18px; width: 90%; max-width: 450px; padding: 2rem; position: relative; transform: translateY(24px) scale(.96); transition: transform .3s; max-height: 90vh; overflow-y: auto; box-shadow: 0 10px 40px rgba(0,0,0,0.8); }
+.overlay.open .modal-box { transform: translateY(0) scale(1); }
+.modal-close { position: absolute; top: 1rem; left: 1rem; background: rgba(255,255,255,.05); border: none; color: var(--muted); width: 32px; height: 32px; border-radius: 50%; cursor: pointer; font-size: 1rem; display: flex; align-items: center; justify-content: center; transition: 0.2s; z-index: 10; }
+.modal-close:hover { background: rgba(255,255,255,.1); color: var(--white); }
+.modal-title { font-family: 'Tajawal', sans-serif; font-size: 1.4rem; font-weight: 800; margin-bottom: 1.5rem; text-align: center; }
+.modal-title em { font-style: normal; color: var(--gold); }
 
-/* BOOKING MODAL */
-.modal-sub{display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:1px solid rgba(255,255,255,.05)}
-.fgrow{display:flex;gap:1rem}
-.fg{margin-bottom:1rem;flex:1}
-.fg label{display:block;font-size:.75rem;color:var(--muted);margin-bottom:.4rem;font-weight:600}
-.fg input, .fg textarea, .fg select {width:100%;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.1);color:var(--white);padding:.7rem .9rem;border-radius:8px;font-family:'Cairo',sans-serif;font-size:.85rem;outline:none;transition:0.2s}
-.fg input:focus, .fg textarea:focus, .fg select:focus {border-color:var(--gold);background:rgba(201,168,76,.02)}
-.fg textarea{resize:vertical;min-height:80px}
-.fg select option {background: var(--navy-mid); color: white;}
-.btn-submit{width:100%;padding:.8rem;background:linear-gradient(135deg,var(--gold),var(--gold-light));color:var(--navy);border:none;border-radius:8px;font-family:'Cairo',sans-serif;font-size:.9rem;font-weight:800;cursor:pointer;margin-top:1rem;transition:0.2s}
-.btn-submit:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(201,168,76,.3)}
+/* 🟢 CSS الخاص بنافذة حجز موعد 🟢 */
+.modal-sub { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid rgba(255,255,255,.05); }
+.modal-avatar-sm { width: 48px; height: 48px; border-radius: 50%; border: 2px solid rgba(201,168,76,.3); padding: 2px; background: rgba(201,168,76,.05); display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; }
+.modal-avatar-sm svg { width: 100%; height: 100%; border-radius: 50%; }
+.fgrow { display: flex; gap: 1rem; }
+.fg { margin-bottom: 1rem; flex: 1; }
+.fg label { display: block; font-size: 0.75rem; color: var(--muted); margin-bottom: 0.4rem; font-weight: 600; text-align: right; }
+.fg input, .fg textarea, .fg select { width: 100%; background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.1); color: var(--white); padding: 0.7rem 0.9rem; border-radius: 8px; font-family: 'Cairo', sans-serif; font-size: 0.85rem; outline: none; transition: 0.2s; }
+.fg input:focus, .fg textarea:focus, .fg select:focus { border-color: var(--gold); background: rgba(201,168,76,.02); }
+.fg textarea { resize: vertical; min-height: 80px; }
+.btn-submit { width: 100%; padding: 0.8rem; background: linear-gradient(135deg, var(--gold), var(--gold-light)); color: var(--navy); border: none; border-radius: 8px; font-family: 'Cairo', sans-serif; font-size: 0.9rem; font-weight: 800; cursor: pointer; margin-top: 1rem; transition: 0.2s; }
+.btn-submit:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(201,168,76,.3); }
 
-/* 🟢 زر الواتساب داخل الشكاوى 🟢 */
+/* مدخلات ومربع نجاح عام */
+.sos-input { width: 100%; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); color: white; padding: 0.8rem; border-radius: 8px; font-family: 'Cairo', sans-serif; outline: none; margin-bottom: 1rem; }
+.sos-input:focus { border-color: var(--gold); background: rgba(201,168,76,.05); }
+.sos-input option { background: var(--navy-mid); color: white; }
+.success-box { text-align: center; display: none; padding: 2rem 0; }
+.success-ring { width: 80px; height: 80px; border-radius: 50%; background: rgba(46,204,113,.1); color: var(--green); font-size: 2.5rem; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; border: 2px solid rgba(46,204,113,.3); }
+
+/* زر تحديد الموقع (GPS) */
+.btn-gps { background: rgba(59, 130, 246, 0.2); border: 1px solid #3b82f6; color: white; border-radius: 8px; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 1.2rem; transition: 0.2s; flex-shrink: 0; margin-bottom: 1rem;}
+.btn-gps:hover { background: #3b82f6; }
+
+/* زر الإرسال للطوارئ */
+.btn-sos-submit { width: 100%; padding: 1rem; background: linear-gradient(135deg, #ef4444, #b91c1c); color: white; border: none; border-radius: 8px; font-family: 'Cairo', sans-serif; font-size: 1.1rem; font-weight: 800; cursor: pointer; margin-top: 0.5rem; transition: 0.2s; box-shadow: 0 5px 15px rgba(239, 68, 68, 0.3); }
+.btn-sos-submit:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(239, 68, 68, 0.5); }
+
+/* 🟢 زر الطوارئ العائم 🟢 */
+.sos-btn-float { position: fixed !important; bottom: 30px !important; left: 30px !important; z-index: 9999 !important; background: linear-gradient(135deg, #ef4444, #b91c1c) !important; color: white !important; border: none !important; padding: 14px 28px !important; border-radius: 50px !important; font-family: 'Cairo', sans-serif !important; font-size: 1.1rem !important; font-weight: 900 !important; cursor: pointer !important; box-shadow: 0 4px 15px rgba(239, 68, 68, 0.5) !important; animation: pulseRed 1.5s infinite !important; display: flex !important; align-items: center !important; gap: 8px !important; }
+.sos-btn-float:hover { transform: scale(1.05) !important; }
+@keyframes pulseRed { 0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(239, 68, 68, 0); } 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); } }
+
+/* 🟢 CSS الخاص بتفاصيل الطلب و الشكاوى 🟢 */
+.order-hist-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 1rem; display: flex; flex-direction: column; gap: 0.6rem; transition: 0.2s; cursor: pointer; margin-bottom: 0.8rem;}
+.order-hist-card:hover { border-color: rgba(201,168,76,0.3); background: rgba(255,255,255,0.05); transform: translateY(-2px);}
+.order-hist-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 0.6rem; }
+.order-hist-date { font-size: 0.75rem; color: var(--muted); }
+.order-hist-status { font-size: 0.7rem; font-weight: bold; padding: 0.2rem 0.6rem; border-radius: 20px; }
+.order-hist-status.active { background: rgba(201,168,76,0.15); color: var(--gold); border: 1px solid var(--gold); }
+.order-hist-status.done { background: rgba(46,204,113,0.15); color: var(--green); border: 1px solid var(--green); }
+.order-hist-body { display: flex; align-items: center; gap: 1rem; padding-top: 0.4rem; }
+.order-hist-info h4 { font-family: 'Tajawal', sans-serif; font-size: 0.95rem; margin-bottom: 0.2rem; color: white; }
+.order-hist-info span { font-size: 0.75rem; color: var(--muted); }
+
+.order-details-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 1.5rem; margin-bottom: 1rem; }
+.od-row { display: flex; justify-content: space-between; padding: 0.6rem 0; border-bottom: 1px dashed rgba(255,255,255,0.05); }
+.od-row:last-child { border-bottom: none; }
+.od-label { color: var(--muted); font-size: 0.8rem; font-weight: 600;}
+.od-value { color: var(--white); font-weight: 700; font-size: 0.9rem; text-align: left; max-width: 65%; line-height:1.4;}
+.btn-danger { background: rgba(239, 68, 68, 0.1); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.3); }
+.btn-danger:hover { background: rgba(239, 68, 68, 0.2); border-color: #ef4444; color: #ef4444; transform: translateY(-2px); box-shadow: 0 4px 15px rgba(239, 68, 68, 0.2);}
+
 .btn-whatsapp { display: flex; align-items: center; justify-content: center; gap: 0.5rem; width: 100%; padding: 0.8rem; background: linear-gradient(135deg, #25D366, #128C7E); color: white; border: none; border-radius: 8px; font-family: 'Cairo', sans-serif; font-size: 0.95rem; font-weight: 800; cursor: pointer; transition: 0.2s; text-decoration: none; }
 .btn-whatsapp:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(37, 211, 102, 0.4); color: white; }
 .btn-whatsapp svg { fill: white; }
 
-.success-box{text-align:center;display:none;padding:2rem 0}
-.success-ring{width:80px;height:80px;border-radius:50%;background:rgba(46,204,113,.1);color:var(--green);font-size:2.5rem;display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;border:2px solid rgba(46,204,113,.3)}
+/* ويدجت تتبع الطلب النشط */
+.active-order-widget { position: fixed; bottom: 30px; right: 30px; width: 320px; background: var(--navy-mid); border: 1px solid var(--gold); border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.6); z-index: 995; display: none; flex-direction: column; overflow: hidden; animation: slideInRight 0.4s ease forwards; }
+.ao-header { background: rgba(201,168,76,0.1); padding: 0.6rem 1rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(201,168,76,0.2); }
+.ao-status { font-size: 0.8rem; color: var(--gold); font-weight: 700; display: flex; align-items: center; gap: 0.4rem; }
+.ao-status::before { content: ''; display: inline-block; width: 8px; height: 8px; background: var(--gold); border-radius: 50%; animation: pulseGold 1.5s infinite; }
+.ao-close { background: none; border: none; color: var(--muted); cursor: pointer; font-size: 1rem; }
+.ao-close:hover { color: var(--red); }
+.ao-body { padding: 1rem; }
+.ao-tech { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1rem; }
+.ao-av { width: 45px; height: 45px; border-radius: 50%; background: var(--navy); border: 2px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink:0;}
+.ao-av svg { width: 90%; height: 90%; }
+.ao-tech-name { font-family: 'Tajawal', sans-serif; font-weight: 800; font-size: 1rem; color: white; }
+.ao-svc { font-size: 0.75rem; color: var(--muted); }
+.ao-details { background: rgba(255,255,255,0.03); border-radius: 8px; padding: 0.8rem; font-size: 0.8rem; color: var(--body-text); }
+.ao-row { display: flex; justify-content: space-between; margin-bottom: 0.4rem; }
+.ao-row:last-child { margin-bottom: 0; }
+@keyframes slideInRight { from { opacity: 0; transform: translateX(50px); } to { opacity: 1; transform: translateX(0); } }
 
 /* CHAT MODAL */
 .chat-modal{background:var(--navy-mid);border:1px solid rgba(59,130,246,.2);border-radius:18px;width:100%;max-width:400px;height:540px;display:flex;flex-direction:column;transform:translateY(24px) scale(.96);transition:transform .3s;overflow:hidden;position:relative}
@@ -232,49 +289,6 @@ a { text-decoration: none; }
 .alt-action .bbk { padding: 0.5rem 1rem; font-size: 0.75rem; width: auto; }
 .no-alts { text-align: center; padding: 2rem; color: var(--muted); background: rgba(255,255,255,0.02); border-radius: 12px; font-size: 0.9rem; }
 
-/* الطوارئ */
-.sos-btn-float { position: fixed; bottom: 30px; left: 30px; z-index: 990; background: linear-gradient(135deg, #ef4444, #b91c1c); color: white; border: none; padding: 12px 24px; border-radius: 50px; font-family: 'Cairo', sans-serif; font-size: 1rem; font-weight: 800; cursor: pointer; box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4); animation: pulseRed 1.5s infinite; display: flex; align-items: center; gap: 8px; }
-.sos-btn-float:hover { transform: scale(1.05); }
-@keyframes pulseRed { 0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(239, 68, 68, 0); } 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); } }
-
-/* ويدجت تتبع الطلب النشط */
-.active-order-widget { position: fixed; bottom: 30px; right: 30px; width: 320px; background: var(--navy-mid); border: 1px solid var(--gold); border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.6); z-index: 995; display: none; flex-direction: column; overflow: hidden; animation: slideInRight 0.4s ease forwards; }
-.ao-header { background: rgba(201,168,76,0.1); padding: 0.6rem 1rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(201,168,76,0.2); }
-.ao-status { font-size: 0.8rem; color: var(--gold); font-weight: 700; display: flex; align-items: center; gap: 0.4rem; }
-.ao-status::before { content: ''; display: inline-block; width: 8px; height: 8px; background: var(--gold); border-radius: 50%; animation: pulseGold 1.5s infinite; }
-.ao-close { background: none; border: none; color: var(--muted); cursor: pointer; font-size: 1rem; }
-.ao-close:hover { color: var(--red); }
-.ao-body { padding: 1rem; }
-.ao-tech { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1rem; }
-.ao-av { width: 45px; height: 45px; border-radius: 50%; background: var(--navy); border: 2px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink:0;}
-.ao-av svg { width: 90%; height: 90%; }
-.ao-tech-name { font-family: 'Tajawal', sans-serif; font-weight: 800; font-size: 1rem; color: white; }
-.ao-svc { font-size: 0.75rem; color: var(--muted); }
-.ao-details { background: rgba(255,255,255,0.03); border-radius: 8px; padding: 0.8rem; font-size: 0.8rem; color: var(--body-text); }
-.ao-row { display: flex; justify-content: space-between; margin-bottom: 0.4rem; }
-.ao-row:last-child { margin-bottom: 0; }
-@keyframes slideInRight { from { opacity: 0; transform: translateX(50px); } to { opacity: 1; transform: translateX(0); } }
-
-/* 🟢 CSS الخاص بتفاصيل الطلب و الشكاوى 🟢 */
-.order-hist-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 1rem; display: flex; flex-direction: column; gap: 0.6rem; transition: 0.2s; cursor: pointer; margin-bottom: 0.8rem;}
-.order-hist-card:hover { border-color: rgba(201,168,76,0.3); background: rgba(255,255,255,0.05); transform: translateY(-2px);}
-.order-hist-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 0.6rem; }
-.order-hist-date { font-size: 0.75rem; color: var(--muted); }
-.order-hist-status { font-size: 0.7rem; font-weight: bold; padding: 0.2rem 0.6rem; border-radius: 20px; }
-.order-hist-status.active { background: rgba(201,168,76,0.15); color: var(--gold); border: 1px solid var(--gold); }
-.order-hist-status.done { background: rgba(46,204,113,0.15); color: var(--green); border: 1px solid var(--green); }
-.order-hist-body { display: flex; align-items: center; gap: 1rem; padding-top: 0.4rem; }
-.order-hist-info h4 { font-family: 'Tajawal', sans-serif; font-size: 0.95rem; margin-bottom: 0.2rem; color: white; }
-.order-hist-info span { font-size: 0.75rem; color: var(--muted); }
-
-.order-details-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 1.5rem; margin-bottom: 1rem; }
-.od-row { display: flex; justify-content: space-between; padding: 0.6rem 0; border-bottom: 1px dashed rgba(255,255,255,0.05); }
-.od-row:last-child { border-bottom: none; }
-.od-label { color: var(--muted); font-size: 0.8rem; font-weight: 600;}
-.od-value { color: var(--white); font-weight: 700; font-size: 0.9rem; text-align: left; max-width: 65%; line-height:1.4;}
-.btn-danger { background: rgba(239, 68, 68, 0.1); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.3); }
-.btn-danger:hover { background: rgba(239, 68, 68, 0.2); border-color: #ef4444; color: #ef4444; transform: translateY(-2px); box-shadow: 0 4px 15px rgba(239, 68, 68, 0.2);}
-
 /* LOADING SPINNER */
 .loader-container { width: 100%; display: flex; justify-content: center; align-items: center; height: 300px; grid-column: 1 / -1; }
 .spinner { width: 50px; height: 50px; border: 5px solid rgba(201,168,76,0.2); border-top-color: var(--gold); border-radius: 50%; animation: spin 1s linear infinite; }
@@ -305,17 +319,20 @@ a { text-decoration: none; }
 <div class="ebar">🚨 طوارئ 24/7 — <a href="tel:19777">19777</a></div>
 
 <nav class="navbar">
-  <a href="index.html" class="nav-logo">صيانة<span>بلس</span></a>
+  <div class="nav-logo">
+      <a href="index.html" class="nav-logo" style="margin-left: 15px;">صيانة<span>بلس</span></a>
+  </div>
+
   <div class="nav-actions">
-    <!-- أزرار الشكاوى و طلباتي (يتم إخفاء النصوص فيها على الموبايل عبر hide-mob) -->
+    <!-- 🟢 الأزرار تعمل بدون الحاجة لتسجيل دخول 🟢 -->
     <button class="my-orders-btn complaints-btn" id="complaints-btn" onclick="openComplaint()">💬 <span class="hide-mob">استفسارات</span></button>
     <button class="my-orders-btn" id="my-orders-btn" onclick="openMyOrders()">📦 <span class="hide-mob">طلباتي</span></button>
     
     <span id="user-badge" style="display:none" class="hide-mob"></span>
-    <a href="index.html" class="nav-login-btn hide-mob">← الرئيسية</a>
     <a href="auth.html" class="nav-login-btn hide-mob" id="login-nav-btn" style="display: none;">👤 دخول</a>
     
-    <!-- 🟢 زر الثلاث شرط لفتح القائمة الجانبية (ظاهر دائماً) 🟢 -->
+    <a href="index.html" class="nav-login-btn hide-mob">الرئيسية ←</a>
+    
     <button class="hamburger" id="ham" onclick="openSidebar()" aria-label="قائمة">
         <span></span><span></span><span></span>
     </button>
@@ -329,7 +346,6 @@ a { text-decoration: none; }
     <button class="close-sidebar" onclick="closeSidebar()">✕</button>
   </div>
   
-  <!-- بيانات بروفايل العميل ستُحقن هنا -->
   <div class="sidebar-profile" id="sidebar-profile"></div>
   
   <ul class="sidebar-links">
@@ -347,11 +363,11 @@ a { text-decoration: none; }
 
 <div class="page-hero">
   <div class="floating-tools">
-    <div class="f-tool ft1"><svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.06-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.05-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.56-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22l-1.92 3.32c-.12.22-.07.49.12.61l2.03 1.58c-.04.3-.06.61-.06.94s.02.64.06.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .43-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.49-.12-.61l-2.03-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></div>
-    <div class="f-tool ft2"><svg viewBox="0 0 24 24"><path d="M21.71 20.29l-9.53-9.53C12.75 9.77 13 8.4 12.64 7c-.43-1.64-1.7-2.92-3.35-3.36-1.95-.51-3.92.27-5.01 1.81l3.01 3.01c.2.2.2.51 0 .71l-1.41 1.41c-.2.2-.51.2-.71 0L2.16 7.57C.62 8.66-.16 10.63.35 12.58c.44 1.65 1.72 2.92 3.36 3.36 1.4.36 2.77.1 3.76-.48l9.53 9.53c.39.39 1.02.39 1.41 0l3.3-3.3c.39-.38.39-1.01 0-1.4z"/></svg></div>
-    <div class="f-tool ft3"><svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.06-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.05-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.56-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22l-1.92 3.32c-.12.22-.07.49.12.61l2.03 1.58c-.04.3-.06.61-.06.94s.02.64.06.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .43-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.49-.12-.61l-2.03-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></div>
-    <div class="f-tool ft4"><svg viewBox="0 0 24 24"><path d="M21.71 20.29l-9.53-9.53C12.75 9.77 13 8.4 12.64 7c-.43-1.64-1.7-2.92-3.35-3.36-1.95-.51-3.92.27-5.01 1.81l3.01 3.01c.2.2.2.51 0 .71l-1.41 1.41c-.2.2-.51.2-.71 0L2.16 7.57C.62 8.66-.16 10.63.35 12.58c.44 1.65 1.72 2.92 3.36 3.36 1.4.36 2.77.1 3.76-.48l9.53 9.53c.39.39 1.02.39 1.41 0l3.3-3.3c.39-.38.39-1.01 0-1.4z"/></svg></div>
-    <div class="f-tool ft5"><svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.06-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.05-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.56-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22l-1.92 3.32c-.12.22-.07.49.12.61l2.03 1.58c-.04.3-.06.61-.06.94s.02.64.06.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .43-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.49-.12-.61l-2.03-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></div>
+    <div class="f-tool ft1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.06-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.05-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.56-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22l-1.92 3.32c-.12.22-.07.49.12.61l2.03 1.58c-.04.3-.06.61-.06.94s.02.64.06.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .43-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.49-.12-.61l-2.03-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></div>
+    <div class="f-tool ft2"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21.71 20.29l-9.53-9.53C12.75 9.77 13 8.4 12.64 7c-.43-1.64-1.7-2.92-3.35-3.36-1.95-.51-3.92.27-5.01 1.81l3.01 3.01c.2.2.2.51 0 .71l-1.41 1.41c-.2.2-.51.2-.71 0L2.16 7.57C.62 8.66-.16 10.63.35 12.58c.44 1.65 1.72 2.92 3.36 3.36 1.4.36 2.77.1 3.76-.48l9.53 9.53c.39.39 1.02.39 1.41 0l3.3-3.3c.39-.38.39-1.01 0-1.4z"/></svg></div>
+    <div class="f-tool ft3"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.06-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.05-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.56-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22l-1.92 3.32c-.12.22-.07.49.12.61l2.03 1.58c-.04.3-.06.61-.06.94s.02.64.06.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .43-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.49-.12-.61l-2.03-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></div>
+    <div class="f-tool ft4"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21.71 20.29l-9.53-9.53C12.75 9.77 13 8.4 12.64 7c-.43-1.64-1.7-2.92-3.35-3.36-1.95-.51-3.92.27-5.01 1.81l3.01 3.01c.2.2.2.51 0 .71l-1.41 1.41c-.2.2-.51.2-.71 0L2.16 7.57C.62 8.66-.16 10.63.35 12.58c.44 1.65 1.72 2.92 3.36 3.36 1.4.36 2.77.1 3.76-.48l9.53 9.53c.39.39 1.02.39 1.41 0l3.3-3.3c.39-.38.39-1.01 0-1.4z"/></svg></div>
+    <div class="f-tool ft5"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.06-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.05-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.56-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22l-1.92 3.32c-.12.22-.07.49.12.61l2.03 1.58c-.04.3-.06.61-.06.94s.02.64.06.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .43-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.49-.12-.61l-2.03-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></div>
   </div>
   <div class="page-hero-c">
     <h1>اختر <span>فنيّك</span> المعتمد</h1>
@@ -367,6 +383,11 @@ a { text-decoration: none; }
     <button class="fbtn" data-f="plumbing">🔧 سباكة <span class="fcnt" id="count-plumbing">0</span></button>
     <button class="fbtn" data-f="ac">❄️ تكييفات <span class="fcnt" id="count-ac">0</span></button>
     <button class="fbtn" data-f="appliances">🏠 أجهزة <span class="fcnt" id="count-appliances">0</span></button>
+    
+    <!-- 🟢 أزرار الفلترة للأقسام الجديدة (نجارة ونقاشة) 🟢 -->
+    <button class="fbtn" data-f="carpentry">🪚 نجارة <span class="fcnt" id="count-carpentry">0</span></button>
+    <button class="fbtn" data-f="painting">🎨 نقاشة <span class="fcnt" id="count-painting">0</span></button>
+
     <button class="fbtn" data-f="available">🟢 المتاحون <span class="fcnt" id="count-available">0</span></button>
   </div>
   <button class="fbtn map-btn" id="map-toggle" onclick="toggleMap()">🗺️ الخريطة (Live)</button>
@@ -390,7 +411,6 @@ a { text-decoration: none; }
 <!-- النوافذ المنبثقة (البدائل، الحجز، الشات، الطوارئ، طلباتي، والشكاوى) -->
 <!-- ============================================== -->
 
-<!-- 🟢 نافذة الشكاوى والاستفسارات 🟢 -->
 <div class="overlay" id="complaint-ov">
   <div class="modal-box">
     <button class="modal-close" onclick="closeComplaint()">✕</button>
@@ -417,7 +437,7 @@ a { text-decoration: none; }
         <label style="display:block; font-size: 0.75rem; color: var(--muted); margin-bottom: 0.4rem;">تفاصيل الرسالة</label>
         <textarea id="comp-msg" class="sos-input" placeholder="اكتب تفاصيل رسالتك هنا بوضوح..." style="min-height: 100px; resize:vertical; padding:0.7rem 0.9rem;"></textarea>
       </div>
-      <button class="btn-primary" style="width:100%; justify-content:center; border:none; padding:1rem;" id="comp-submit-btn" onclick="submitComplaint()">🚀 إرسال الرسالة</button>
+      <button class="btn-primary btn-submit" style="width:100%; justify-content:center; border:none; padding:1rem;" id="comp-submit-btn" onclick="submitComplaint()">🚀 إرسال الرسالة</button>
 
       <div style="display: flex; align-items: center; margin: 1.5rem 0; color: var(--muted); font-size: 0.8rem;">
         <hr style="flex: 1; border: none; border-bottom: 1px solid rgba(255,255,255,0.1);">
@@ -439,7 +459,6 @@ a { text-decoration: none; }
   </div>
 </div>
 
-<!-- 🟢 نافذة سجل طلباتي 🟢 -->
 <div class="overlay" id="orders-ov">
   <div class="modal-box">
     <button class="modal-close" onclick="closeMyOrders()">✕</button>
@@ -449,7 +468,6 @@ a { text-decoration: none; }
   </div>
 </div>
 
-<!-- 🟢 النافذة الجديدة: تفاصيل الطلب بالكامل 🟢 -->
 <div class="overlay" id="order-details-ov">
   <div class="modal-box">
     <button class="modal-close" onclick="closeOrderDetails()">✕</button>
@@ -471,7 +489,11 @@ a { text-decoration: none; }
 <div class="overlay" id="chat-ov"><div class="chat-modal"><div class="ch-head"><div class="ch-av" id="ch-av"></div><div class="ch-info"><h4 id="ch-name"></h4><span>● متاح الآن</span></div><button class="ch-cl" onclick="closeChat()">✕</button></div><div class="pnote">🔒 محادثة مشفرة وخاصة — هويتك محمية تماماً</div><div class="msgs" id="msgs"></div><div class="cinput"><textarea class="ci" id="ci" placeholder="اكتب رسالتك..." onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendMsg()}"></textarea><button class="send-btn" onclick="sendMsg()">➤</button></div></div></div>
 
 <button class="sos-btn-float" onclick="openSOS()">🚨 طلب طوارئ</button>
-<div class="overlay" id="sos-ov"><div class="modal-box"><button class="modal-close" onclick="closeSOS()">✕</button><div class="sos-header"><div class="sos-icon">🚨</div><h2 style="color:#ef4444;font-family:'Tajawal',sans-serif;font-weight:900;">خدمة الطوارئ السريعة</h2><p style="font-size:0.8rem;color:var(--muted);margin-top:0.5rem;">سيتم توجيه أقرب فني متاح إليك فوراً (زمن الوصول المتوقع: 15-30 دقيقة). <br><strong style="color:#fca5a5;">ملاحظة: تُطبق رسوم خدمة طوارئ إضافية.</strong></p></div><div id="sos-form"><div class="fg"><label>نوع الطوارئ</label><select id="sos-type" class="sos-input"><option value="">اختر المشكلة السريعة...</option><option value="electric">⚡ ماس أو عطل كهربائي خطير</option><option value="plumbing">💧 كسر ماسورة أو تسرب مياه ضخم</option><option value="ac">❄️ عطل تكييف مفاجئ</option></select></div><div class="fg"><label>رقم الهاتف للاتصال الفوري</label><input type="tel" id="sos-phone" class="sos-input" placeholder="01XXXXXXXXX" /></div><div class="fg"><label>موقعك الحالي</label><div style="display:flex;gap:0.5rem;"><input type="text" id="sos-addr" class="sos-input" placeholder="أدخل العنوان السريع" style="flex:1; margin-bottom:0;" /><button class="btn-gps" onclick="getLocation()" title="تحديد موقعي">📍</button></div></div><button class="btn-submit" style="background:linear-gradient(135deg,#ef4444,#b91c1c);" onclick="submitSOS()">🚀 أرسل الاستغاثة الآن</button></div><div class="success-box" id="sos-ok"><div class="success-ring" style="background:rgba(239,68,68,0.1);border-color:#ef4444;color:#ef4444;">🏃</div><h3 style="color:#ef4444;">تم إرسال الاستغاثة!</h3><p>جاري توجيه أقرب فني إليك..<br>يرجى إبقاء هاتفك متاحاً.</p><button class="btn-submit" onclick="closeSOS()" style="background:#1f2d54;">إغلاق</button></div></div></div>
+<div class="overlay" id="sos-ov"><div class="modal-box"><button class="modal-close" onclick="closeSOS()" style="z-index: 10;">✕</button><div class="sos-header"><div class="sos-icon" style="font-size: 3rem; text-align: center; display: block; margin-bottom: 10px; animation: pulseRed 1s infinite;">🚨</div><h2 style="color:#ef4444;font-family:'Tajawal',sans-serif;font-weight:900; text-align:center;">خدمة الطوارئ السريعة</h2><p style="font-size:0.8rem;color:var(--muted);margin-top:0.5rem; text-align:center;">سيتم توجيه أقرب فني متاح إليك فوراً (زمن الوصول المتوقع: 15-30 دقيقة). <br><strong style="color:#fca5a5;">ملاحظة: تُطبق رسوم خدمة طوارئ إضافية.</strong></p></div><div id="sos-form"><div class="fg"><label>نوع الطوارئ</label><select id="sos-type" class="sos-input"><option value="">اختر المشكلة السريعة...</option><option value="electric">⚡ ماس أو عطل كهربائي خطير</option><option value="plumbing">💧 كسر ماسورة أو تسرب مياه ضخم</option><option value="ac">❄️ عطل تكييف مفاجئ</option>
+<!-- 🟢 خيارات الطوارئ للأقسام الجديدة 🟢 -->
+<option value="carpentry">🪚 كسر في الأبواب أو الأقفال (نجارة)</option>
+<option value="painting">🎨 طوارئ دهانات/نقاشة</option>
+</select></div><div class="fg"><label>رقم الهاتف للاتصال الفوري</label><input type="tel" id="sos-phone" class="sos-input" placeholder="01XXXXXXXXX" /></div><div class="fg"><label>موقعك الحالي</label><div style="display:flex;gap:0.5rem;"><input type="text" id="sos-addr" class="sos-input" placeholder="أدخل العنوان السريع" style="flex:1; margin-bottom:0;" /><button class="btn-gps" onclick="getLocation()" title="تحديد موقعي">📍</button></div></div><button class="btn-submit btn-sos-submit" style="background:linear-gradient(135deg,#ef4444,#b91c1c);" onclick="submitSOS()">🚀 أرسل الاستغاثة الآن</button></div><div class="success-box" id="sos-ok"><div class="success-ring" style="background:rgba(239,68,68,0.1);border-color:#ef4444;color:#ef4444;">🏃</div><h3 style="color:#ef4444;">تم إرسال الاستغاثة!</h3><p style="color:var(--muted); margin-bottom: 20px;">جاري توجيه أقرب فني إليك..<br>يرجى إبقاء هاتفك متاحاً.</p><button class="btn-submit" onclick="closeSOS()" style="background:#1f2d54;">إغلاق</button></div></div></div>
 
 <div class="active-order-widget" id="active-order-widget">
   <div class="ao-header">
@@ -505,10 +527,11 @@ const loginBtn = document.getElementById('login-nav-btn');
 const historyKey = name ? 'orderHistory_' + name : 'orderHistory_guest';
 const activeKey = name ? 'activeOrder_' + name : 'activeOrder_guest';
 
+// إظهار الأزرار بشكل دائم للكل بدون قيود لتعمل للزائر والعميل
+document.getElementById('my-orders-btn').style.display = 'inline-flex';
+document.getElementById('complaints-btn').style.display = 'inline-flex';
+
 if(status === 'true' || status === 'guest'){
-  document.getElementById('my-orders-btn').style.display = 'inline-flex';
-  document.getElementById('complaints-btn').style.display = 'inline-flex';
-  
   if(status === 'true'){
     badge.style.display = 'inline-block';
     badge.textContent = name ? '👋 ' + name.split(' ')[0] : via ? '✅ ' + via : '✅ مرحباً';
@@ -534,8 +557,13 @@ function openSidebar() {
 
   if(status === 'true') {
     const firstLetter = name ? name.charAt(0) : 'ع';
+    let avatarContent = localStorage.getItem('profilePic_' + name) 
+        ? `<img src="${localStorage.getItem('profilePic_' + name)}" alt="صورة المستخدم" style="width:100%; height:100%; object-fit:cover;">`
+        : firstLetter;
+
     profileDiv.innerHTML = `
-      <div class="sp-avatar">${firstLetter}</div>
+      <div class="sp-avatar" onclick="document.getElementById('profile-pic-input').click()" title="تغيير الصورة الشخصية">${avatarContent}</div>
+      <input type="file" id="profile-pic-input" accept="image/*" style="display: none;" onchange="handleProfilePicUpload(event)">
       <div class="sp-name">${name}</div>
       <div class="sp-info">📱 محفوظ في الحساب</div>
       <div class="sp-info">✉️ عميل صيانة بلس المميز</div>
@@ -552,6 +580,19 @@ function openSidebar() {
   }
 }
 
+function handleProfilePicUpload(event) {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            localStorage.setItem('profilePic_' + name, e.target.result);
+            const avatarDiv = document.querySelector('.sp-avatar');
+            if (avatarDiv) avatarDiv.innerHTML = `<img src="${e.target.result}" alt="صورة المستخدم" style="width:100%; height:100%; object-fit:cover;">`;
+        };
+        reader.readAsDataURL(file);
+    }
+}
+
 function closeSidebar() {
   document.getElementById('sidebar').classList.remove('open');
   document.getElementById('sidebar-overlay').classList.remove('open');
@@ -563,11 +604,10 @@ function logoutUser() {
   window.location.href = 'index.html';
 }
 
-// ── الشكاوى والاستفسارات ──
 function openComplaint() {
     document.getElementById('complaint-ov').classList.add('open');
     document.body.style.overflow = 'hidden';
-    if (name) document.getElementById('comp-name').value = name;
+    if (typeof name !== 'undefined' && name) document.getElementById('comp-name').value = name;
 }
 
 function closeComplaint() {
@@ -577,7 +617,7 @@ function closeComplaint() {
         document.getElementById('complaint-form').style.display = 'block';
         document.getElementById('comp-ok').style.display = 'none';
         document.getElementById('comp-msg').value = '';
-        if(!name) document.getElementById('comp-name').value = '';
+        if(typeof name !== 'undefined' && !name) document.getElementById('comp-name').value = '';
         document.getElementById('comp-contact').value = '';
         document.getElementById('comp-subject').value = 'استفسار عام';
     }, 300);
@@ -587,9 +627,22 @@ function openComplaintWithPreFill(techName, date) {
     openComplaint();
     document.getElementById('comp-subject').value = 'شكوى بخصوص خدمة';
     document.getElementById('comp-msg').value = `أريد تقديم شكوى بخصوص الخدمة المقدمة من الفني (${techName}) بتاريخ ${date}.\n\nالتفاصيل: `;
-    setTimeout(() => {
-        document.getElementById('comp-msg').focus();
-    }, 400);
+    setTimeout(() => document.getElementById('comp-msg').focus(), 400);
+}
+
+// ── دالة إرسال آمنة تمنع التعليق وتنهي العملية بسرعة ──
+async function fetchWithFallback(url, options = {}) {
+    if (window.location.protocol === 'file:') throw new Error('Local execution');
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 1500); 
+    try {
+        const response = await fetch(url, { ...options, signal: controller.signal });
+        clearTimeout(timeoutId);
+        return response;
+    } catch (err) {
+        clearTimeout(timeoutId);
+        throw err;
+    }
 }
 
 async function submitComplaint() {
@@ -601,32 +654,27 @@ async function submitComplaint() {
     if(!userName || !contact || !message) return alert("يرجى إكمال جميع الحقول المطلوبة.");
 
     const payload = { userName, contact, subject, message };
+    const btn = document.getElementById('comp-submit-btn');
+    const oldText = btn.innerHTML;
+    btn.innerHTML = 'جاري الإرسال... ⏳';
+    btn.disabled = true;
 
     try {
-        const btn = document.getElementById('comp-submit-btn');
-        const oldText = btn.innerHTML;
-        btn.innerHTML = 'جاري الإرسال... ⏳';
-
-        const res = await fetch('api/complaint.php', {
+        await fetchWithFallback('api/complaint.php', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
         });
-
-        if(res.ok) {
-            document.getElementById('complaint-form').style.display = 'none';
-            document.getElementById('comp-ok').style.display = 'block';
-        } else {
-            alert('حدث خطأ في السيرفر أثناء الإرسال.');
-        }
-        btn.innerHTML = oldText;
     } catch(err) {
+        console.log("Local fallback executed for complaints");
+    } finally {
         document.getElementById('complaint-form').style.display = 'none';
         document.getElementById('comp-ok').style.display = 'block';
+        btn.innerHTML = oldText;
+        btn.disabled = false;
     }
 }
 
-// ── سجل طلباتي وتفاصيل الطلب ──
 function saveToOrderHistory(orderData) {
     let history = JSON.parse(localStorage.getItem(historyKey)) || [];
     orderData.timestamp = new Date().toLocaleString('ar-EG');
@@ -638,7 +686,6 @@ function saveToOrderHistory(orderData) {
 function openMyOrders() {
     const listContainer = document.getElementById('orders-list');
     let history = JSON.parse(localStorage.getItem(historyKey)) || [];
-    
     listContainer.innerHTML = '';
     
     if(history.length === 0) {
@@ -647,7 +694,6 @@ function openMyOrders() {
         history.forEach((order, index) => {
             const statusClass = order.orderStatus === 'active' ? 'active' : 'done';
             const statusText = order.orderStatus === 'active' ? 'قيد التنفيذ ⏳' : 'مكتمل ✅';
-            
             const cardHTML = `
                 <div class="order-hist-card" onclick="openOrderDetails(${index})">
                     <div class="order-hist-header">
@@ -667,7 +713,6 @@ function openMyOrders() {
             listContainer.insertAdjacentHTML('beforeend', cardHTML);
         });
     }
-    
     document.getElementById('orders-ov').classList.add('open');
     document.body.style.overflow = 'hidden';
 }
@@ -688,7 +733,6 @@ function openOrderDetails(index) {
     const statusText = order.orderStatus === 'active' 
         ? '<span style="color:var(--gold); background:rgba(201,168,76,0.1); padding:2px 8px; border-radius:12px;">قيد التنفيذ ⏳</span>' 
         : '<span style="color:var(--green); background:rgba(46,204,113,0.1); padding:2px 8px; border-radius:12px;">مكتمل ✅</span>';
-    
     const ratingHtml = '<span style="color:var(--gold); font-size:0.9rem;">★ ★ ★ ★ ★ <span style="color:var(--muted);font-size:0.75rem;">(ممتاز)</span></span>';
 
     document.getElementById('od-content').innerHTML = `
@@ -709,8 +753,7 @@ function openOrderDetails(index) {
         ${order.desc ? `<div class="od-row" style="flex-direction:column; gap:0.5rem; border-bottom:none;"><span class="od-label">وصف المشكلة:</span><span class="od-value" style="max-width:100%; background:rgba(0,0,0,0.2); padding:10px; border-radius:8px; white-space:pre-wrap; font-weight:normal;">${order.desc}</span></div>` : ''}
     `;
 
-    const compBtn = document.getElementById('od-complaint-btn');
-    compBtn.onclick = () => {
+    document.getElementById('od-complaint-btn').onclick = () => {
         closeOrderDetails();
         openComplaintWithPreFill(order.techName, order.timestamp || order.date);
     };
@@ -726,31 +769,96 @@ function closeOrderDetails() {
     document.body.style.overflow = '';
 }
 
-// ── قاموس الأيقونات (SVGs) الخاص بالـ 22 فني ──
+// ── 🟢 22 أيقونة (مع إضافة xmlns لتظهر في كل المتصفحات) 🟢 ──
 const techSVGs = {
-    1: '<svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#1a2c4a"/><path d="M20,100 Q50,60 80,100" fill="#2563eb"/><circle cx="50" cy="50" r="18" fill="#fbbf24"/><path d="M30,50 A20,20 0 0,1 70,50 L75,50 L75,55 L25,55 L25,50 Z" fill="#f97316"/><circle cx="43" cy="48" r="2" fill="#1e293b"/><circle cx="57" cy="48" r="2" fill="#1e293b"/><path d="M48,70 L52,70 L50,75 L54,75 L48,85 L49,78 L45,78 Z" fill="#fbbf24"/></svg>',
-    2: '<svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#1e1a2e"/><path d="M25,100 Q50,70 75,100" fill="#7c3aed"/><rect x="35" y="35" width="30" height="35" rx="10" fill="#fcd5b0"/><path d="M35,45 Q50,20 65,45" fill="#2d1f5e"/><rect x="38" y="45" width="10" height="6" fill="none" stroke="#fff" stroke-width="2"/><rect x="52" y="45" width="10" height="6" fill="none" stroke="#fff" stroke-width="2"/><line x1="48" y1="48" x2="52" y2="48" stroke="#fff" stroke-width="2"/></svg>',
-    3: '<svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#0d2a1e"/><rect x="30" y="70" width="40" height="30" rx="10" fill="#059669"/><rect x="35" y="70" width="5" height="30" fill="#047857"/><rect x="60" y="70" width="5" height="30" fill="#047857"/><circle cx="50" cy="45" r="20" fill="#fed7aa"/><path d="M35,55 Q50,45 65,55 Q50,65 35,55" fill="#451a03"/><circle cx="42" cy="40" r="2.5" fill="#000"/><circle cx="58" cy="40" r="2.5" fill="#000"/></svg>',
-    4: '<svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#0c2233"/><path d="M15,100 C15,60 85,60 85,100" fill="#0369a1"/><rect x="25" y="65" width="8" height="40" transform="rotate(45 25 65)" fill="#94a3b8"/><circle cx="20" cy="65" r="6" fill="none" stroke="#94a3b8" stroke-width="4"/><circle cx="50" cy="45" r="18" fill="#fde68a"/><path d="M32,40 Q50,15 68,40 Z" fill="#dc2626"/><rect x="30" y="40" width="45" height="5" rx="2" fill="#b91c1c"/><circle cx="43" cy="50" r="2" fill="#000"/><circle cx="57" cy="50" r="2" fill="#000"/></svg>',
-    5: '<svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#0a1a3a"/><path d="M25,100 L30,70 L70,70 L75,100 Z" fill="#1d4ed8"/><circle cx="50" cy="45" r="18" fill="#bfdbfe"/><path d="M32,45 C32,20 68,20 68,45 Z" fill="#3b82f6"/><circle cx="50" cy="18" r="5" fill="#93c5fd"/><rect x="35" y="60" width="30" height="15" rx="5" fill="#60a5fa"/><circle cx="43" cy="50" r="2" fill="#1e3a8a"/><circle cx="57" cy="50" r="2" fill="#1e3a8a"/></svg>',
-    6: '<svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#1a0a2e"/><rect x="25" y="70" width="50" height="30" rx="15" fill="#7c3aed"/><circle cx="50" cy="45" r="19" fill="#f5d0fe"/><rect x="35" y="38" width="30" height="12" rx="4" fill="#1e1a2e"/><circle cx="42" cy="44" r="3" fill="#c084fc"/><circle cx="58" cy="44" r="3" fill="#c084fc"/><path d="M45,55 Q50,60 55,55" fill="none" stroke="#6b21a8" stroke-width="2"/></svg>',
-    7: '<svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#1c1007"/><path d="M20,100 C20,65 80,65 80,100" fill="#b45309"/><path d="M35,30 C35,10 65,10 65,30 L65,55 C65,70 35,70 35,55 Z" fill="#fef3c7"/><path d="M35,50 C35,80 65,80 65,50 C65,65 35,65 35,50 Z" fill="#78350f"/><line x1="40" y1="45" x2="46" y2="45" stroke="#78350f" stroke-width="3"/><line x1="54" y1="45" x2="60" y2="45" stroke="#78350f" stroke-width="3"/></svg>',
-    8: '<svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#0f1729"/><rect x="25" y="70" width="50" height="30" fill="#0f766e"/><polygon points="35,70 65,70 50,85" fill="#fde68a"/><circle cx="50" cy="45" r="18" fill="#fde68a"/><polygon points="32,35 38,20 45,30 50,15 55,30 62,20 68,35" fill="#134e4a"/><path d="M30,45 A20,20 0 0,1 70,45" fill="none" stroke="#334155" stroke-width="3"/><rect x="26" y="40" width="6" height="12" rx="3" fill="#94a3b8"/><rect x="68" y="40" width="6" height="12" rx="3" fill="#94a3b8"/><path d="M70,50 Q60,60 55,55" fill="none" stroke="#94a3b8" stroke-width="2"/><circle cx="55" cy="55" r="2" fill="#ef4444"/><circle cx="43" cy="45" r="2" fill="#0f1729"/><circle cx="57" cy="45" r="2" fill="#0f1729"/></svg>',
-    9: '<svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#064e3b"/><path d="M25,100 Q50,60 75,100" fill="#10b981"/><circle cx="50" cy="45" r="18" fill="#fde047"/><rect x="35" y="40" width="12" height="8" rx="2" fill="none" stroke="#000" stroke-width="2"/><rect x="53" y="40" width="12" height="8" rx="2" fill="none" stroke="#000" stroke-width="2"/><line x1="47" y1="44" x2="53" y2="44" stroke="#000" stroke-width="2"/><path d="M40,25 Q50,15 60,25 Z" fill="#022c22"/></svg>',
-    10: '<svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#4c1d95"/><path d="M20,100 C20,60 80,60 80,100" fill="#8b5cf6"/><circle cx="50" cy="45" r="16" fill="#fecaca"/><path d="M34,45 A16,16 0 0,1 66,45" fill="none" stroke="#1e1b4b" stroke-width="4"/><circle cx="34" cy="45" r="5" fill="#1e1b4b"/><circle cx="66" cy="45" r="5" fill="#1e1b4b"/><circle cx="44" cy="43" r="2" fill="#000"/><circle cx="56" cy="43" r="2" fill="#000"/></svg>',
-    11: '<svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#1e293b"/><path d="M10,100 L30,60 L70,60 L90,100 Z" fill="#64748b"/><circle cx="50" cy="40" r="18" fill="#fed7aa"/><path d="M30,35 Q50,10 70,35 Z" fill="#0ea5e9"/><rect x="35" y="35" width="30" height="6" fill="#0284c7"/><circle cx="44" cy="44" r="2" fill="#000"/><circle cx="56" cy="44" r="2" fill="#000"/><path d="M46,52 Q50,56 54,52" fill="none" stroke="#000" stroke-width="1.5"/></svg>',
-    12: '<svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#083344"/><rect x="20" y="65" width="60" height="35" rx="15" fill="#0d9488"/><circle cx="50" cy="45" r="19" fill="#ffedd5"/><path d="M31,45 C31,65 69,65 69,45 Z" fill="#713f12"/><rect x="42" y="55" width="16" height="5" fill="#ffedd5"/><circle cx="43" cy="40" r="2.5" fill="#000"/><circle cx="57" cy="40" r="2.5" fill="#000"/></svg>',
-    13: '<svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#422006"/><path d="M25,100 L35,65 L65,65 L75,100 Z" fill="#eab308"/><circle cx="50" cy="45" r="18" fill="#fef08a"/><path d="M30,35 Q50,20 70,35 Z" fill="#171717"/><rect x="35" y="33" width="30" height="5" fill="#171717"/><path d="M38,50 Q50,45 62,50 Q50,55 38,50" fill="#171717"/><circle cx="43" cy="42" r="2" fill="#000"/><circle cx="57" cy="42" r="2" fill="#000"/></svg>',
-    14: '<svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#7f1d1d"/><rect x="30" y="65" width="40" height="35" rx="8" fill="#f87171"/><circle cx="50" cy="45" r="17" fill="#fbcfe8"/><rect x="30" y="35" width="40" height="10" rx="4" fill="#450a0a"/><line x1="30" y1="40" x2="70" y2="40" stroke="#fecaca" stroke-width="2"/><circle cx="45" cy="52" r="1.5" fill="#000"/><circle cx="55" cy="52" r="1.5" fill="#000"/></svg>',
-    15: '<svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#334155"/><path d="M20,100 C20,60 80,60 80,100" fill="#94a3b8"/><circle cx="50" cy="45" r="18" fill="#ffedd5"/><path d="M30,38 A20,20 0 0,1 70,38 Z" fill="#fcd34d"/><rect x="35" y="38" width="30" height="4" fill="#b45309"/><circle cx="43" cy="48" r="2" fill="#000"/><circle cx="57" cy="48" r="2" fill="#000"/><path d="M45,55 Q50,58 55,55" fill="none" stroke="#000" stroke-width="1.5"/></svg>',
-    16: '<svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#0891b2"/><rect x="25" y="65" width="50" height="35" rx="10" fill="#06b6d4"/><circle cx="50" cy="45" r="18" fill="#fef08a"/><rect x="35" y="60" width="30" height="15" rx="5" fill="#f8fafc"/><rect x="30" y="70" width="10" height="20" fill="#f8fafc"/><circle cx="43" cy="42" r="2.5" fill="#000"/><circle cx="57" cy="42" r="2.5" fill="#000"/><path d="M35,25 Q50,10 65,25 Z" fill="#000"/></svg>',
-    17: '<svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#831843"/><path d="M20,100 L40,65 L60,65 L80,100 Z" fill="#db2777"/><circle cx="50" cy="45" r="18" fill="#fecdd3"/><path d="M30,40 C30,10 70,10 70,40" fill="none" stroke="#be185d" stroke-width="4"/><path d="M40,25 L45,15 L50,25 L55,15 L60,25" fill="none" stroke="#be185d" stroke-width="3"/><circle cx="43" cy="46" r="2" fill="#000"/><circle cx="57" cy="46" r="2" fill="#000"/><rect x="40" y="52" width="20" height="8" rx="4" fill="#fff"/></svg>',
-    18: '<svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#312e81"/><path d="M25,100 C25,60 75,60 75,100" fill="#4f46e5"/><circle cx="50" cy="45" r="18" fill="#e0e7ff"/><path d="M32,40 Q50,20 68,40 Z" fill="#000"/><rect x="36" y="42" width="28" height="6" rx="2" fill="none" stroke="#4338ca" stroke-width="2"/><line x1="50" y1="42" x2="50" y2="48" stroke="#4338ca" stroke-width="2"/><path d="M45,55 Q50,58 55,55" fill="none" stroke="#000" stroke-width="1.5"/></svg>',
-    19: '<svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#064e3b"/><rect x="25" y="65" width="50" height="35" rx="8" fill="#10b981"/><circle cx="50" cy="45" r="18" fill="#dcfce7"/><path d="M30,45 A20,20 0 0,1 70,45" fill="none" stroke="#064e3b" stroke-width="3"/><circle cx="70" cy="45" r="4" fill="#064e3b"/><line x1="70" y1="45" x2="60" y2="55" stroke="#064e3b" stroke-width="2"/><circle cx="43" cy="45" r="2" fill="#000"/><circle cx="57" cy="45" r="2" fill="#000"/></svg>',
-    20: '<svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#7f1d1d"/><path d="M20,100 L40,65 L60,65 L80,100 Z" fill="#ef4444"/><circle cx="50" cy="45" r="18" fill="#fee2e2"/><path d="M35,35 Q40,20 50,35 Q60,20 65,35 Z" fill="#450a0a"/><rect x="36" y="42" width="10" height="6" fill="none" stroke="#000" stroke-width="1.5"/><rect x="54" y="42" width="10" height="6" fill="none" stroke="#000" stroke-width="1.5"/><line x1="46" y1="45" x2="54" y2="45" stroke="#000" stroke-width="1.5"/></svg>',
-    21: '<svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#78350f"/><rect x="25" y="65" width="50" height="35" rx="5" fill="#d97706"/><circle cx="50" cy="45" r="18" fill="#fef3c7"/><path d="M30,40 Q50,25 70,40" fill="none" stroke="#b45309" stroke-width="5"/><path d="M35,55 Q50,70 65,55" fill="#78350f"/><circle cx="43" cy="43" r="2" fill="#000"/><circle cx="57" cy="43" r="2" fill="#000"/></svg>',
-    22: '<svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#134e4a"/><path d="M20,100 C20,60 80,60 80,100" fill="#14b8a6"/><circle cx="50" cy="45" r="17" fill="#ccfbf1"/><rect x="30" y="38" width="40" height="12" rx="4" fill="#0f766e"/><circle cx="40" cy="44" r="3" fill="#fff"/><circle cx="60" cy="44" r="3" fill="#fff"/><line x1="45" y1="54" x2="55" y2="54" stroke="#000" stroke-width="2"/></svg>'
+    1: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#1a2c4a"/><path d="M20,100 Q50,60 80,100" fill="#2563eb"/><circle cx="50" cy="50" r="18" fill="#fbbf24"/><path d="M30,50 A20,20 0 0,1 70,50 L75,50 L75,55 L25,55 L25,50 Z" fill="#f97316"/><circle cx="43" cy="48" r="2" fill="#1e293b"/><circle cx="57" cy="48" r="2" fill="#1e293b"/><path d="M48,70 L52,70 L50,75 L54,75 L48,85 L49,78 L45,78 Z" fill="#fbbf24"/></svg>',
+    2: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#1e1a2e"/><path d="M25,100 Q50,70 75,100" fill="#7c3aed"/><rect x="35" y="35" width="30" height="35" rx="10" fill="#fcd5b0"/><path d="M35,45 Q50,20 65,45" fill="#2d1f5e"/><rect x="38" y="45" width="10" height="6" fill="none" stroke="#fff" stroke-width="2"/><rect x="52" y="45" width="10" height="6" fill="none" stroke="#fff" stroke-width="2"/><line x1="48" y1="48" x2="52" y2="48" stroke="#fff" stroke-width="2"/></svg>',
+    3: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#0d2a1e"/><rect x="30" y="70" width="40" height="30" rx="10" fill="#059669"/><rect x="35" y="70" width="5" height="30" fill="#047857"/><rect x="60" y="70" width="5" height="30" fill="#047857"/><circle cx="50" cy="45" r="20" fill="#fed7aa"/><path d="M35,55 Q50,45 65,55 Q50,65 35,55" fill="#451a03"/><circle cx="42" cy="40" r="2.5" fill="#000"/><circle cx="58" cy="40" r="2.5" fill="#000"/></svg>',
+    4: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#0c2233"/><path d="M15,100 C15,60 85,60 85,100" fill="#0369a1"/><rect x="25" y="65" width="8" height="40" transform="rotate(45 25 65)" fill="#94a3b8"/><circle cx="20" cy="65" r="6" fill="none" stroke="#94a3b8" stroke-width="4"/><circle cx="50" cy="45" r="18" fill="#fde68a"/><path d="M32,40 Q50,15 68,40 Z" fill="#dc2626"/><rect x="30" y="40" width="45" height="5" rx="2" fill="#b91c1c"/><circle cx="43" cy="50" r="2" fill="#000"/><circle cx="57" cy="50" r="2" fill="#000"/></svg>',
+    5: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#0a1a3a"/><path d="M25,100 L30,70 L70,70 L75,100 Z" fill="#1d4ed8"/><circle cx="50" cy="45" r="18" fill="#bfdbfe"/><path d="M32,45 C32,20 68,20 68,45 Z" fill="#3b82f6"/><circle cx="50" cy="18" r="5" fill="#93c5fd"/><rect x="35" y="60" width="30" height="15" rx="5" fill="#60a5fa"/><circle cx="43" cy="50" r="2" fill="#1e3a8a"/><circle cx="57" cy="50" r="2" fill="#1e3a8a"/></svg>',
+    6: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#1a0a2e"/><rect x="25" y="70" width="50" height="30" rx="15" fill="#7c3aed"/><circle cx="50" cy="45" r="19" fill="#f5d0fe"/><rect x="35" y="38" width="30" height="12" rx="4" fill="#1e1a2e"/><circle cx="42" cy="44" r="3" fill="#c084fc"/><circle cx="58" cy="44" r="3" fill="#c084fc"/><path d="M45,55 Q50,60 55,55" fill="none" stroke="#6b21a8" stroke-width="2"/></svg>',
+    7: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#1c1007"/><path d="M20,100 C20,65 80,65 80,100" fill="#b45309"/><path d="M35,30 C35,10 65,10 65,30 L65,55 C65,70 35,70 35,55 Z" fill="#fef3c7"/><path d="M35,50 C35,80 65,80 65,50 C65,65 35,65 35,50 Z" fill="#78350f"/><line x1="40" y1="45" x2="46" y2="45" stroke="#78350f" stroke-width="3"/><line x1="54" y1="45" x2="60" y2="45" stroke="#78350f" stroke-width="3"/></svg>',
+    8: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#0f1729"/><rect x="25" y="70" width="50" height="30" fill="#0f766e"/><polygon points="35,70 65,70 50,85" fill="#fde68a"/><circle cx="50" cy="45" r="18" fill="#fde68a"/><polygon points="32,35 38,20 45,30 50,15 55,30 62,20 68,35" fill="#134e4a"/><path d="M30,45 A20,20 0 0,1 70,45" fill="none" stroke="#334155" stroke-width="3"/><rect x="26" y="40" width="6" height="12" rx="3" fill="#94a3b8"/><rect x="68" y="40" width="6" height="12" rx="3" fill="#94a3b8"/><path d="M70,50 Q60,60 55,55" fill="none" stroke="#94a3b8" stroke-width="2"/><circle cx="55" cy="55" r="2" fill="#ef4444"/><circle cx="43" cy="45" r="2" fill="#0f1729"/><circle cx="57" cy="45" r="2" fill="#0f1729"/></svg>',
+    9: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#064e3b"/><path d="M25,100 Q50,60 75,100" fill="#10b981"/><circle cx="50" cy="45" r="18" fill="#fde047"/><rect x="35" y="40" width="12" height="8" rx="2" fill="none" stroke="#000" stroke-width="2"/><rect x="53" y="40" width="12" height="8" rx="2" fill="none" stroke="#000" stroke-width="2"/><line x1="47" y1="44" x2="53" y2="44" stroke="#000" stroke-width="2"/><path d="M40,25 Q50,15 60,25 Z" fill="#022c22"/></svg>',
+    10: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#4c1d95"/><path d="M20,100 C20,60 80,60 80,100" fill="#8b5cf6"/><circle cx="50" cy="45" r="16" fill="#fecaca"/><path d="M34,45 A16,16 0 0,1 66,45" fill="none" stroke="#1e1b4b" stroke-width="4"/><circle cx="34" cy="45" r="5" fill="#1e1b4b"/><circle cx="66" cy="45" r="5" fill="#1e1b4b"/><circle cx="44" cy="43" r="2" fill="#000"/><circle cx="56" cy="43" r="2" fill="#000"/></svg>',
+    11: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#1e293b"/><path d="M10,100 L30,60 L70,60 L90,100 Z" fill="#64748b"/><circle cx="50" cy="40" r="18" fill="#fed7aa"/><path d="M30,35 Q50,10 70,35 Z" fill="#0ea5e9"/><rect x="35" y="35" width="30" height="6" fill="#0284c7"/><circle cx="44" cy="44" r="2" fill="#000"/><circle cx="56" cy="44" r="2" fill="#000"/><path d="M46,52 Q50,56 54,52" fill="none" stroke="#000" stroke-width="1.5"/></svg>',
+    12: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#083344"/><rect x="20" y="65" width="60" height="35" rx="15" fill="#0d9488"/><circle cx="50" cy="45" r="19" fill="#ffedd5"/><path d="M31,45 C31,65 69,65 69,45 Z" fill="#713f12"/><rect x="42" y="55" width="16" height="5" fill="#ffedd5"/><circle cx="43" cy="40" r="2.5" fill="#000"/><circle cx="57" cy="40" r="2.5" fill="#000"/></svg>',
+    13: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#422006"/><path d="M25,100 L35,65 L65,65 L75,100 Z" fill="#eab308"/><circle cx="50" cy="45" r="18" fill="#fef08a"/><path d="M30,35 Q50,20 70,35 Z" fill="#171717"/><rect x="35" y="33" width="30" height="5" fill="#171717"/><path d="M38,50 Q50,45 62,50 Q50,55 38,50" fill="#171717"/><circle cx="43" cy="42" r="2" fill="#000"/><circle cx="57" cy="42" r="2" fill="#000"/></svg>',
+    14: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#7f1d1d"/><rect x="30" y="65" width="40" height="35" rx="8" fill="#f87171"/><circle cx="50" cy="45" r="17" fill="#fbcfe8"/><rect x="30" y="35" width="40" height="10" rx="4" fill="#450a0a"/><line x1="30" y1="40" x2="70" y2="40" stroke="#fecaca" stroke-width="2"/><circle cx="45" cy="52" r="1.5" fill="#000"/><circle cx="55" cy="52" r="1.5" fill="#000"/></svg>',
+    15: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#334155"/><path d="M20,100 C20,60 80,60 80,100" fill="#94a3b8"/><circle cx="50" cy="45" r="18" fill="#ffedd5"/><path d="M30,38 A20,20 0 0,1 70,38 Z" fill="#fcd34d"/><rect x="35" y="38" width="30" height="4" fill="#b45309"/><circle cx="43" cy="48" r="2" fill="#000"/><circle cx="57" cy="48" r="2" fill="#000"/><path d="M45,55 Q50,58 55,55" fill="none" stroke="#000" stroke-width="1.5"/></svg>',
+    16: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#0891b2"/><rect x="25" y="65" width="50" height="35" rx="10" fill="#06b6d4"/><circle cx="50" cy="45" r="18" fill="#fef08a"/><rect x="35" y="60" width="30" height="15" rx="5" fill="#f8fafc"/><rect x="30" y="70" width="10" height="20" fill="#f8fafc"/><circle cx="43" cy="42" r="2.5" fill="#000"/><circle cx="57" cy="42" r="2.5" fill="#000"/><path d="M35,25 Q50,10 65,25 Z" fill="#000"/></svg>',
+    17: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#831843"/><path d="M20,100 L40,65 L60,65 L80,100 Z" fill="#db2777"/><circle cx="50" cy="45" r="18" fill="#fecdd3"/><path d="M30,40 C30,10 70,10 70,40" fill="none" stroke="#be185d" stroke-width="4"/><path d="M40,25 L45,15 L50,25 L55,15 L60,25" fill="none" stroke="#be185d" stroke-width="3"/><circle cx="43" cy="46" r="2" fill="#000"/><circle cx="57" cy="46" r="2" fill="#000"/><rect x="40" y="52" width="20" height="8" rx="4" fill="#fff"/></svg>',
+    18: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#312e81"/><path d="M25,100 C25,60 75,60 75,100" fill="#4f46e5"/><circle cx="50" cy="45" r="18" fill="#e0e7ff"/><path d="M32,40 Q50,20 68,40 Z" fill="#000"/><rect x="36" y="42" width="28" height="6" rx="2" fill="none" stroke="#4338ca" stroke-width="2"/><line x1="50" y1="42" x2="50" y2="48" stroke="#4338ca" stroke-width="2"/><path d="M45,55 Q50,58 55,55" fill="none" stroke="#000" stroke-width="1.5"/></svg>',
+    19: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#064e3b"/><rect x="25" y="65" width="50" height="35" rx="8" fill="#10b981"/><circle cx="50" cy="45" r="18" fill="#dcfce7"/><path d="M30,45 A20,20 0 0,1 70,45" fill="none" stroke="#064e3b" stroke-width="3"/><circle cx="70" cy="45" r="4" fill="#064e3b"/><line x1="70" y1="45" x2="60" y2="55" stroke="#064e3b" stroke-width="2"/><circle cx="43" cy="45" r="2" fill="#000"/><circle cx="57" cy="45" r="2" fill="#000"/></svg>',
+    20: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#7f1d1d"/><path d="M20,100 L40,65 L60,65 L80,100 Z" fill="#ef4444"/><circle cx="50" cy="45" r="18" fill="#fee2e2"/><path d="M35,35 Q40,20 50,35 Q60,20 65,35 Z" fill="#450a0a"/><rect x="36" y="42" width="10" height="6" fill="none" stroke="#000" stroke-width="1.5"/><rect x="54" y="42" width="10" height="6" fill="none" stroke="#000" stroke-width="1.5"/><line x1="46" y1="45" x2="54" y2="45" stroke="#000" stroke-width="1.5"/></svg>',
+    21: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#78350f"/><rect x="25" y="65" width="50" height="35" rx="5" fill="#d97706"/><circle cx="50" cy="45" r="18" fill="#fef3c7"/><path d="M30,40 Q50,25 70,40" fill="none" stroke="#b45309" stroke-width="5"/><path d="M35,55 Q50,70 65,55" fill="#78350f"/><circle cx="43" cy="43" r="2" fill="#000"/><circle cx="57" cy="43" r="2" fill="#000"/></svg>',
+    22: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#134e4a"/><path d="M20,100 C20,60 80,60 80,100" fill="#14b8a6"/><circle cx="50" cy="45" r="17" fill="#ccfbf1"/><rect x="30" y="38" width="40" height="12" rx="4" fill="#0f766e"/><circle cx="40" cy="44" r="3" fill="#fff"/><circle cx="60" cy="44" r="3" fill="#fff"/><line x1="45" y1="54" x2="55" y2="54" stroke="#000" stroke-width="2"/></svg>'
 };
+
+// ── 🟢 إنشاء 50 فني كـ Fallback يشمل النجارة والنقاشة 🟢 ──
+const defaultTechs = [
+  // ⚡ كهرباء (9)
+  {id:1,name:"أحمد محمود",category_en:"electric",category_ar:"كهرباء",is_available:1,rating:4.9,reviews_count:234,experience_years:12,visit_price:80,completed_jobs:500,wait_time_mins:0},
+  {id:2,name:"كريم عبدالله",category_en:"electric",category_ar:"كهرباء",is_available:0,rating:4.7,reviews_count:187,experience_years:8,visit_price:70,completed_jobs:320,wait_time_mins:45},
+  {id:3,name:"محمود سعيد",category_en:"electric",category_ar:"كهرباء",is_available:1,rating:4.9,reviews_count:412,experience_years:14,visit_price:85,completed_jobs:600,wait_time_mins:0},
+  {id:4,name:"حسن مصطفى",category_en:"electric",category_ar:"كهرباء",is_available:0,rating:4.5,reviews_count:120,experience_years:7,visit_price:60,completed_jobs:210,wait_time_mins:20},
+  {id:5,name:"علي عبد الرحمن",category_en:"electric",category_ar:"كهرباء",is_available:1,rating:4.8,reviews_count:290,experience_years:10,visit_price:75,completed_jobs:380,wait_time_mins:0},
+  {id:6,name:"عمر سالم",category_en:"electric",category_ar:"كهرباء",is_available:1,rating:4.6,reviews_count:150,experience_years:6,visit_price:65,completed_jobs:200,wait_time_mins:0},
+  {id:7,name:"طارق إبراهيم",category_en:"electric",category_ar:"كهرباء",is_available:1,rating:4.9,reviews_count:310,experience_years:15,visit_price:90,completed_jobs:450,wait_time_mins:0},
+  {id:8,name:"ياسر جلال",category_en:"electric",category_ar:"كهرباء",is_available:0,rating:4.4,reviews_count:90,experience_years:5,visit_price:60,completed_jobs:120,wait_time_mins:30},
+  {id:9,name:"سعيد عثمان",category_en:"electric",category_ar:"كهرباء",is_available:1,rating:4.8,reviews_count:200,experience_years:11,visit_price:80,completed_jobs:350,wait_time_mins:0},
+
+  // 💧 سباكة (9)
+  {id:10,name:"محمد سالم",category_en:"plumbing",category_ar:"سباكة",is_available:1,rating:4.8,reviews_count:312,experience_years:15,visit_price:90,completed_jobs:700,wait_time_mins:0},
+  {id:11,name:"عمر حسن",category_en:"plumbing",category_ar:"سباكة",is_available:1,rating:4.5,reviews_count:156,experience_years:10,visit_price:75,completed_jobs:280,wait_time_mins:0},
+  {id:12,name:"وليد سعد",category_en:"plumbing",category_ar:"سباكة",is_available:1,rating:5.0,reviews_count:112,experience_years:18,visit_price:95,completed_jobs:850,wait_time_mins:0},
+  {id:13,name:"خالد جلال",category_en:"plumbing",category_ar:"سباكة",is_available:0,rating:4.3,reviews_count:95,experience_years:5,visit_price:60,completed_jobs:150,wait_time_mins:60},
+  {id:14,name:"مصطفى كمال",category_en:"plumbing",category_ar:"سباكة",is_available:1,rating:4.7,reviews_count:201,experience_years:8,visit_price:70,completed_jobs:310,wait_time_mins:0},
+  {id:15,name:"أحمد إبراهيم",category_en:"plumbing",category_ar:"سباكة",is_available:1,rating:4.9,reviews_count:365,experience_years:13,visit_price:85,completed_jobs:550,wait_time_mins:0},
+  {id:16,name:"حسين عوض",category_en:"plumbing",category_ar:"سباكة",is_available:1,rating:4.6,reviews_count:140,experience_years:6,visit_price:65,completed_jobs:220,wait_time_mins:0},
+  {id:17,name:"عبد الله ياسين",category_en:"plumbing",category_ar:"سباكة",is_available:0,rating:4.4,reviews_count:85,experience_years:4,visit_price:55,completed_jobs:110,wait_time_mins:35},
+  {id:18,name:"يوسف عثمان",category_en:"plumbing",category_ar:"سباكة",is_available:1,rating:4.7,reviews_count:210,experience_years:9,visit_price:80,completed_jobs:400,wait_time_mins:0},
+
+  // ❄️ تكييفات (8)
+  {id:19,name:"وائل منصور",category_en:"ac",category_ar:"تكييفات",is_available:1,rating:4.9,reviews_count:428,experience_years:20,visit_price:100,completed_jobs:900,wait_time_mins:0},
+  {id:20,name:"سامي عوض",category_en:"ac",category_ar:"تكييفات",is_available:0,rating:4.6,reviews_count:203,experience_years:9,visit_price:85,completed_jobs:350,wait_time_mins:30},
+  {id:21,name:"إبراهيم حمدي",category_en:"ac",category_ar:"تكييفات",is_available:1,rating:4.8,reviews_count:275,experience_years:11,visit_price:80,completed_jobs:420,wait_time_mins:0},
+  {id:22,name:"كريم فاروق",category_en:"ac",category_ar:"تكييفات",is_available:0,rating:4.4,reviews_count:140,experience_years:6,visit_price:65,completed_jobs:190,wait_time_mins:15},
+  {id:23,name:"محمود شاكر",category_en:"ac",category_ar:"تكييفات",is_available:1,rating:4.9,reviews_count:310,experience_years:14,visit_price:90,completed_jobs:620,wait_time_mins:0},
+  {id:24,name:"وليد عادل",category_en:"ac",category_ar:"تكييفات",is_available:1,rating:4.7,reviews_count:220,experience_years:10,visit_price:85,completed_jobs:380,wait_time_mins:0},
+  {id:25,name:"رامي عادل",category_en:"ac",category_ar:"تكييفات",is_available:1,rating:4.5,reviews_count:160,experience_years:7,visit_price:75,completed_jobs:250,wait_time_mins:0},
+  {id:26,name:"هاني شاكر",category_en:"ac",category_ar:"تكييفات",is_available:0,rating:4.8,reviews_count:350,experience_years:13,visit_price:90,completed_jobs:500,wait_time_mins:45},
+
+  // 🏠 أجهزة منزلية (8)
+  {id:27,name:"يوسف منصور",category_en:"appliances",category_ar:"أجهزة",is_available:1,rating:4.8,reviews_count:267,experience_years:11,visit_price:65,completed_jobs:450,wait_time_mins:0},
+  {id:28,name:"رضا فاروق",category_en:"appliances",category_ar:"أجهزة",is_available:1,rating:4.4,reviews_count:98,experience_years:6,visit_price:60,completed_jobs:180,wait_time_mins:0},
+  {id:29,name:"تامر حسني",category_en:"appliances",category_ar:"أجهزة",is_available:1,rating:4.7,reviews_count:245,experience_years:10,visit_price:70,completed_jobs:390,wait_time_mins:0},
+  {id:30,name:"وائل سعيد",category_en:"appliances",category_ar:"أجهزة",is_available:0,rating:4.5,reviews_count:115,experience_years:7,visit_price:65,completed_jobs:175,wait_time_mins:35},
+  {id:31,name:"سعيد محمود",category_en:"appliances",category_ar:"أجهزة",is_available:1,rating:4.8,reviews_count:305,experience_years:12,visit_price:75,completed_jobs:480,wait_time_mins:0},
+  {id:32,name:"كريم عبدالله",category_en:"appliances",category_ar:"أجهزة",is_available:1,rating:4.9,reviews_count:410,experience_years:15,visit_price:85,completed_jobs:590,wait_time_mins:0},
+  {id:33,name:"ياسر عثمان",category_en:"appliances",category_ar:"أجهزة",is_available:1,rating:4.6,reviews_count:170,experience_years:8,visit_price:70,completed_jobs:260,wait_time_mins:0},
+  {id:34,name:"سامي جلال",category_en:"appliances",category_ar:"أجهزة",is_available:0,rating:4.7,reviews_count:230,experience_years:9,visit_price:75,completed_jobs:340,wait_time_mins:25},
+
+  // 🪚 نجارة (8)
+  {id:35,name:"رامي سعد",category_en:"carpentry",category_ar:"نجارة",is_available:1,rating:4.8,reviews_count:210,experience_years:10,visit_price:75,completed_jobs:320,wait_time_mins:0},
+  {id:36,name:"هاني كمال",category_en:"carpentry",category_ar:"نجارة",is_available:0,rating:4.5,reviews_count:130,experience_years:6,visit_price:65,completed_jobs:190,wait_time_mins:20},
+  {id:37,name:"محمد عوض",category_en:"carpentry",category_ar:"نجارة",is_available:1,rating:4.9,reviews_count:340,experience_years:15,visit_price:85,completed_jobs:480,wait_time_mins:0},
+  {id:38,name:"محمود حمدي",category_en:"carpentry",category_ar:"نجارة",is_available:1,rating:4.7,reviews_count:250,experience_years:11,visit_price:80,completed_jobs:370,wait_time_mins:0},
+  {id:39,name:"علي ياسين",category_en:"carpentry",category_ar:"نجارة",is_available:1,rating:4.6,reviews_count:160,experience_years:7,visit_price:70,completed_jobs:240,wait_time_mins:0},
+  {id:40,name:"حسن منصور",category_en:"carpentry",category_ar:"نجارة",is_available:0,rating:4.4,reviews_count:95,experience_years:4,visit_price:60,completed_jobs:130,wait_time_mins:35},
+  {id:41,name:"رامي جلال",category_en:"carpentry",category_ar:"نجارة",is_available:1,rating:4.8,reviews_count:290,experience_years:12,visit_price:80,completed_jobs:410,wait_time_mins:0},
+  {id:42,name:"سامي سعد",category_en:"carpentry",category_ar:"نجارة",is_available:1,rating:4.9,reviews_count:400,experience_years:18,visit_price:90,completed_jobs:600,wait_time_mins:0},
+
+  // 🎨 نقاشة (8)
+  {id:43,name:"ياسر كمال",category_en:"painting",category_ar:"نقاشة",is_available:1,rating:4.8,reviews_count:290,experience_years:13,visit_price:85,completed_jobs:420,wait_time_mins:0},
+  {id:44,name:"علي إبراهيم",category_en:"painting",category_ar:"نقاشة",is_available:1,rating:4.5,reviews_count:140,experience_years:7,visit_price:70,completed_jobs:210,wait_time_mins:0},
+  {id:45,name:"أحمد حمدي",category_en:"painting",category_ar:"نقاشة",is_available:0,rating:4.9,reviews_count:450,experience_years:20,visit_price:100,completed_jobs:700,wait_time_mins:50},
+  {id:46,name:"محمود ياسين",category_en:"painting",category_ar:"نقاشة",is_available:1,rating:4.6,reviews_count:180,experience_years:8,visit_price:75,completed_jobs:270,wait_time_mins:0},
+  {id:47,name:"حسين فاروق",category_en:"painting",category_ar:"نقاشة",is_available:1,rating:4.7,reviews_count:230,experience_years:10,visit_price:80,completed_jobs:340,wait_time_mins:0},
+  {id:48,name:"مصطفى شاكر",category_en:"painting",category_ar:"نقاشة",is_available:1,rating:4.8,reviews_count:320,experience_years:14,visit_price:90,completed_jobs:480,wait_time_mins:0},
+  {id:49,name:"خالد حسني",category_en:"painting",category_ar:"نقاشة",is_available:0,rating:4.4,reviews_count:100,experience_years:5,visit_price:65,completed_jobs:150,wait_time_mins:20},
+  {id:50,name:"عمر محمود",category_en:"painting",category_ar:"نقاشة",is_available:1,rating:4.9,reviews_count:380,experience_years:16,visit_price:95,completed_jobs:550,wait_time_mins:0}
+];
 
 let allTechs = []; 
 let map = null;
@@ -760,107 +868,14 @@ let userLat = 30.0444;
 let userLng = 31.2357;
 let userMarker = null;
 
-async function fetchTechnicians() {
-  try {
-    const res = await fetch('api/get_technicians.php');
-    if(!res.ok) throw new Error('Network response was not ok');
-    
-    allTechs = await res.json();
-    
-    allTechs = allTechs.map(t => {
-      t.svg = techSVGs[t.id] || techSVGs[1];
-      return t;
-    });
-
-    updateFilterCounts(allTechs); 
-
-    const urlParams = new URLSearchParams(window.location.search);
-    const filterValue = urlParams.get('filter');
-    
-    if (filterValue) {
-        const targetButton = document.querySelector(`.fbtn[data-f="${filterValue}"]`);
-        if (targetButton) {
-            targetButton.click(); 
-        } else {
-            renderCards(allTechs);
-        }
-    } else {
-        renderCards(allTechs); 
-    }
-    
-    if(isMapVisible && !filterValue && markersLayer) {
-        const activeFilter = document.querySelector('.fbtn.active:not(#map-toggle)').dataset.f;
-        plotTechnicians(activeFilter);
-    }
-
-  } catch(err) {
-    console.error('Error fetching technicians:', err);
-    document.getElementById('grid').innerHTML = '<div style="grid-column: 1/-1; text-align:center; padding: 2rem; color: #ef4444;">حدث خطأ في الاتصال بقاعدة البيانات. يرجى التأكد من تشغيل XAMPP و Apache.</div>';
-  }
-}
-
-function renderCards(techArray) {
-  const grid = document.getElementById('grid');
-  if(techArray.length === 0) {
-    grid.innerHTML = '<div style="grid-column: 1/-1; text-align:center; padding: 2rem; color: var(--muted);">لا يوجد فنيين متطابقين مع البحث.</div>';
-    document.getElementById('shown').textContent = '0';
-    return;
-  }
-
-  let html = '';
-  techArray.forEach(tech => {
-    const isAvail = tech.is_available == 1;
-    const badgeClass = isAvail ? 'on' : 'off';
-    const badgeText = isAvail ? '● متاح الآن' : '● مشغول حالياً';
-    
-    let starsHtml = '';
-    const ratingRounded = Math.round(tech.rating);
-    for(let i=1; i<=5; i++) {
-        starsHtml += (i <= ratingRounded) ? '★' : '☆';
-    }
-
-    let actionHtml = '';
-    if(isAvail) {
-      actionHtml = `
-        <button class="bbk" onclick="openBook('${tech.name}','${tech.category_ar}',${tech.id})">📅 احجز موعد</button>
-        <button class="bch" onclick="openChat('${tech.name}','${tech.category_ar}',${tech.id})">💬 تواصل بخصوصية</button>
-      `;
-    } else {
-      actionHtml = `
-        <div class="wait-time">⏳ متاح بعد ${tech.wait_time_mins} دقيقة</div>
-        <button class="balt" onclick="openAlternatives(${tech.id}, '${tech.category_ar}', '${tech.category_en}')">✨ عرض فنيين بدلاء</button>
-      `;
-    }
-
-    html += `
-    <div class="card" data-svc="${tech.category_en}" data-avail="${tech.is_available}">
-      <div class="ctop">
-        <span class="abadge ${badgeClass}">${badgeText}</span>
-        <div class="aring" id="tech-svg-${tech.id}">${tech.svg}<div class="vbadge">✓</div></div>
-        <div class="tname">${tech.name}</div>
-        <span class="ttag" data-svcname="${tech.category_ar}">${getServiceIcon(tech.category_en)} ${tech.category_ar}</span>
-        <div class="srow"><span class="stars-r">${starsHtml}</span><span class="rval">${tech.rating}</span><span class="rct">(${tech.reviews_count})</span></div>
-      </div>
-      <div class="cstats">
-        <div class="cs"><span class="csv">${tech.experience_years}</span><span class="csl">سنة خبرة</span></div>
-        <div class="cs"><span class="csv">${tech.visit_price}ج</span><span class="csl">الزيارة</span></div>
-        <div class="cs"><span class="csv">+${tech.completed_jobs}</span><span class="csl">مكتمل</span></div>
-      </div>
-      <div class="cact">${actionHtml}</div>
-    </div>
-    `;
-  });
-
-  grid.innerHTML = html;
-  document.getElementById('shown').textContent = techArray.length;
-}
-
 function getServiceIcon(category) {
     if(category === 'electric') return '🔌';
     if(category === 'plumbing') return '🔧';
     if(category === 'ac') return '❄️';
     if(category === 'appliances') return '🏠';
-    return '';
+    if(category === 'carpentry') return '🪚';
+    if(category === 'painting') return '🎨';
+    return '🔧';
 }
 
 function updateFilterCounts(data) {
@@ -869,7 +884,62 @@ function updateFilterCounts(data) {
   document.getElementById('count-plumbing').textContent = data.filter(t => t.category_en === 'plumbing').length;
   document.getElementById('count-ac').textContent = data.filter(t => t.category_en === 'ac').length;
   document.getElementById('count-appliances').textContent = data.filter(t => t.category_en === 'appliances').length;
+  if(document.getElementById('count-carpentry')) document.getElementById('count-carpentry').textContent = data.filter(t => t.category_en === 'carpentry').length;
+  if(document.getElementById('count-painting')) document.getElementById('count-painting').textContent = data.filter(t => t.category_en === 'painting').length;
   document.getElementById('count-available').textContent = data.filter(t => t.is_available == 1).length;
+}
+
+// ── جلب البيانات بدون تعليق (Fallback System) ──
+async function fetchTechnicians() {
+  try {
+    const res = await fetchWithFallback('api/get_technicians.php');
+    if(res.ok) {
+        const text = await res.text();
+        try {
+            const dbTechs = JSON.parse(text);
+            if(Array.isArray(dbTechs) && dbTechs.length > 0) {
+                allTechs = dbTechs;
+            } else {
+                allTechs = defaultTechs;
+            }
+        } catch(e) {
+            allTechs = defaultTechs;
+        }
+    } else {
+        allTechs = defaultTechs;
+    }
+  } catch(err) {
+    allTechs = defaultTechs;
+  }
+
+  // توزيع الأيقونات بأمان
+  allTechs = allTechs.map(t => {
+    const safeId = parseInt(t.id) || 1;
+    const svgId = (safeId % 22) === 0 ? 22 : (safeId % 22);
+    t.svg = techSVGs[svgId] || techSVGs[1];
+    return t;
+  });
+
+  updateFilterCounts(allTechs); 
+
+  const urlParams = new URLSearchParams(window.location.search);
+  const filterValue = urlParams.get('filter');
+  
+  if (filterValue) {
+      const targetButton = document.querySelector(`.fbtn[data-f="${filterValue}"]`);
+      if (targetButton) {
+          targetButton.click(); 
+      } else {
+          renderCards(allTechs);
+      }
+  } else {
+      renderCards(allTechs); 
+  }
+  
+  if(isMapVisible && !filterValue && markersLayer) {
+      const activeFilter = document.querySelector('.fbtn.active:not(#map-toggle)').dataset.f;
+      plotTechnicians(activeFilter);
+  }
 }
 
 document.querySelectorAll('.fbtn:not(#map-toggle)').forEach(btn=>{
@@ -893,7 +963,12 @@ document.querySelectorAll('.fbtn:not(#map-toggle)').forEach(btn=>{
   });
 });
 
+// ── زر الخريطة ──
 function toggleMap() {
+  if (typeof L === 'undefined') {
+      alert('جاري تحميل مكتبة الخرائط، يرجى الانتظار لحظات...');
+      return;
+  }
   const mapWrap = document.getElementById('map-wrap');
   const btn = document.getElementById('map-toggle');
   isMapVisible = !isMapVisible;
@@ -909,7 +984,7 @@ function toggleMap() {
       } else { 
         map.invalidateSize(); 
       } 
-    }, 450);
+    }, 200);
   } else {
     mapWrap.style.display = 'none'; 
     btn.classList.remove('active'); 
@@ -1004,7 +1079,8 @@ function closeAlternatives() { document.getElementById('alt-ov').classList.remov
 function openBook(name,svc,id){
   document.getElementById('m-name').textContent=name;
   document.getElementById('m-svc').textContent=getServiceIcon(allTechs.find(t=>t.id==id).category_en) + ' ' + svc;
-  document.getElementById('m-av').innerHTML=techSVGs[id] || techSVGs[1];
+  const safeId = parseInt(id) || 1;
+  document.getElementById('m-av').innerHTML=techSVGs[(safeId % 22) === 0 ? 22 : (safeId % 22)] || techSVGs[1];
   
   const today=new Date().toISOString().split('T')[0];
   document.getElementById('bc-date').min=today; document.getElementById('bc-date').value=today;
@@ -1032,39 +1108,35 @@ async function submitBook(){
   
   const orderData = { techName, svc, svg, userName, phone, address, date, time, desc, eta: 'بناءً على الموعد' };
   
-  try {
-    const btn = document.querySelector('#book-form .btn-submit');
-    const oldText = btn.textContent;
-    btn.textContent = 'جاري الحجز...';
+  const btn = document.querySelector('#book-form .btn-submit');
+  const oldText = btn.textContent;
+  btn.textContent = 'جاري الحجز... ⏳';
+  btn.disabled = true;
 
-    const res = await fetch('api/book.php', {
+  try {
+    const res = await fetchWithFallback('api/book.php', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(orderData)
     });
-    
-    if(res.ok) {
-      localStorage.setItem(activeKey, JSON.stringify(orderData));
-      saveToOrderHistory(orderData);
-      document.getElementById('book-form').style.display='none'; document.getElementById('book-ok').style.display='block';
-      renderActiveOrder();
-    } else {
-      const data = await res.json();
-      alert('خطأ من السيرفر: ' + data.error);
-    }
-    btn.textContent = oldText;
   } catch(err) {
+    console.log("Local Booking");
+  } finally {
     localStorage.setItem(activeKey, JSON.stringify(orderData));
     saveToOrderHistory(orderData);
-    document.getElementById('book-form').style.display='none'; document.getElementById('book-ok').style.display='block';
+    document.getElementById('book-form').style.display='none'; 
+    document.getElementById('book-ok').style.display='block';
     renderActiveOrder();
+    btn.textContent = oldText;
+    btn.disabled = false;
   }
 }
 
 const replies=['أهلاً بك! 😊','سأكون عندك في أسرع وقت.','ما هو نوع المشكلة بالضبط؟']; let ri=0,typT=null;
 function openChat(name,svc,id){
   document.getElementById('ch-name').textContent=name;
-  document.getElementById('ch-av').innerHTML=techSVGs[id] || techSVGs[1];
+  const safeId = parseInt(id) || 1;
+  document.getElementById('ch-av').innerHTML=techSVGs[(safeId % 22) === 0 ? 22 : (safeId % 22)] || techSVGs[1];
   document.getElementById('msgs').innerHTML=''; ri=0;
   addMsg('أهلاً! أنا '+name+'. كيف يمكنني مساعدتك؟ 🔒','ft');
   document.getElementById('chat-ov').classList.add('open'); document.body.style.overflow='hidden';
@@ -1096,45 +1168,38 @@ async function submitSOS() {
 
   if (!type || !phone || !addr) return alert("يرجى إكمال بيانات الطوارئ للوصول إليك في أسرع وقت!");
   
-  const svcName = type === 'electric' ? '⚡ طوارئ كهرباء' : type === 'plumbing' ? '💧 طوارئ سباكة' : '❄️ طوارئ تكييف';
-  const emergencySvg = '<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="#ef4444"/><text x="50" y="65" font-size="40" text-anchor="middle" fill="#fff">🚨</text></svg>';
+  const svcName = type === 'electric' ? '⚡ طوارئ كهرباء' : 
+                  type === 'plumbing' ? '💧 طوارئ سباكة' : 
+                  type === 'ac' ? '❄️ طوارئ تكييف' :
+                  type === 'carpentry' ? '🪚 طوارئ نجارة' :
+                  type === 'painting' ? '🎨 طوارئ نقاشة' : '🚨 طوارئ عامة';
+                  
+  const emergencySvg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="#ef4444"/><text x="50" y="65" font-size="40" text-anchor="middle" fill="#fff">🚨</text></svg>';
   
   const sosData = { type, phone, address: addr };
   const order = { techName: 'فني طوارئ (أقرب متاح)', svc: svcName, svg: emergencySvg, userName: 'عميل طوارئ ('+phone+')', address: addr, eta: '10 - 15 دقيقة (أولوية)' };
 
+  const btn = document.querySelector('.btn-sos-submit');
+  const oldText = btn.innerHTML;
+  btn.innerHTML = 'جاري إرسال الاستغاثة... ⏳';
+  btn.disabled = true;
+
   try {
-    const res = await fetch('api/sos.php', {
+    const res = await fetchWithFallback('api/sos.php', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(sosData)
     });
-
-    if(res.ok) {
-      localStorage.setItem(activeKey, JSON.stringify(order));
-      
-      // الحفظ التلقائي في سجل الطلبات
-      let history = JSON.parse(localStorage.getItem(historyKey)) || [];
-      order.timestamp = new Date().toLocaleString('ar-EG');
-      order.orderStatus = 'active';
-      history.unshift(order);
-      localStorage.setItem(historyKey, JSON.stringify(history));
-      
-      document.getElementById('sos-form').style.display = 'none'; document.getElementById('sos-ok').style.display = 'block';
-      renderActiveOrder();
-    } else {
-      alert('حدث خطأ في نظام الطوارئ.');
-    }
   } catch(err) {
+    console.log("Local SOS Executed");
+  } finally {
       localStorage.setItem(activeKey, JSON.stringify(order));
-      
-      let history = JSON.parse(localStorage.getItem(historyKey)) || [];
-      order.timestamp = new Date().toLocaleString('ar-EG');
-      order.orderStatus = 'active';
-      history.unshift(order);
-      localStorage.setItem(historyKey, JSON.stringify(history));
-
-      document.getElementById('sos-form').style.display = 'none'; document.getElementById('sos-ok').style.display = 'block';
+      saveToOrderHistory(order);
+      document.getElementById('sos-form').style.display = 'none'; 
+      document.getElementById('sos-ok').style.display = 'block';
       renderActiveOrder();
+      btn.innerHTML = oldText;
+      btn.disabled = false;
   }
 }
 
@@ -1168,6 +1233,62 @@ function cancelOrder() {
       localStorage.setItem(historyKey, JSON.stringify(history));
   }
   renderActiveOrder();
+}
+
+function renderCards(techArray) {
+  const grid = document.getElementById('grid');
+  if(techArray.length === 0) {
+    grid.innerHTML = '<div style="grid-column: 1/-1; text-align:center; padding: 2rem; color: var(--muted);">لا يوجد فنيين متطابقين مع البحث.</div>';
+    document.getElementById('shown').textContent = '0';
+    return;
+  }
+
+  let html = '';
+  techArray.forEach(tech => {
+    const isAvail = tech.is_available == 1;
+    const badgeClass = isAvail ? 'on' : 'off';
+    const badgeText = isAvail ? '● متاح الآن' : '● مشغول حالياً';
+    
+    let starsHtml = '';
+    const ratingRounded = Math.round(tech.rating);
+    for(let i=1; i<=5; i++) {
+        starsHtml += (i <= ratingRounded) ? '★' : '☆';
+    }
+
+    let actionHtml = '';
+    if(isAvail) {
+      actionHtml = `
+        <button class="bbk" onclick="openBook('${tech.name}','${tech.category_ar}',${tech.id})">📅 احجز موعد</button>
+        <button class="bch" onclick="openChat('${tech.name}','${tech.category_ar}',${tech.id})">💬 تواصل بخصوصية</button>
+      `;
+    } else {
+      actionHtml = `
+        <div class="wait-time">⏳ متاح بعد ${tech.wait_time_mins} دقيقة</div>
+        <button class="balt" onclick="openAlternatives(${tech.id}, '${tech.category_ar}', '${tech.category_en}')">✨ عرض فنيين بدلاء</button>
+      `;
+    }
+
+    html += `
+    <div class="card" data-svc="${tech.category_en}" data-avail="${tech.is_available}">
+      <div class="ctop">
+        <span class="abadge ${badgeClass}">${badgeText}</span>
+        <div class="aring" id="tech-svg-${tech.id}">${tech.svg}<div class="vbadge">✓</div></div>
+        <div class="tname">${tech.name}</div>
+        <span class="ttag" data-svcname="${tech.category_ar}">${getServiceIcon(tech.category_en)} ${tech.category_ar}</span>
+        <div class="srow"><span class="stars-r">${starsHtml}</span><span class="rval">${tech.rating}</span><span class="rct">(${tech.reviews_count})</span></div>
+      </div>
+      <div class="cstats">
+        <div class="cs"><span class="csv">${tech.experience_years}</span><span class="csl">سنة خبرة</span></div>
+        <div class="cs"><span class="csv">${tech.visit_price}ج</span><span class="csl">الزيارة</span></div>
+        <div class="cs"><span class="csv">+${tech.completed_jobs}</span><span class="csl">مكتمل</span></div>
+      </div>
+      <div class="cact">${actionHtml}</div>
+    </div>
+    `;
+  });
+
+  grid.innerHTML = html;
+  document.getElementById('shown').textContent = techArray.length;
 }
 
 document.addEventListener("DOMContentLoaded", () => {

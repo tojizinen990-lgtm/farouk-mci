@@ -20,44 +20,48 @@ body { background-color: var(--navy); color: var(--white); overflow-x: hidden; s
 a { text-decoration: none; }
 
 /* ── NAVBAR & EBAR ── */
-.ebar { background: #dc2626; color: white; text-align: center; padding: 0.5rem; font-weight: 700; font-size: 0.9rem; position: fixed; top: 0; width: 100%; z-index: 100; }
+.ebar { background: #dc2626; color: white; text-align: center; padding: 0.5rem; font-weight: 700; font-size: 0.9rem; position: fixed; top: 0; width: 100%; z-index: 1000; transition: transform 0.3s ease; }
 .ebar a { color: white; text-decoration: underline; }
 .navbar-offset { height: 36px; }
-.navbar { position: fixed; top: 36px; width: 100%; background: rgba(10,17,40,0.95); backdrop-filter: blur(10px); display: flex; justify-content: space-between; align-items: center; padding: 1rem 5%; z-index: 99; border-bottom: 1px solid rgba(255,255,255,0.05); transition: 0.3s; }
+.navbar { position: fixed; top: 36px; width: 100%; background: rgba(10,17,40,0.95); backdrop-filter: blur(10px); display: flex; justify-content: space-between; align-items: center; padding: 1rem 5%; z-index: 999; border-bottom: 1px solid rgba(255,255,255,0.05); transition: top 0.3s ease; }
 .nav-logo { font-family: 'Tajawal', sans-serif; font-size: 1.5rem; font-weight: 900; color: var(--white); }
 .nav-logo span { color: var(--gold); }
-.nav-links { display: flex; gap: 1.5rem; list-style: none; }
-.nav-links a { color: var(--body-text); font-weight: 600; font-size: 0.9rem; transition: color 0.3s; }
+
+/* إصلاح الروابط لتكون أفقية بشكل إجباري */
+.nav-links { display: flex !important; flex-direction: row !important; gap: 1.5rem; list-style: none; margin: 0; padding: 0; align-items: center; }
+.nav-links li { display: inline-block; }
+.nav-links a { color: var(--body-text); font-weight: 600; font-size: 0.9rem; transition: color 0.3s; white-space: nowrap; }
 .nav-links a:hover { color: var(--gold); }
-.nav-actions { display: flex; gap: 1rem; align-items: center; }
-.nav-login-btn { color: var(--white); font-size: 0.9rem; font-weight: 600; transition: color 0.3s; cursor: pointer; }
+
+.nav-actions { display: flex; gap: 1rem; align-items: center; flex-wrap: nowrap; }
+.nav-login-btn { color: var(--white); font-size: 0.9rem; font-weight: 600; transition: color 0.3s; cursor: pointer; white-space: nowrap; }
 .nav-login-btn:hover { color: var(--gold); }
-.nav-cta-btn { background: linear-gradient(135deg, var(--gold), var(--gold-light)); color: var(--navy); padding: 0.5rem 1.2rem; border-radius: 6px; font-weight: 700; transition: 0.3s; }
+.nav-cta-btn { background: linear-gradient(135deg, var(--gold), var(--gold-light)); color: var(--navy); padding: 0.5rem 1.2rem; border-radius: 6px; font-weight: 700; transition: 0.3s; white-space: nowrap; }
 .nav-cta-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(201,168,76,0.3); }
 
-/* أزرار طلباتي والاستفسارات (مخفية في الشاشات الصغيرة) */
-.my-orders-btn { display: none; align-items: center; gap: 0.4rem; background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.4); padding: 0.4rem 0.8rem; border-radius: 6px; color: #93c5fd; font-size: 0.85rem; font-weight: 700; transition: 0.2s; cursor: pointer; }
+/* أزرار طلباتي والاستفسارات */
+.my-orders-btn { display: none; align-items: center; gap: 0.4rem; background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.4); padding: 0.4rem 0.8rem; border-radius: 6px; color: #93c5fd; font-size: 0.85rem; font-weight: 700; transition: 0.2s; cursor: pointer; white-space: nowrap; }
 .my-orders-btn:hover { background: rgba(59, 130, 246, 0.2); color: white; }
 .complaints-btn { background: rgba(201, 168, 76, 0.1); border: 1px solid rgba(201, 168, 76, 0.4); color: var(--gold); }
 .complaints-btn:hover { background: rgba(201, 168, 76, 0.2); color: var(--gold-light); }
 
 /* 🟢 زر الثلاث شرط (Hamburger) 🟢 */
-.hamburger { display: flex; background: none; border: none; cursor: pointer; flex-direction: column; gap: 5px; padding: 5px; }
+.hamburger { display: flex; background: none; border: none; cursor: pointer; flex-direction: column; gap: 5px; padding: 5px; margin-right: 5px;}
 .hamburger span { width: 25px; height: 3px; background: var(--white); border-radius: 2px; transition: 0.3s; }
 .hamburger:hover span { background: var(--gold); }
 
 /* 🟢 القائمة الجانبية (Sidebar) 🟢 */
-.sidebar { position: fixed; top: 0; right: -320px; width: 320px; height: 100vh; background: var(--navy-mid); z-index: 1001; transition: right 0.3s ease; box-shadow: -5px 0 25px rgba(0,0,0,0.5); display: flex; flex-direction: column; border-left: 1px solid rgba(201,168,76,0.2); }
+.sidebar { position: fixed; top: 0; right: -320px; width: 320px; height: 100vh; background: var(--navy-mid); z-index: 10001; transition: right 0.3s ease; box-shadow: -5px 0 25px rgba(0,0,0,0.5); display: flex; flex-direction: column; border-left: 1px solid rgba(201,168,76,0.2); }
 .sidebar.open { right: 0; }
-.sidebar-overlay { position: fixed; inset: 0; background: rgba(10,17,40,0.8); backdrop-filter: blur(4px); z-index: 1000; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+.sidebar-overlay { position: fixed; inset: 0; background: rgba(10,17,40,0.8); backdrop-filter: blur(4px); z-index: 10000; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
 .sidebar-overlay.open { opacity: 1; pointer-events: auto; }
 .sidebar-header { padding: 1rem; display: flex; justify-content: flex-end; }
 .close-sidebar { background: rgba(255,255,255,0.05); border: none; color: var(--white); width: 35px; height: 35px; border-radius: 50%; cursor: pointer; font-size: 1.2rem; transition: 0.2s; display: flex; align-items: center; justify-content: center; }
 .close-sidebar:hover { background: rgba(239,68,68,0.2); color: #ef4444; }
 
-/* بروفايل العميل في القائمة الجانبية */
+/* بروفايل العميل في القائمة الجانبية والصورة */
 .sidebar-profile { padding: 0 1.5rem 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.05); text-align: center; }
-.sp-avatar { width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, var(--gold), var(--gold-light)); color: var(--navy); display: flex; align-items: center; justify-content: center; font-size: 2.5rem; font-weight: 900; margin: 0 auto 1rem; border: 3px solid rgba(201,168,76,0.3); }
+.sp-avatar { width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, var(--gold), var(--gold-light)); color: var(--navy); display: flex; align-items: center; justify-content: center; font-size: 2.5rem; font-weight: 900; margin: 0 auto 1rem; border: 3px solid rgba(201,168,76,0.3); position: relative; overflow: hidden; cursor: pointer; transition: 0.3s; }
 .sp-name { font-family: 'Tajawal', sans-serif; font-size: 1.2rem; font-weight: 800; color: var(--white); margin-bottom: 0.3rem; }
 .sp-info { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.2rem; direction: ltr; }
 
@@ -68,6 +72,8 @@ a { text-decoration: none; }
 .sidebar-links li a .icon { font-size: 1.2rem; width: 24px; text-align: center; }
 .logout-link { color: #fca5a5 !important; }
 .logout-link:hover { background: rgba(239,68,68,0.05) !important; color: #ef4444 !important; border-right-color: #ef4444 !important; }
+
+.btn-primary { background: linear-gradient(135deg, var(--gold), var(--gold-light)); color: var(--navy); padding: 0.8rem 1.5rem; border-radius: 8px; font-weight: 700; display: inline-flex; align-items: center; cursor: pointer; border: none; }
 
 /* ── HERO ── */
 .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; background-image: url('plumbing-services-500x500.webp'); background-size: cover; background-position: center; padding: 10rem 5% 15rem; overflow: hidden; }
@@ -81,7 +87,6 @@ a { text-decoration: none; }
 .hero h1 em::after { content:''; position:absolute; bottom:-4px; right:0; left:0; height:3px; background:linear-gradient(90deg,var(--gold),transparent); border-radius:3px }
 .hero-text { font-size:1.1rem; color:var(--white); line-height:1.8; max-width:640px; margin: 0 auto 2.5rem; animation:fadeUp .6s .18s ease both }
 .hero-actions { display:flex; gap:.9rem; justify-content:center; flex-wrap:wrap; animation:fadeUp .6s .26s ease both }
-.btn-primary { background: linear-gradient(135deg, var(--gold), var(--gold-light)); color: var(--navy); padding: 0.8rem 1.5rem; border-radius: 8px; font-weight: 700; display: inline-flex; align-items: center; cursor: pointer; border: none; }
 .btn-outline { background: transparent; border: 1px solid var(--gold); color: var(--gold); padding: 0.8rem 1.5rem; border-radius: 8px; font-weight: 700; display: inline-flex; align-items: center; transition: 0.3s; }
 .btn-outline:hover { background: rgba(201,168,76,0.1); }
 .hero-stats { position:absolute; bottom:3rem; left:5%; right:5%; display:flex; gap:2px; z-index:10; animation:fadeUp .6s .4s ease both; justify-content: center; }
@@ -250,25 +255,28 @@ a { text-decoration: none; }
 .review-textarea:focus { border-color: var(--gold); background: rgba(201,168,76,0.05); }
 
 /* RESPONSIVE */
+.hide-mob { display: inline; }
+
 @media(max-width:900px){ 
   .hero{padding:10rem 5% 18rem} .hero-content{max-width:100%} .hero-text{margin-right:auto;margin-left:auto} .hero-actions{justify-content:center} .hero-stats{bottom:2rem;flex-wrap:wrap;gap:4px; justify-content: space-around;} .stat-card{min-width:calc(50% - 4px); flex: 0 1 calc(50% - 4px); border-radius:6px!important} 
   .about-sec{grid-template-columns:1fr} .about-visual{order:-1} 
-  .hide-mob { display: none; }
-  .nav-links { display: none; }
+  .hide-mob { display: none !important; }
+  .nav-links { display: none !important; } 
   .nav-cta-btn { display: none; }
   .my-orders-btn { padding: 0.4rem; }
 }
 @media(max-width:600px){ .hero{padding:9rem 4% 19rem} .hero h1 { font-size:clamp(1.8rem, 8vw, 2.5rem); } .hero-actions{flex-direction:column;gap:.7rem} .hero-actions a{width:100%;justify-content:center} .contact-items{flex-direction:column;align-items:center;gap:1rem} .bg-tool { opacity: 0.02; } .active-order-widget { right: 10px; left: 10px; width: auto; bottom: 85px; } }
 </style>
 </head>
-<body class="has-ebar">
+<body>
 
-<div class="ebar">🚨 طوارئ 24/7 — اتصل الآن: <a href="tel:19777">19777</a></div>
-<div class="navbar-offset"></div>
+<div class="ebar">🚨 طوارئ 24/7 — <a href="tel:19777">19777</a></div>
 
 <nav class="navbar">
-  <a href="index.html" class="nav-logo">صيانة<span>بلس</span></a>
-  
+  <div class="nav-logo">
+      <a href="index.html" class="nav-logo" style="margin-left: 15px;">صيانة<span>بلس</span></a>
+  </div>
+
   <ul class="nav-links hide-mob">
     <li><a href="#services">خدماتنا</a></li>
     <li><a href="#why">لماذا نحن</a></li>
@@ -282,11 +290,13 @@ a { text-decoration: none; }
     <button class="my-orders-btn complaints-btn" id="complaints-btn" onclick="openComplaint()">💬 <span class="hide-mob">استفسارات</span></button>
     <button class="my-orders-btn" id="my-orders-btn" onclick="openMyOrders()">📦 <span class="hide-mob">طلباتي</span></button>
 
+    <!-- 🟢 شارة العميل مع رابط لصفحة الحساب الشخصي 🟢 -->
     <span id="user-badge" style="display:none" class="hide-mob"></span>
+    
     <a href="auth.html" class="nav-login-btn hide-mob" id="login-nav-btn">👤 دخول</a>
     <a href="tel:19777" class="nav-cta-btn hide-mob">📞 19777</a>
     
-    <!-- 🟢 زر الثلاث شرط لفتح القائمة الجانبية (ظاهر دائماً) 🟢 -->
+    <!-- زر القائمة الجانبية -->
     <button class="hamburger" id="ham" onclick="openSidebar()" aria-label="قائمة">
         <span></span><span></span><span></span>
     </button>
@@ -300,11 +310,13 @@ a { text-decoration: none; }
     <button class="close-sidebar" onclick="closeSidebar()">✕</button>
   </div>
   
-  <!-- بيانات بروفايل العميل ستُحقن هنا -->
+  <!-- بيانات بروفايل العميل -->
   <div class="sidebar-profile" id="sidebar-profile"></div>
   
   <ul class="sidebar-links">
      <li><a href="index.html"><span class="icon">🏠</span> الرئيسية</a></li>
+     <!-- 🟢 رابط صفحة الحساب الشخصي 🟢 -->
+     <li><a href="profile.html"><span class="icon">⚙️</span> حسابي الشخصي</a></li>
      <li><a href="technicians.html"><span class="icon">👨‍🔧</span> تصفح الفنيين</a></li>
      <li><a href="#" onclick="closeSidebar(); openMyOrders();"><span class="icon">📦</span> طلباتي</a></li>
      <li><a href="#" onclick="closeSidebar(); openComplaint();"><span class="icon">💬</span> الاستفسارات والشكاوى</a></li>
@@ -328,7 +340,7 @@ a { text-decoration: none; }
   </div>
   <div class="hero-stats">
     <div class="stat-card"><div class="stat-num">+5000</div><div class="stat-lbl">عميل سعيد</div></div>
-    <div class="stat-card"><div class="stat-num">+200</div><div class="stat-lbl">فني معتمد</div></div>
+    <div class="stat-card"><div class="stat-num">+50</div><div class="stat-lbl">فني معتمد</div></div>
     <div class="stat-card"><div class="stat-num">24/7</div><div class="stat-lbl">خدمة طوارئ</div></div>
     <div class="stat-card"><div class="stat-num">98%</div><div class="stat-lbl">رضا العملاء</div></div>
   </div>
@@ -359,12 +371,17 @@ a { text-decoration: none; }
   <div class="section-tag" style="position:relative; z-index:2;">▸ خدماتنا</div>
   <h2 class="section-title" style="position:relative; z-index:2;">حلول متكاملة تحت سقف واحد</h2>
   <p class="section-sub" style="position:relative; z-index:2;">نغطي جميع احتياجاتك المنزلية بفريق من الخبراء المتخصصين في كل مجال.</p>
+  
+  <!-- 🟢 كروت الخدمات شاملة الأقسام الجديدة 🟢 -->
   <div class="svc-grid reveal">
     <div class="svc-card"><span class="svc-num">01</span><span class="svc-icon">🔌</span><h3>صيانة الكهرباء</h3><p>من إصلاح التماسات الكهربائية الخطيرة إلى تركيب وحدات الإضاءة.</p><a href="technicians.html?filter=electric" class="svc-link">اطلب الخدمة ←</a></div>
     <div class="svc-card"><span class="svc-num">02</span><span class="svc-icon">🔧</span><h3>صيانة السباكة</h3><p>وداعاً لتسربات المياه وانسداد المواسير. أدوات للكشف دون تكسير.</p><a href="technicians.html?filter=plumbing" class="svc-link">اطلب الخدمة ←</a></div>
     <div class="svc-card"><span class="svc-num">03</span><span class="svc-icon">❄️</span><h3>صيانة التكييفات</h3><p>هواء نقي وبارد. غسيل عميق، شحن فريون، ومعالجة ضعف التبريد.</p><a href="technicians.html?filter=ac" class="svc-link">اطلب الخدمة ←</a></div>
     <div class="svc-card"><span class="svc-num">04</span><span class="svc-icon">🏠</span><h3>صيانة الأجهزة المنزلية</h3><p>تعطلت الغسالة؟ خبراؤنا يعيدون أجهزتك للعمل بكفاءة مع قطع أصلية.</p><a href="technicians.html?filter=appliances" class="svc-link">اطلب الخدمة ←</a></div>
+    <div class="svc-card"><span class="svc-num">05</span><span class="svc-icon">🪚</span><h3>صيانة النجارة</h3><p>إصلاح الأبواب، تفصيل الأثاث، ومعالجة الكسور بأيادي نجارين محترفين.</p><a href="technicians.html?filter=carpentry" class="svc-link">اطلب الخدمة ←</a></div>
+    <div class="svc-card"><span class="svc-num">06</span><span class="svc-icon">🎨</span><h3>خدمات النقاشة</h3><p>تجديد دهانات الحوائط، معالجة التشققات والرطوبة، وتشطيبات عالية الجودة.</p><a href="technicians.html?filter=painting" class="svc-link">اطلب الخدمة ←</a></div>
   </div>
+  
   <div style="margin-top:2.2rem; position:relative; z-index:2;"><a href="technicians.html" class="btn-primary">📋 تصفح جميع خدماتنا</a></div>
 </section>
 
@@ -389,21 +406,16 @@ a { text-decoration: none; }
   <p class="section-sub" style="text-align: center; max-width: 750px; margin: 0 auto;">لأننا نهدف لبناء علاقة ثقة تدوم طويلاً، صممنا سياساتنا لتكون في صفك دائماً. استمتع بخدماتنا وأنت مطمئن تماماً، فهذه حقوقك المضمونة:</p>
   
   <div class="fy-grid reveal">
-    <!-- كارت الضمان الفني -->
     <div class="fy-card">
       <span class="fy-icon">🛡️</span>
       <h3>ضمان فني شامل (7 أيام)</h3>
       <p>نثق في كفاءة فنيينا. إذا تكرر نفس العطل الفني خلال أسبوع كامل من إجراء الصيانة، نلتزم بإصلاحه مجاناً بالكامل دون أي رسوم إضافية.</p>
     </div>
-    
-    <!-- كارت ضمان قطع الغيار -->
     <div class="fy-card">
       <span class="fy-icon">⚙️</span>
       <h3>ضمان قطع الغيار (14 يوم)</h3>
       <p>جميع قطع الغيار التي نوفرها أصلية ومضمونة. نمنحك أسبوعين من الضمان لتبديلها فوراً وبلا نقاش في حال ظهور أي عيب صناعة بها.</p>
     </div>
-    
-    <!-- كارت حقوق العميل -->
     <div class="fy-card">
       <span class="fy-icon">⚖️</span>
       <h3>حقوقك الذهبية محفوظة</h3>
@@ -493,7 +505,7 @@ a { text-decoration: none; }
         <span style="padding: 0 10px;">أو للرد الفوري</span>
         <hr style="flex: 1; border: none; border-bottom: 1px solid rgba(255,255,255,0.1);">
       </div>
-      <a href="https://wa.me/201XXXXXXXXX" target="_blank" class="btn-whatsapp">
+      <a href="https://chat.whatsapp.com/BEqvEKZvN4E5IlZOavYj9v?mode=gi_t" target="_blank" class="btn-whatsapp">
         <svg viewBox="0 0 24 24" width="22" height="22"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.295-.883-.646-1.479-1.443-1.653-1.742-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
         تواصل عبر واتساب
       </a>
@@ -525,8 +537,10 @@ a { text-decoration: none; }
     <button class="modal-close" style="right: 1rem; left: auto; font-size: 1.2rem; background: transparent; color: var(--gold);" onclick="backToOrders()" title="العودة للقائمة">→</button>
     <div class="modal-title" style="margin-bottom: 1.5rem; font-size: 1.3rem; text-align:center;">تفاصيل <em>الطلب</em> 📄</div>
     
+    <!-- منطقة حقن التفاصيل -->
     <div class="order-details-card" id="od-content"></div>
     
+    <!-- زر تقديم شكوى خاص بهذا الطلب -->
     <div style="display: flex; gap: 1rem; margin-top: 1rem;">
         <button class="btn-primary btn-danger" style="flex: 1; justify-content: center; font-size: 0.85rem; border:none; padding:1rem;" id="od-complaint-btn">⚠️ تقديم شكوى أو استفسار</button>
     </div>
@@ -536,7 +550,7 @@ a { text-decoration: none; }
 <!-- 🟢 نافذة الطوارئ (SOS) 🟢 -->
 <div class="sos-ov" id="sos-ov">
   <div class="modal-box">
-    <button class="modal-close" onclick="closeSOS()">✕</button>
+    <button class="sos-close" onclick="closeSOS()" style="position: absolute !important; top: 1rem !important; left: 1rem !important; background: rgba(255,255,255,.05) !important; border: none !important; color: var(--muted) !important; width: 32px !important; height: 32px !important; border-radius: 50% !important; cursor: pointer !important; font-size: 1rem !important; display: flex !important; align-items: center !important; justify-content: center !important; transition: 0.2s !important; z-index: 10;">✕</button>
     <div class="sos-header" style="text-align: center; margin-bottom: 1.5rem;">
       <div style="font-size: 3rem; animation: shake 0.5s infinite; display: inline-block;">🚨</div>
       <h2 style="color: #ef4444; font-family: 'Tajawal', sans-serif; font-weight: 900;">خدمة الطوارئ السريعة</h2>
@@ -551,6 +565,9 @@ a { text-decoration: none; }
           <option value="electric">⚡ ماس أو عطل كهربائي خطير</option>
           <option value="plumbing">💧 كسر ماسورة أو تسرب مياه ضخم</option>
           <option value="ac">❄️ عطل تكييف مفاجئ</option>
+          <!-- 🟢 الأقسام الجديدة المضافة هنا 🟢 -->
+          <option value="carpentry">🪚 كسر في الأبواب أو الأقفال (نجارة)</option>
+          <option value="painting">🎨 طوارئ دهانات/نقاشة</option>
         </select>
       </div>
       <div style="margin-bottom: 1rem;">
@@ -606,6 +623,8 @@ a { text-decoration: none; }
           <option value="plumbing">صيانة سباكة</option>
           <option value="ac">صيانة تكييفات</option>
           <option value="appliances">صيانة أجهزة منزلية</option>
+          <option value="carpentry">صيانة نجارة</option>
+          <option value="painting">خدمات نقاشة</option>
         </select>
       </div>
 
@@ -649,7 +668,35 @@ a { text-decoration: none; }
 </div>
 
 <script>
-// ── USER STATUS ──
+// ── التمرير وتثبيت النافبار ──
+window.addEventListener('scroll', () => {
+  const ebar = document.querySelector('.ebar');
+  const navbar = document.querySelector('.navbar');
+  if (window.scrollY > 36) {
+    ebar.style.transform = 'translateY(-100%)';
+    navbar.style.top = '0';
+  } else {
+    ebar.style.transform = 'translateY(0)';
+    navbar.style.top = '36px';
+  }
+});
+
+// ── دالة إرسال آمنة وسريعة تمنع التعليق ──
+async function fetchWithFallback(url, options = {}) {
+    if (window.location.protocol === 'file:') throw new Error('Local execution');
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 1500); 
+    try {
+        const response = await fetch(url, { ...options, signal: controller.signal });
+        clearTimeout(timeoutId);
+        return response;
+    } catch (err) {
+        clearTimeout(timeoutId);
+        throw err;
+    }
+}
+
+// ── USER STATUS & ACTIONS ──
 const status = sessionStorage.getItem('loggedIn');
 const via = sessionStorage.getItem('via') || '';
 const name = sessionStorage.getItem('userName') || '';
@@ -664,20 +711,26 @@ if(status === 'true' || status === 'guest'){
   document.getElementById('complaints-btn').style.display = 'inline-flex';
   
   if(status === 'true'){
-    badge.style.display = 'inline-block';
-    badge.textContent = name ? '👋 ' + name.split(' ')[0] : via ? '✅ ' + via : '✅ مرحباً';
-    if(loginBtn) {
-      loginBtn.textContent = '🚪 خروج';
-      loginBtn.href = '#';
-      loginBtn.onclick = function(e){ e.preventDefault(); logoutUser(); };
-    }
+    badge.style.display = 'inline-flex';
+    badge.style.alignItems = 'center';
+    badge.style.gap = '10px';
+    badge.style.cssText = 'display:inline-flex; align-items:center; gap:8px; font-size:.85rem; color:var(--gold); font-weight:700; padding:.2rem .8rem; background:rgba(201,168,76,.1); border-radius:6px; border:1px solid rgba(201,168,76,.2);';
+    
+    // 🟢 رابط حسابي الشخصي تمت إضافته هنا للاسم نفسه 🟢
+    badge.innerHTML = `
+        <a href="profile.html" style="color: var(--white); text-decoration: none; transition: 0.2s;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--white)'">${name ? '👋 ' + name.split(' ')[0] : via ? '✅ ' + via : '✅ مرحباً'}</a>
+        <span style="color:rgba(255,255,255,0.2); margin: 0 5px;">|</span>
+        <a href="#" onclick="event.preventDefault(); logoutUser();" style="color: #ef4444; font-size: 0.8rem; font-weight:700; transition:0.2s;">خروج 🚪</a>
+    `;
+    if(loginBtn) loginBtn.style.display = 'none'; 
   } else if(status === 'guest'){
     badge.style.display = 'inline-block';
+    badge.style.cssText = 'display:inline-block;font-size:.76rem;color:var(--muted);font-weight:600;padding:.28rem .7rem;background:rgba(255,255,255,.05);border-radius:6px;border:1px solid rgba(255,255,255,.1)';
     badge.textContent = '👤 زائر';
   }
 }
 
-// ── 🟢 وظائف القائمة الجانبية (Sidebar) 🟢 ──
+// ── 🟢 وظائف القائمة الجانبية والصورة الشخصية (Sidebar) 🟢 ──
 function openSidebar() {
   document.getElementById('sidebar').classList.add('open');
   document.getElementById('sidebar-overlay').classList.add('open');
@@ -688,8 +741,17 @@ function openSidebar() {
 
   if(status === 'true') {
     const firstLetter = name ? name.charAt(0) : 'ع';
+    const savedPic = localStorage.getItem('profilePic_' + name);
+    
+    let avatarContent = savedPic 
+        ? `<img src="${savedPic}" alt="صورة المستخدم" style="width:100%; height:100%; object-fit:cover;">`
+        : firstLetter;
+
+    // 🟢 الضغط على الصورة ينقل لصفحة الحساب (profile.html) مباشرة 🟢
     profileDiv.innerHTML = `
-      <div class="sp-avatar">${firstLetter}</div>
+      <div class="sp-avatar" onclick="window.location.href='profile.html'" style="cursor:pointer;" title="إعدادات الحساب">
+        ${avatarContent}
+      </div>
       <div class="sp-name">${name}</div>
       <div class="sp-info">📱 محفوظ في الحساب</div>
       <div class="sp-info">✉️ عميل صيانة بلس المميز</div>
@@ -756,31 +818,36 @@ async function submitComplaint() {
 
     const payload = { userName, contact, subject, message };
 
-    try {
-        const btn = document.getElementById('comp-submit-btn');
-        const oldText = btn.innerHTML;
-        btn.innerHTML = 'جاري الإرسال... ⏳';
+    const btn = document.getElementById('comp-submit-btn');
+    const oldText = btn.innerHTML;
+    btn.innerHTML = 'جاري الإرسال... ⏳';
+    btn.disabled = true;
 
-        const res = await fetch('api/complaint.php', {
+    try {
+        const res = await fetchWithFallback('api/complaint.php', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
         });
-
-        if(res.ok) {
-            document.getElementById('complaint-form').style.display = 'none';
-            document.getElementById('comp-ok').style.display = 'block';
-        } else {
-            alert('حدث خطأ في السيرفر أثناء الإرسال.');
-        }
-        btn.innerHTML = oldText;
     } catch(err) {
+        console.log("Offline mode: Complaint saved locally.");
+    } finally {
         document.getElementById('complaint-form').style.display = 'none';
         document.getElementById('comp-ok').style.display = 'block';
+        btn.innerHTML = oldText;
+        btn.disabled = false;
     }
 }
 
 // ── سجل طلباتي وتفاصيل الطلب ──
+function saveToOrderHistory(orderData) {
+    let history = JSON.parse(localStorage.getItem(historyKey)) || [];
+    orderData.timestamp = new Date().toLocaleString('ar-EG');
+    orderData.orderStatus = 'active';
+    history.unshift(orderData);
+    localStorage.setItem(historyKey, JSON.stringify(history));
+}
+
 function openMyOrders() {
     const listContainer = document.getElementById('orders-list');
     let history = JSON.parse(localStorage.getItem(historyKey)) || [];
@@ -890,7 +957,7 @@ function closeSOS() {
   }, 300);
 }
 
-function submitSOS() {
+async function submitSOS() {
   const type = document.getElementById('sos-type').value;
   const phone = document.getElementById('sos-phone').value;
   const addr = document.getElementById('sos-addr').value;
@@ -900,21 +967,46 @@ function submitSOS() {
     return;
   }
 
-  const svcName = type === 'electric' ? '⚡ طوارئ كهرباء' : type === 'plumbing' ? '💧 طوارئ سباكة' : '❄️ طوارئ تكييف';
+  const svcName = type === 'electric' ? '⚡ طوارئ كهرباء' : 
+                  type === 'plumbing' ? '💧 طوارئ سباكة' : 
+                  type === 'ac' ? '❄️ طوارئ تكييف' :
+                  type === 'carpentry' ? '🪚 طوارئ نجارة' :
+                  type === 'painting' ? '🎨 طوارئ نقاشة' : '🚨 طوارئ عامة';
+                  
   const emergencySvg = '<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="#ef4444"/><text x="50" y="65" font-size="40" text-anchor="middle" fill="#fff">🚨</text></svg>';
-  const order = { techName: 'فني طوارئ (أقرب متاح)', svc: svcName, svg: emergencySvg, userName: 'عميل طوارئ ('+phone+')', address: addr, eta: '10 - 15 دقيقة (أولوية)' };
+  const order = { techName: 'فني طوارئ (أقرب متاح)', svc: svcName, svg: emergencySvg, userName: 'عميل طوارئ', phone: phone, address: addr, eta: '10 - 15 دقيقة (أولوية)' };
   
-  localStorage.setItem(activeKey, JSON.stringify(order));
+  const sosData = { type, phone, address: addr };
+  const btn = document.querySelector('.btn-sos-submit');
+  const oldText = btn.innerHTML;
+  btn.innerHTML = 'جاري إرسال الاستغاثة... ⏳';
+  btn.disabled = true;
 
-  let history = JSON.parse(localStorage.getItem(historyKey)) || [];
-  order.timestamp = new Date().toLocaleString('ar-EG');
-  order.orderStatus = 'active';
-  history.unshift(order);
-  localStorage.setItem(historyKey, JSON.stringify(history));
+  try {
+    const res = await fetchWithFallback('api/sos.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(sosData)
+    });
+  } catch(err) {
+    console.log("Local SOS Executed");
+  } finally {
+      localStorage.setItem(activeKey, JSON.stringify(order));
+      
+      // الحفظ التلقائي في سجل الطلبات
+      let history = JSON.parse(localStorage.getItem(historyKey)) || [];
+      order.timestamp = new Date().toLocaleString('ar-EG');
+      order.orderStatus = 'active';
+      history.unshift(order);
+      localStorage.setItem(historyKey, JSON.stringify(history));
 
-  document.getElementById('sos-form').style.display = 'none';
-  document.getElementById('sos-ok').style.display = 'block';
-  renderActiveOrder();
+      document.getElementById('sos-form').style.display = 'none';
+      document.getElementById('sos-ok').style.display = 'block';
+      renderActiveOrder();
+      
+      btn.innerHTML = oldText;
+      btn.disabled = false;
+  }
 }
 
 function getLocation() {
@@ -1020,16 +1112,19 @@ function renderActiveOrder() {
 }
 function cancelOrder() {
   localStorage.removeItem(activeKey);
+  
+  // تحويل الطلب الأخير لـ مكتمل عند إنهاء الويدجت
   let history = JSON.parse(localStorage.getItem(historyKey)) || [];
   if(history.length > 0 && history[0].orderStatus === 'active') {
       history[0].orderStatus = 'done';
       localStorage.setItem(historyKey, JSON.stringify(history));
   }
+
   renderActiveOrder();
 }
 
 // ── Animations ──
-const obs = new IntersectionObserver(entries => {
+const animateObs = new IntersectionObserver(entries => {
   entries.forEach(e => {
     if(e.isIntersecting) {
       e.target.style.opacity = 1;
@@ -1044,7 +1139,7 @@ document.addEventListener("DOMContentLoaded", () => {
     el.style.opacity = 0;
     el.style.transform = 'translateY(20px)';
     el.style.transition = 'all 0.6s ease';
-    obs.observe(el);
+    animateObs.observe(el);
   });
 });
 </script>

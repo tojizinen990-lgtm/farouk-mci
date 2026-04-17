@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>حسابي الشخصي — صيانةبلس</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet"/>
+
+<style>
+/* ── CSS VARIABLES ── */
+:root {
+  --navy: #0a1128; --navy-mid: #141f3e; --navy-light: #1f2d54;
+  --gold: #c9a84c; --gold-light: #e8c66a; --white: #ffffff;
+  --body-text: #e2e8f0; --muted: #94a3b8; --green: #2ecc71; --blue: #3b82f6;
+  --red: #ef4444;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; }
+body { background-color: var(--navy); color: var(--white); overflow-x: hidden; scroll-behavior: smooth; }
+a { text-decoration: none; }
+
+/* ── NAVBAR & EBAR ── */
+.ebar { background: #dc2626; color: white; text-align: center; padding: 0.5rem; font-weight: 700; font-size: 0.9rem; position: fixed; top: 0; width: 100%; z-index: 1000; transition: transform 0.3s ease; }
+.ebar a { color: white; text-decoration: underline; }
+.navbar { position: fixed; top: 36px; width: 100%; background: rgba(10,17,40,0.95); backdrop-filter: blur(10px); display: flex; justify-content: space-between; align-items: center; padding: 1rem 5%; z-index: 999; border-bottom: 1px solid rgba(255,255,255,0.05); transition: top 0.3s ease; }
+.nav-logo { font-family: 'Tajawal', sans-serif; font-size: 1.5rem; font-weight: 900; color: var(--white); }
+.nav-logo span { color: var(--gold); }
+.nav-actions { display: flex; gap: 1rem; align-items: center; flex-wrap: nowrap; }
+.nav-login-btn { color: var(--white); font-size: 0.9rem; font-weight: 600; transition: color 0.3s; cursor: pointer; white-space: nowrap; }
+.nav-login-btn:hover { color: var(--gold); }
+
+/* 🟢 زر الثلاث شرط (Hamburger) 🟢 */
+.hamburger { display: flex; background: none; border: none; cursor: pointer; flex-direction: column; gap: 5px; padding: 5px; margin-right: 5px;}
+.hamburger span { width: 25px; height: 3px; background: var(--white); border-radius: 2px; transition: 0.3s; }
+.hamburger:hover span { background: var(--gold); }
+
+/* 🟢 القائمة الجانبية (Sidebar) 🟢 */
+.sidebar { position: fixed; top: 0; right: -320px; width: 320px; height: 100vh; background: var(--navy-mid); z-index: 10001; transition: right 0.3s ease; box-shadow: -5px 0 25px rgba(0,0,0,0.5); display: flex; flex-direction: column; border-left: 1px solid rgba(201,168,76,0.2); }
+.sidebar.open { right: 0; }
+.sidebar-overlay { position: fixed; inset: 0; background: rgba(10,17,40,0.8); backdrop-filter: blur(4px); z-index: 10000; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+.sidebar-overlay.open { opacity: 1; pointer-events: auto; }
+.sidebar-header { padding: 1rem; display: flex; justify-content: flex-end; }
+.close-sidebar { background: rgba(255,255,255,0.05); border: none; color: var(--white); width: 35px; height: 35px; border-radius: 50%; cursor: pointer; font-size: 1.2rem; transition: 0.2s; display: flex; align-items: center; justify-content: center; }
+.close-sidebar:hover { background: rgba(239,68,68,0.2); color: #ef4444; }
+.sidebar-profile { padding: 0 1.5rem 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.05); text-align: center; }
+.sp-avatar { width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, var(--gold), var(--gold-light)); color: var(--navy); display: flex; align-items: center; justify-content: center; font-size: 2.5rem; font-weight: 900; margin: 0 auto 1rem; border: 3px solid rgba(201,168,76,0.3); position: relative; overflow: hidden; cursor: pointer; transition: 0.3s; }
+.sp-avatar:hover::after { content: '📷'; position: absolute; inset: 0; background: rgba(0,0,0,0.6); display: flex; align-items: center; justify-content: center; font-size: 1.8rem; color: white; }
+.sp-name { font-family: 'Tajawal', sans-serif; font-size: 1.2rem; font-weight: 800; color: var(--white); margin-bottom: 0.3rem; }
+.sp-info { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.2rem; direction: ltr; }
+.sidebar-links { list-style: none; padding: 1rem 0; margin: 0; flex: 1; overflow-y: auto; }
+.sidebar-links li a { display: flex; align-items: center; gap: 1rem; padding: 1rem 1.5rem; color: var(--body-text); font-weight: 600; font-size: 0.95rem; transition: 0.2s; border-right: 3px solid transparent; }
+.sidebar-links li a:hover { background: rgba(255,255,255,0.03); color: var(--gold); border-right-color: var(--gold); }
+.sidebar-links li a .icon { font-size: 1.2rem; width: 24px; text-align: center; }
+.logout-link { color: #fca5a5 !important; }
+.logout-link:hover { background: rgba(239,68,68,0.05) !important; color: #ef4444 !important; border-right-color: #ef4444 !important; }
+
+/* ── PROFILE SPECIFIC STYLES ── */
+.profile-wrapper { max-width: 1100px; margin: 120px auto 50px; padding: 0 5%; display: grid; grid-template-columns: 300px 1fr; gap: 2rem; animation: fadeUp 0.6s ease both; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+/* Profile Card (Left side) */
+.profile-card { background: var(--navy-mid); border: 1px solid rgba(255,255,255,0.05); border-radius: 16px; padding: 2rem; text-align: center; height: fit-content; position: sticky; top: 100px; }
+.pc-avatar-wrap { position: relative; width: 120px; height: 120px; margin: 0 auto 1.5rem; border-radius: 50%; border: 4px solid var(--gold); padding: 4px; background: rgba(201,168,76,0.1); }
+.pc-avatar { width: 100%; height: 100%; border-radius: 50%; overflow: hidden; background: linear-gradient(135deg, var(--gold), var(--gold-light)); color: var(--navy); display: flex; align-items: center; justify-content: center; font-size: 3rem; font-weight: 900; }
+.pc-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.pc-edit-btn { position: absolute; bottom: 0; left: 0; background: var(--gold); color: var(--navy); width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; border: 3px solid var(--navy-mid); transition: transform 0.2s; font-size: 1.2rem; }
+.pc-edit-btn:hover { transform: scale(1.1); }
+.pc-name { font-family: 'Tajawal', sans-serif; font-size: 1.5rem; font-weight: 800; color: var(--white); margin-bottom: 0.5rem; }
+.pc-role { font-size: 0.85rem; color: var(--gold); font-weight: 700; background: rgba(201,168,76,0.1); padding: 0.3rem 1rem; border-radius: 50px; display: inline-block; margin-bottom: 1.5rem; }
+.pc-stats { display: flex; justify-content: space-around; border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05); padding: 1rem 0; margin-bottom: 1.5rem; }
+.pcs-item h4 { font-family: 'Tajawal', sans-serif; font-size: 1.2rem; color: var(--white); margin-bottom: 0.2rem; }
+.pcs-item span { font-size: 0.75rem; color: var(--muted); }
+.pc-logout { width: 100%; padding: 0.8rem; background: rgba(239,68,68,0.1); color: #ef4444; border: 1px solid rgba(239,68,68,0.3); border-radius: 8px; font-weight: 700; cursor: pointer; transition: 0.2s; }
+.pc-logout:hover { background: rgba(239,68,68,0.2); transform: translateY(-2px); }
+
+/* Main Content Area */
+.profile-content { display: flex; flex-direction: column; gap: 1.5rem; }
+.content-box { background: var(--navy-mid); border: 1px solid rgba(255,255,255,0.05); border-radius: 16px; padding: 2rem; position: relative; overflow: hidden; }
+.cb-header { font-family: 'Tajawal', sans-serif; font-size: 1.3rem; font-weight: 800; color: var(--white); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem; }
+.cb-header::before { content: ''; display: block; width: 4px; height: 20px; background: var(--gold); border-radius: 4px; }
+
+/* Forms */
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-bottom: 1.5rem; }
+.fg { display: flex; flex-direction: column; gap: 0.5rem; }
+.fg label { font-size: 0.85rem; color: var(--muted); font-weight: 600; }
+.fg input { width: 100%; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); color: var(--white); padding: 0.8rem 1rem; border-radius: 8px; font-family: 'Cairo', sans-serif; font-size: 0.95rem; outline: none; transition: 0.3s; }
+.fg input:focus { border-color: var(--gold); background: rgba(201,168,76,0.05); }
+.fg input:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.btn-primary { background: linear-gradient(135deg, var(--gold), var(--gold-light)); color: var(--navy); padding: 0.8rem 2rem; border-radius: 8px; font-family: 'Cairo', sans-serif; font-size: 0.95rem; font-weight: 800; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; border: none; display: inline-flex; align-items: center; gap: 0.5rem; }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(201,168,76,0.3); }
+
+/* Custom success message style */
+.toast-msg { padding: 1rem; border-radius: 8px; font-size: 0.9rem; font-weight: 700; margin-bottom: 1.5rem; display: none; text-align: center; animation: fadeUp 0.3s ease; }
+.toast-success { background: rgba(46, 204, 113, 0.1); border: 1px solid rgba(46, 204, 113, 0.3); color: #86efac; }
+.toast-error { background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.3); color: #fca5a5; }
+
+/* RESPONSIVE */
+.hide-mob { display: inline; }
+@media(max-width:860px){
+  .profile-wrapper { grid-template-columns: 1fr; margin-top: 100px; }
+  .profile-card { position: static; }
+  .hide-mob { display: none !important; }
+}
+@media(max-width:500px){
+  .form-grid { grid-template-columns: 1fr; }
+  .content-box { padding: 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="ebar">🚨 طوارئ 24/7 — <a href="tel:19777">19777</a></div>
+
+<nav class="navbar">
+  <div class="nav-logo">
+      <a href="index.html" class="nav-logo" style="margin-left: 15px;">صيانة<span>بلس</span></a>
+  </div>
+
+  <div class="nav-actions">
+    <a href="index.html" class="nav-login-btn hide-mob">الرئيسية ←</a>
+    <a href="auth.html" class="nav-login-btn hide-mob" id="login-nav-btn" style="display: none;">👤 دخول</a>
+    
+    <button class="hamburger" id="ham" onclick="openSidebar()" aria-label="قائمة">
+        <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- 🟢 القائمة الجانبية (Sidebar) 🟢 -->
+<div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <button class="close-sidebar" onclick="closeSidebar()">✕</button>
+  </div>
+  
+  <div class="sidebar-profile" id="sidebar-profile"></div>
+  
+  <ul class="sidebar-links">
+     <li><a href="index.html"><span class="icon">🏠</span> الرئيسية</a></li>
+     <li><a href="profile.html"><span class="icon">⚙️</span> حسابي الشخصي</a></li>
+     <li><a href="technicians.html"><span class="icon">👨‍🔧</span> تصفح الفنيين</a></li>
+     <li><a href="index.html#contact" onclick="closeSidebar();"><span class="icon">📞</span> تواصل معنا</a></li>
+     <li id="sidebar-logout" style="display:none; margin-top: 10px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 10px;"><a href="#" onclick="logoutUser()" class="logout-link"><span class="icon">🚪</span> تسجيل خروج</a></li>
+  </ul>
+</div>
+
+<!-- 🟢 محتوى الصفحة (Profile) 🟢 -->
+<div class="profile-wrapper">
+    
+    <!-- الكارت الجانبي -->
+    <div class="profile-card">
+        <div class="pc-avatar-wrap">
+            <div class="pc-avatar" id="main-avatar">👤</div>
+            <label class="pc-edit-btn" title="تغيير الصورة">
+                📷
+                <input type="file" accept="image/*" style="display:none;" onchange="uploadMainAvatar(event)">
+            </label>
+        </div>
+        <div class="pc-name" id="display-name">جاري التحميل...</div>
+        <div class="pc-role">⭐ عميل مميز</div>
+        
+        <div class="pc-stats">
+            <div class="pcs-item">
+                <h4 id="stat-orders">0</h4>
+                <span>طلبات سابقة</span>
+            </div>
+            <div class="pcs-item">
+                <h4>20%</h4>
+                <span>خصم متاح</span>
+            </div>
+        </div>
+
+        <button class="pc-logout" onclick="logoutUser()">تسجيل الخروج 🚪</button>
+    </div>
+
+    <!-- المحتوى الأيمن (النماذج) -->
+    <div class="profile-content">
+        
+        <!-- قسم تعديل البيانات الشخصية -->
+        <div class="content-box">
+            <div class="cb-header">البيانات الشخصية</div>
+            <div id="info-msg" class="toast-msg"></div>
+            
+            <form onsubmit="savePersonalInfo(event)">
+                <div class="form-grid">
+                    <div class="fg">
+                        <label>الاسم الكامل</label>
+                        <input type="text" id="prof-name" required>
+                    </div>
+                    <div class="fg">
+                        <label>رقم الهاتف</label>
+                        <input type="tel" id="prof-phone" placeholder="01XXXXXXXXX" required>
+                    </div>
+                    <div class="fg">
+                        <label>البريد الإلكتروني</label>
+                        <input type="email" id="prof-email" placeholder="example@mail.com" disabled title="لا يمكن تغيير البريد الإلكتروني">
+                    </div>
+                    <div class="fg">
+                        <label>العنوان المحفوظ للطلبات</label>
+                        <input type="text" id="prof-address" placeholder="المحافظة، الحي، الشارع، المبنى">
+                    </div>
+                </div>
+                <button type="submit" class="btn-primary" id="btn-save-info">حفظ التعديلات 💾</button>
+            </form>
+        </div>
+
+        <!-- قسم تغيير كلمة المرور -->
+        <div class="content-box">
+            <div class="cb-header">تغيير كلمة المرور</div>
+            <div id="pass-msg" class="toast-msg"></div>
+            
+            <form onsubmit="changePassword(event)">
+                <div class="form-grid">
+                    <div class="fg">
+                        <label>كلمة المرور الحالية</label>
+                        <input type="password" id="pass-old" placeholder="••••••••" required>
+                    </div>
+                    <div class="fg">
+                        <label>كلمة المرور الجديدة</label>
+                        <input type="password" id="pass-new" placeholder="••••••••" required>
+                    </div>
+                    <div class="fg" style="grid-column: 1 / -1;">
+                        <label>تأكيد كلمة المرور الجديدة</label>
+                        <input type="password" id="pass-confirm" placeholder="••••••••" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn-primary" id="btn-save-pass">تحديث كلمة المرور 🔐</button>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+<script>
+// ── التمرير وتثبيت النافبار ──
+window.addEventListener('scroll', () => {
+  const ebar = document.querySelector('.ebar');
+  const navbar = document.querySelector('.navbar');
+  if (window.scrollY > 36) {
+    ebar.style.transform = 'translateY(-100%)';
+    navbar.style.top = '0';
+  } else {
+    ebar.style.transform = 'translateY(0)';
+    navbar.style.top = '36px';
+  }
+});
+
+// ── التحقق من تسجيل الدخول (حماية الصفحة) ──
+const status = sessionStorage.getItem('loggedIn');
+const userName = sessionStorage.getItem('userName') || '';
+
+if(status !== 'true' && status !== 'guest') {
+    window.location.href = 'auth.html';
+}
+
+if(status === 'guest') {
+    alert('عذراً، يجب تسجيل الدخول بحساب حقيقي للوصول للملف الشخصي.');
+    window.location.href = 'auth.html';
+}
+
+// ── تحميل بيانات المستخدم في الواجهة ──
+function loadUserData() {
+    const displayEl = document.getElementById('display-name');
+    const nameInput = document.getElementById('prof-name');
+    const phoneInput = document.getElementById('prof-phone');
+    const emailInput = document.getElementById('prof-email');
+    const addrInput = document.getElementById('prof-address');
+
+    displayEl.textContent = userName;
+    nameInput.value = userName;
+    
+    phoneInput.value = localStorage.getItem('userPhone_' + userName) || '';
+    emailInput.value = localStorage.getItem('userEmail_' + userName) || userName.split(' ')[0].toLowerCase() + '@mail.com';
+    addrInput.value = localStorage.getItem('userAddr_' + userName) || '';
+
+    updateAvatarUI();
+
+    const historyKey = 'orderHistory_' + userName;
+    const history = JSON.parse(localStorage.getItem(historyKey)) || [];
+    document.getElementById('stat-orders').textContent = history.length;
+}
+
+function updateAvatarUI() {
+    const savedPic = localStorage.getItem('profilePic_' + userName);
+    const mainAv = document.getElementById('main-avatar');
+    
+    if(savedPic) {
+        mainAv.innerHTML = `<img src="${savedPic}" alt="صورة">`;
+    } else {
+        mainAv.textContent = userName ? userName.charAt(0) : 'ع';
+    }
+}
+
+// ── رفع الصورة الرئيسية ──
+function uploadMainAvatar(event) {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            localStorage.setItem('profilePic_' + userName, e.target.result);
+            updateAvatarUI();
+        };
+        reader.readAsDataURL(file);
+    }
+}
+
+// ── حفظ البيانات الشخصية (الربط بقاعدة البيانات) ──
+async function savePersonalInfo(e) {
+    e.preventDefault();
+    const btn = document.getElementById('btn-save-info');
+    const msg = document.getElementById('info-msg');
+    
+    const newName = document.getElementById('prof-name').value;
+    const newPhone = document.getElementById('prof-phone').value;
+    const newAddr = document.getElementById('prof-address').value;
+    const oldUserName = sessionStorage.getItem('userName');
+
+    btn.innerHTML = 'جاري الحفظ... ⏳';
+    btn.disabled = true;
+
+    try {
+        // الاتصال بملف السيرفر (PHP)
+        const res = await fetch('api/update_profile.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ oldUserName, newName, newPhone })
+        });
+        
+        const data = await res.json();
+        
+        if(res.ok) {
+            // تحديث البيانات محلياً في المتصفح إذا نجح السيرفر
+            sessionStorage.setItem('userName', newName);
+            localStorage.setItem('userPhone_' + newName, newPhone);
+            localStorage.setItem('userAddr_' + newName, newAddr);
+            
+            // نقل الصورة إذا تم تغيير الاسم
+            if(newName !== oldUserName) {
+                 const pic = localStorage.getItem('profilePic_' + oldUserName);
+                 if(pic) localStorage.setItem('profilePic_' + newName, pic);
+                 document.getElementById('display-name').textContent = newName;
+            }
+
+            msg.className = 'toast-msg toast-success';
+            msg.innerHTML = '✅ ' + (data.message || 'تم حفظ بياناتك بنجاح في السيرفر!');
+        } else {
+            msg.className = 'toast-msg toast-error';
+            msg.innerHTML = '⚠️ ' + (data.error || 'فشل تحديث البيانات.');
+        }
+    } catch(err) {
+        // وضع Fallback في حالة عدم اتصال السيرفر (تعمل محلياً)
+        sessionStorage.setItem('userName', newName);
+        localStorage.setItem('userPhone_' + newName, newPhone);
+        localStorage.setItem('userAddr_' + newName, newAddr);
+        document.getElementById('display-name').textContent = newName;
+        msg.className = 'toast-msg toast-success';
+        msg.innerHTML = '✅ تم الحفظ محلياً بنجاح.';
+    } finally {
+        msg.style.display = 'block';
+        btn.innerHTML = 'حفظ التعديلات 💾';
+        btn.disabled = false;
+        setTimeout(() => { msg.style.display = 'none'; }, 3000);
+    }
+}
+
+// ── تغيير كلمة المرور (الربط بقاعدة البيانات) ──
+async function changePassword(e) {
+    e.preventDefault();
+    const btn = document.getElementById('btn-save-pass');
+    const msg = document.getElementById('pass-msg');
+    
+    const oldP = document.getElementById('pass-old').value;
+    const newP = document.getElementById('pass-new').value;
+    const confP = document.getElementById('pass-confirm').value;
+
+    msg.style.display = 'none';
+
+    if(newP !== confP) {
+        msg.className = 'toast-msg toast-error';
+        msg.innerHTML = '⚠️ كلمتا المرور الجديدتان غير متطابقتين.';
+        msg.style.display = 'block';
+        return;
+    }
+
+    if(newP.length < 6) {
+        msg.className = 'toast-msg toast-error';
+        msg.innerHTML = '⚠️ كلمة المرور يجب أن تكون 6 أحرف على الأقل.';
+        msg.style.display = 'block';
+        return;
+    }
+
+    const oldText = btn.innerHTML;
+    btn.innerHTML = 'جاري التحديث... ⏳';
+    btn.disabled = true;
+
+    try {
+        // إرسال الطلب لملف الـ PHP
+        const res = await fetch('api/change_password.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ 
+                userName: sessionStorage.getItem('userName'), 
+                oldPassword: oldP, 
+                newPassword: newP 
+            })
+        });
+        
+        const data = await res.json();
+        
+        if(res.ok) {
+            // تفريغ الحقول
+            document.getElementById('pass-old').value = '';
+            document.getElementById('pass-new').value = '';
+            document.getElementById('pass-confirm').value = '';
+
+            msg.className = 'toast-msg toast-success';
+            msg.innerHTML = '✅ ' + (data.message || 'تم تغيير كلمة المرور بنجاح.');
+            msg.style.display = 'block';
+        } else {
+            msg.className = 'toast-msg toast-error';
+            msg.innerHTML = '⚠️ ' + (data.error || 'كلمة المرور القديمة غير صحيحة.');
+            msg.style.display = 'block';
+        }
+    } catch(err) {
+        msg.className = 'toast-msg toast-error';
+        msg.innerHTML = '⚠️ حدث خطأ في الاتصال بالسيرفر. يرجى التأكد من تشغيل XAMPP.';
+        msg.style.display = 'block';
+    } finally {
+        btn.innerHTML = oldText;
+        btn.disabled = false;
+        setTimeout(() => { msg.style.display = 'none'; }, 4000);
+    }
+}
+
+// ── 🟢 وظائف القائمة الجانبية (Sidebar) 🟢 ──
+function openSidebar() {
+  document.getElementById('sidebar').classList.add('open');
+  document.getElementById('sidebar-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+
+  const profileDiv = document.getElementById('sidebar-profile');
+  const logoutLi = document.getElementById('sidebar-logout');
+
+  if(status === 'true') {
+    const firstLetter = userName ? userName.charAt(0) : 'ع';
+    const savedPic = localStorage.getItem('profilePic_' + userName);
+    let avatarContent = savedPic ? `<img src="${savedPic}" alt="صورة المستخدم" style="width:100%; height:100%; object-fit:cover;">` : firstLetter;
+
+    profileDiv.innerHTML = `
+      <div class="sp-avatar" onclick="document.getElementById('profile-pic-input-side').click()" title="تغيير الصورة الشخصية">${avatarContent}</div>
+      <input type="file" id="profile-pic-input-side" accept="image/*" style="display: none;" onchange="handleSidebarPicUpload(event)">
+      <div class="sp-name">${userName}</div>
+      <div class="sp-info">📱 محفوظ في الحساب</div>
+      <div class="sp-info">✉️ عميل صيانة بلس المميز</div>
+    `;
+    logoutLi.style.display = 'block'; 
+  }
+}
+
+function handleSidebarPicUpload(event) {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            localStorage.setItem('profilePic_' + userName, e.target.result);
+            updateAvatarUI(); // تحديث الأفاتار الرئيسي في الصفحة
+            
+            const avatarDiv = document.querySelector('.sidebar .sp-avatar');
+            if (avatarDiv) avatarDiv.innerHTML = `<img src="${e.target.result}" alt="صورة" style="width:100%; height:100%; object-fit:cover;">`;
+        };
+        reader.readAsDataURL(file);
+    }
+}
+
+function closeSidebar() {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('sidebar-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function logoutUser() {
+  sessionStorage.clear();
+  window.location.href = 'index.html';
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    loadUserData();
+});
+</script>
+</body>
+</html>
