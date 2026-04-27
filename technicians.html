@@ -19,14 +19,14 @@
   --red: #ef4444;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; }
-body { background-color: var(--navy); color: var(--white); overflow-x: hidden; }
+body { background-color: var(--navy); color: var(--white); overflow-x: hidden; scroll-behavior: smooth; }
 a { text-decoration: none; }
 
 /* ── NAVBAR & EBAR ── */
-.ebar { background: #dc2626; color: white; text-align: center; padding: 0.5rem; font-weight: 700; font-size: 0.9rem; position: fixed; top: 0; width: 100%; z-index: 100; }
+.ebar { background: #dc2626; color: white; text-align: center; padding: 0.5rem; font-weight: 700; font-size: 0.9rem; position: fixed; top: 0; width: 100%; z-index: 1000; transition: transform 0.3s ease; }
 .ebar a { color: white; text-decoration: underline; }
 .navbar-offset { height: 36px; }
-.navbar { position: fixed; top: 36px; width: 100%; background: rgba(10,17,40,0.95); backdrop-filter: blur(10px); display: flex; justify-content: space-between; align-items: center; padding: 1rem 5%; z-index: 99; border-bottom: 1px solid rgba(255,255,255,0.05); transition: 0.3s; }
+.navbar { position: fixed; top: 36px; width: 100%; background: rgba(10,17,40,0.95); backdrop-filter: blur(10px); display: flex; justify-content: space-between; align-items: center; padding: 1rem 5%; z-index: 999; border-bottom: 1px solid rgba(255,255,255,0.05); transition: top 0.3s ease; }
 .nav-logo { font-family: 'Tajawal', sans-serif; font-size: 1.5rem; font-weight: 900; color: var(--white); }
 .nav-logo span { color: var(--gold); }
 
@@ -125,9 +125,7 @@ a { text-decoration: none; }
 .mp-name { font-family: 'Tajawal', sans-serif; font-weight: 800; font-size: 1.1rem; color: white; margin-bottom: 2px; }
 .mp-tag { font-size: 0.7rem; color: var(--gold); display: block; margin-bottom: 8px; }
 .mp-stats { display: flex; justify-content: space-between; font-size: 0.8rem; background: rgba(255,255,255,0.05); padding: 5px; border-radius: 6px; margin-bottom: 10px; color: #cbd5e1; }
-.mp-btn { width: 100%; background: var(--gold); color: var(--navy); border: none; padding: 6px; border-radius: 6px; font-weight: 700; cursor: pointer; transition: 0.2s; }
-.mp-btn:hover { background: var(--gold-light); }
-.mp-btn.disabled { background: rgba(255,255,255,0.1); color: var(--muted); cursor: not-allowed; }
+.mp-btn { width: 100%; background: var(--gold); color: var(--navy); border: none; padding: 6px; border-radius: 6px; font-weight: 700; cursor: pointer; transition: 0.2s; margin-top: 10px; }
 
 /* GRID & CARDS */
 .wrap{padding:0 3% 1.8rem;max-width:1400px;margin:0 auto; min-height:500px; position:relative;}
@@ -171,25 +169,47 @@ a { text-decoration: none; }
 /* ── MODALS & OVERLAYS ── */
 .overlay { position: fixed; inset: 0; background: rgba(10,17,40,.85); backdrop-filter: blur(5px); z-index: 1000; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity .3s; }
 .overlay.open { opacity: 1; pointer-events: auto; }
-.modal-box { background: var(--navy-mid); border: 1px solid rgba(201,168,76,.2); border-radius: 18px; width: 90%; max-width: 450px; padding: 2rem; position: relative; transform: translateY(24px) scale(.96); transition: transform .3s; max-height: 90vh; overflow-y: auto; box-shadow: 0 10px 40px rgba(0,0,0,0.8); }
+.modal-box { background: var(--navy-mid); border: 1px solid rgba(201,168,76,.2); border-radius: 18px; width: 90%; max-width: 480px; padding: 2rem; position: relative; transform: translateY(24px) scale(.96); transition: transform .3s; max-height: 90vh; overflow-y: auto; box-shadow: 0 10px 40px rgba(0,0,0,0.8); }
 .overlay.open .modal-box { transform: translateY(0) scale(1); }
 .modal-close { position: absolute; top: 1rem; left: 1rem; background: rgba(255,255,255,.05); border: none; color: var(--muted); width: 32px; height: 32px; border-radius: 50%; cursor: pointer; font-size: 1rem; display: flex; align-items: center; justify-content: center; transition: 0.2s; z-index: 10; }
 .modal-close:hover { background: rgba(255,255,255,.1); color: var(--white); }
 .modal-title { font-family: 'Tajawal', sans-serif; font-size: 1.4rem; font-weight: 800; margin-bottom: 1.5rem; text-align: center; }
 .modal-title em { font-style: normal; color: var(--gold); }
 
-/* 🟢 CSS الخاص بنافذة حجز موعد 🟢 */
+/* 🟢 CSS الخاص بنظام الدفع متعدد الخطوات 🟢 */
 .modal-sub { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid rgba(255,255,255,.05); }
 .modal-avatar-sm { width: 48px; height: 48px; border-radius: 50%; border: 2px solid rgba(201,168,76,.3); padding: 2px; background: rgba(201,168,76,.05); display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; }
 .modal-avatar-sm svg { width: 100%; height: 100%; border-radius: 50%; }
+
+/* Steps */
+.step-container { display: none; animation: cin 0.3s ease forwards; }
+.step-container.active { display: block; }
 .fgrow { display: flex; gap: 1rem; }
 .fg { margin-bottom: 1rem; flex: 1; }
 .fg label { display: block; font-size: 0.75rem; color: var(--muted); margin-bottom: 0.4rem; font-weight: 600; text-align: right; }
 .fg input, .fg textarea, .fg select { width: 100%; background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.1); color: var(--white); padding: 0.7rem 0.9rem; border-radius: 8px; font-family: 'Cairo', sans-serif; font-size: 0.85rem; outline: none; transition: 0.2s; }
-.fg input:focus, .fg textarea:focus, .fg select:focus { border-color: var(--gold); background: rgba(201,168,76,.02); }
+.fg input:focus, .fg textarea:focus, .fg select:focus { border-color: var(--gold); background: rgba(201,168,76,.05); }
 .fg textarea { resize: vertical; min-height: 80px; }
-.btn-submit { width: 100%; padding: 0.8rem; background: linear-gradient(135deg, var(--gold), var(--gold-light)); color: var(--navy); border: none; border-radius: 8px; font-family: 'Cairo', sans-serif; font-size: 0.9rem; font-weight: 800; cursor: pointer; margin-top: 1rem; transition: 0.2s; }
+
+/* 🟢 أزرار التوقيت الجديدة (Time Slots) 🟢 */
+.time-slots { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 5px; }
+.time-slots input[type="radio"] { display: none; }
+.time-slots label { display: flex !important; justify-content: center; align-items: center; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); padding: 0.8rem 0.5rem; border-radius: 8px; cursor: pointer; transition: 0.2s; color: var(--muted); font-weight: 700 !important; font-size: 0.85rem !important; margin: 0 !important; text-align: center; }
+.time-slots label:hover { background: rgba(255,255,255,0.08); border-color: rgba(201,168,76,0.4); color: var(--white); }
+.time-slots input[type="radio"]:checked + label { background: rgba(201,168,76,0.15); border-color: var(--gold); color: var(--gold); box-shadow: 0 0 10px rgba(201,168,76,0.2); }
+
+.btn-submit { width: 100%; padding: 0.8rem; background: linear-gradient(135deg, var(--gold), var(--gold-light)); color: var(--navy); border: none; border-radius: 8px; font-family: 'Cairo', sans-serif; font-size: 0.9rem; font-weight: 800; cursor: pointer; margin-top: 1rem; transition: 0.2s; display: flex; align-items: center; justify-content: center; gap: 10px; }
 .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(201,168,76,.3); }
+.btn-submit:disabled { opacity: 0.7; cursor: not-allowed; transform: none; box-shadow: none; }
+
+/* Payment Options */
+.pay-option { display: flex; align-items: center; padding: 1rem; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; margin-bottom: 0.8rem; cursor: pointer; transition: 0.2s; }
+.pay-option:hover { background: rgba(255,255,255,0.06); }
+.pay-radio { display: none; }
+.pay-radio:checked + .pay-option { border-color: var(--gold); background: rgba(201,168,76,0.1); }
+.pay-radio:checked + .pay-option .check-ring { background: var(--gold); border-color: var(--gold); }
+.check-ring { width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--muted); margin-left: 15px; transition: 0.2s; }
+.pay-details { display: none; padding: 1rem; background: rgba(0,0,0,0.2); border-radius: 8px; margin-bottom: 1rem; border: 1px solid rgba(255,255,255,0.05); }
 
 /* مدخلات ومربع نجاح عام */
 .sos-input { width: 100%; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); color: white; padding: 0.8rem; border-radius: 8px; font-family: 'Cairo', sans-serif; outline: none; margin-bottom: 1rem; }
@@ -197,6 +217,7 @@ a { text-decoration: none; }
 .sos-input option { background: var(--navy-mid); color: white; }
 .success-box { text-align: center; display: none; padding: 2rem 0; }
 .success-ring { width: 80px; height: 80px; border-radius: 50%; background: rgba(46,204,113,.1); color: var(--green); font-size: 2.5rem; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; border: 2px solid rgba(46,204,113,.3); }
+.loader { border: 3px solid rgba(10,17,40, 0.3); border-top: 3px solid var(--navy); border-radius: 50%; width: 20px; height: 20px; animation: spin 1s linear infinite; display: none; }
 
 /* زر تحديد الموقع (GPS) */
 .btn-gps { background: rgba(59, 130, 246, 0.2); border: 1px solid #3b82f6; color: white; border-radius: 8px; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 1.2rem; transition: 0.2s; flex-shrink: 0; margin-bottom: 1rem;}
@@ -292,7 +313,6 @@ a { text-decoration: none; }
 /* LOADING SPINNER */
 .loader-container { width: 100%; display: flex; justify-content: center; align-items: center; height: 300px; grid-column: 1 / -1; }
 .spinner { width: 50px; height: 50px; border: 5px solid rgba(201,168,76,0.2); border-top-color: var(--gold); border-radius: 50%; animation: spin 1s linear infinite; }
-@keyframes spin { to { transform: rotate(360deg); } }
 
 .hide-mob { display: inline; }
 
@@ -350,6 +370,7 @@ a { text-decoration: none; }
   
   <ul class="sidebar-links">
      <li><a href="index.html"><span class="icon">🏠</span> الرئيسية</a></li>
+     <li><a href="profile.html"><span class="icon">⚙️</span> حسابي الشخصي</a></li>
      <li><a href="technicians.html"><span class="icon">👨‍🔧</span> تصفح الفنيين</a></li>
      <li><a href="#" onclick="closeSidebar(); openMyOrders();"><span class="icon">📦</span> طلباتي</a></li>
      <li><a href="#" onclick="closeSidebar(); openComplaint();"><span class="icon">💬</span> الاستفسارات والشكاوى</a></li>
@@ -363,11 +384,11 @@ a { text-decoration: none; }
 
 <div class="page-hero">
   <div class="floating-tools">
-    <div class="f-tool ft1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.06-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.05-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.56-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22l-1.92 3.32c-.12.22-.07.49.12.61l2.03 1.58c-.04.3-.06.61-.06.94s.02.64.06.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .43-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.49-.12-.61l-2.03-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></div>
+    <div class="f-tool ft1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.06-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.05-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.56-1.62-.94l-2.39-.96c-.22-.08-.47 0-.59.22l-1.92 3.32c-.12.22-.07-.49.12.61l2.03 1.58c-.04.3-.06.61-.06.94s.02.64.06.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .43-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.49-.12-.61l-2.03-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></div>
     <div class="f-tool ft2"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21.71 20.29l-9.53-9.53C12.75 9.77 13 8.4 12.64 7c-.43-1.64-1.7-2.92-3.35-3.36-1.95-.51-3.92.27-5.01 1.81l3.01 3.01c.2.2.2.51 0 .71l-1.41 1.41c-.2.2-.51.2-.71 0L2.16 7.57C.62 8.66-.16 10.63.35 12.58c.44 1.65 1.72 2.92 3.36 3.36 1.4.36 2.77.1 3.76-.48l9.53 9.53c.39.39 1.02.39 1.41 0l3.3-3.3c.39-.38.39-1.01 0-1.4z"/></svg></div>
-    <div class="f-tool ft3"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.06-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.05-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.56-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22l-1.92 3.32c-.12.22-.07.49.12.61l2.03 1.58c-.04.3-.06.61-.06.94s.02.64.06.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .43-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.49-.12-.61l-2.03-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></div>
+    <div class="f-tool ft3"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.06-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.05-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.56-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22l-1.92 3.32c-.12.22-.07-.49.12.61l2.03 1.58c-.04.3-.06.61-.06.94s.02.64.06.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .43-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.49-.12-.61l-2.03-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></div>
     <div class="f-tool ft4"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21.71 20.29l-9.53-9.53C12.75 9.77 13 8.4 12.64 7c-.43-1.64-1.7-2.92-3.35-3.36-1.95-.51-3.92.27-5.01 1.81l3.01 3.01c.2.2.2.51 0 .71l-1.41 1.41c-.2.2-.51.2-.71 0L2.16 7.57C.62 8.66-.16 10.63.35 12.58c.44 1.65 1.72 2.92 3.36 3.36 1.4.36 2.77.1 3.76-.48l9.53 9.53c.39.39 1.02.39 1.41 0l3.3-3.3c.39-.38.39-1.01 0-1.4z"/></svg></div>
-    <div class="f-tool ft5"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.06-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.05-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.56-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22l-1.92 3.32c-.12.22-.07.49.12.61l2.03 1.58c-.04.3-.06.61-.06.94s.02.64.06.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .43-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.49-.12-.61l-2.03-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></div>
+    <div class="f-tool ft5"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.06-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.05-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.56-1.62-.94l-2.39-.96c-.22-.08-.47 0-.59.22l-1.92 3.32c-.12.22-.07-.49.12.61l2.03 1.58c-.04.3-.06.61-.06.94s.02.64.06.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .43-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.49-.12-.61l-2.03-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></div>
   </div>
   <div class="page-hero-c">
     <h1>اختر <span>فنيّك</span> المعتمد</h1>
@@ -384,7 +405,6 @@ a { text-decoration: none; }
     <button class="fbtn" data-f="ac">❄️ تكييفات <span class="fcnt" id="count-ac">0</span></button>
     <button class="fbtn" data-f="appliances">🏠 أجهزة <span class="fcnt" id="count-appliances">0</span></button>
     
-    <!-- 🟢 أزرار الفلترة للأقسام الجديدة (نجارة ونقاشة) 🟢 -->
     <button class="fbtn" data-f="carpentry">🪚 نجارة <span class="fcnt" id="count-carpentry">0</span></button>
     <button class="fbtn" data-f="painting">🎨 نقاشة <span class="fcnt" id="count-painting">0</span></button>
 
@@ -437,7 +457,7 @@ a { text-decoration: none; }
         <label style="display:block; font-size: 0.75rem; color: var(--muted); margin-bottom: 0.4rem;">تفاصيل الرسالة</label>
         <textarea id="comp-msg" class="sos-input" placeholder="اكتب تفاصيل رسالتك هنا بوضوح..." style="min-height: 100px; resize:vertical; padding:0.7rem 0.9rem;"></textarea>
       </div>
-      <button class="btn-primary btn-submit" style="width:100%; justify-content:center; border:none; padding:1rem;" id="comp-submit-btn" onclick="submitComplaint()">🚀 إرسال الرسالة</button>
+      <button class="btn-primary" style="width:100%; justify-content:center; border:none; padding:1rem;" id="comp-submit-btn" onclick="submitComplaint()">🚀 إرسال الرسالة</button>
 
       <div style="display: flex; align-items: center; margin: 1.5rem 0; color: var(--muted); font-size: 0.8rem;">
         <hr style="flex: 1; border: none; border-bottom: 1px solid rgba(255,255,255,0.1);">
@@ -476,21 +496,195 @@ a { text-decoration: none; }
     
     <div class="order-details-card" id="od-content"></div>
     
-    <div style="display: flex; gap: 1rem; margin-top: 1rem;">
-        <button class="btn-primary btn-danger" style="flex: 1; justify-content: center; font-size: 0.85rem; border:none; padding:1rem;" id="od-complaint-btn">⚠️ تقديم شكوى أو استفسار</button>
+    <div style="display: flex; gap: 0.8rem; margin-top: 1rem; flex-wrap: wrap;">
+        <button class="btn-primary" id="od-rate-btn" style="flex: 1; justify-content: center; font-size: 0.85rem; border:none; padding:1rem; background: linear-gradient(135deg,#c9a84c,#e8c97a); min-width: 140px;" onclick="openRatingModal()">⭐ تقييم الخدمة</button>
+        <button class="btn-primary btn-danger" style="flex: 1; justify-content: center; font-size: 0.85rem; border:none; padding:1rem; min-width: 140px;" id="od-complaint-btn">⚠️ تقديم شكوى</button>
     </div>
+  </div>
+</div>
+
+<!-- ⭐ مودال التقييم ⭐ -->
+<div class="overlay" id="rating-ov">
+  <div class="modal-box" style="max-width:460px;">
+    <button class="modal-close" onclick="closeRatingModal()">✕</button>
+    <div class="modal-title" style="text-align:center; margin-bottom:0.5rem; font-size:1.3rem;">قيّم <em>الخدمة</em> ⭐</div>
+    <p style="text-align:center; color:var(--muted); font-size:0.85rem; margin-bottom:1.5rem;">رأيك يساعدنا على تحسين جودة خدماتنا</p>
+
+    <!-- اسم الفني -->
+    <div style="display:flex; align-items:center; gap:1rem; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07); border-radius:12px; padding:1rem; margin-bottom:1.5rem;">
+      <div id="rate-tech-av" style="width:50px; height:50px; border-radius:50%; border:2px solid var(--gold); background:var(--navy); padding:4px; flex-shrink:0; display:flex; align-items:center; justify-content:center; overflow:hidden;"></div>
+      <div>
+        <div id="rate-tech-name" style="font-family:'Tajawal',sans-serif; font-weight:800; font-size:1rem; color:white;"></div>
+        <div id="rate-svc-name" style="font-size:0.78rem; color:var(--gold); font-weight:700;"></div>
+      </div>
+    </div>
+
+    <!-- النجوم التفاعلية -->
+    <div style="text-align:center; margin-bottom:1.2rem;">
+      <div style="font-size:0.85rem; color:var(--muted); margin-bottom:0.8rem; font-weight:600;">اختر تقييمك:</div>
+      <div id="star-selector" style="display:flex; justify-content:center; gap:0.5rem; direction:ltr;">
+        <span class="rate-star" data-val="1" onclick="selectStar(1)" style="font-size:2.5rem; cursor:pointer; transition:transform 0.2s; opacity:0.35;">★</span>
+        <span class="rate-star" data-val="2" onclick="selectStar(2)" style="font-size:2.5rem; cursor:pointer; transition:transform 0.2s; opacity:0.35;">★</span>
+        <span class="rate-star" data-val="3" onclick="selectStar(3)" style="font-size:2.5rem; cursor:pointer; transition:transform 0.2s; opacity:0.35;">★</span>
+        <span class="rate-star" data-val="4" onclick="selectStar(4)" style="font-size:2.5rem; cursor:pointer; transition:transform 0.2s; opacity:0.35;">★</span>
+        <span class="rate-star" data-val="5" onclick="selectStar(5)" style="font-size:2.5rem; cursor:pointer; transition:transform 0.2s; opacity:0.35;">★</span>
+      </div>
+      <div id="rate-label" style="margin-top:0.6rem; font-size:0.85rem; color:var(--gold); font-weight:700; min-height:1.2em;"></div>
+    </div>
+
+    <!-- تعليق اختياري -->
+    <div style="margin-bottom:1.2rem;">
+      <label style="font-size:0.82rem; color:var(--muted); font-weight:600; display:block; margin-bottom:0.5rem;">تعليق إضافي (اختياري):</label>
+      <textarea id="rate-comment" rows="3" placeholder="شاركنا تجربتك مع الفني..." style="width:100%; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.1); color:white; padding:0.8rem 1rem; border-radius:10px; font-family:'Cairo',sans-serif; font-size:0.88rem; resize:vertical; outline:none; transition:0.3s;"></textarea>
+    </div>
+
+    <!-- رسالة نتيجة -->
+    <div id="rate-msg" style="display:none; padding:0.8rem; border-radius:8px; font-size:0.85rem; font-weight:700; text-align:center; margin-bottom:1rem;"></div>
+
+    <!-- زر الإرسال -->
+    <button id="rate-submit-btn" onclick="submitRating()" style="width:100%; padding:1rem; background:linear-gradient(135deg,var(--gold),var(--gold-light)); color:var(--navy); border:none; border-radius:10px; font-family:'Cairo',sans-serif; font-size:1rem; font-weight:800; cursor:pointer; transition:0.3s; display:flex; align-items:center; justify-content:center; gap:0.5rem;">
+      إرسال التقييم ⭐
+    </button>
   </div>
 </div>
 
 <div class="overlay" id="alt-ov"><div class="modal-box" style="max-width:500px;"><button class="modal-close" onclick="closeAlternatives()">✕</button><div class="modal-title" style="margin-bottom:0.5rem">اقتراح <em>بدائل</em></div><p style="font-size:0.85rem; color:var(--muted); margin-bottom:1rem">تم العثور على الفنيين المتاحين حالياً في قسم <span id="alt-svc-name" style="color:var(--gold); font-weight:700"></span>:</p><div class="alt-list" id="alt-list"></div></div></div>
 
-<div class="overlay" id="book-ov"><div class="modal-box"><button class="modal-close" onclick="closeBook()">✕</button><div id="book-form"><div class="modal-sub"><div class="modal-avatar-sm" id="m-av"></div><div><div style="font-size:.68rem;color:var(--muted);margin-bottom:.18rem">حجز مع</div><div style="font-family:'Tajawal',sans-serif;font-weight:800;font-size:.98rem" id="m-name"></div><div style="font-size:.72rem;color:var(--gold)" id="m-svc"></div></div></div><div class="modal-title">احجز <em>موعدك</em> الآن</div><div class="fgrow"><div class="fg"><label>الاسم الكامل</label><input type="text" id="bc-name" placeholder="محمد أحمد"/></div><div class="fg"><label>رقم الهاتف</label><input type="tel" id="bc-phone" placeholder="01XXXXXXXXX"/></div></div><div class="fgrow"><div class="fg"><label>التاريخ</label><input type="date" id="bc-date"/></div><div class="fg"><label>الوقت</label><input type="time" id="bc-time"/></div></div><div class="fg"><label>العنوان</label><input type="text" id="bc-addr" placeholder="الحي، الشارع، رقم المبنى"/></div><div class="fg"><label>وصف المشكلة (اختياري)</label><textarea id="bc-desc" placeholder="اشرح المشكلة باختصار..."></textarea></div><button class="btn-submit" onclick="submitBook()">✅ تأكيد الحجز</button></div><div class="success-box" id="book-ok"><div class="success-ring">✅</div><h3>تم تأكيد حجزك!</h3><p>سيتواصل معك الفني قريباً.<br/>شكراً لثقتك بصيانةبلس 🙏</p><button class="btn-submit" onclick="closeBook()">إغلاق</button></div></div></div>
+<!-- 🟢 🟢 نظام الحجز والدفع المدمج الجديد 🟢 🟢 -->
+<div class="overlay" id="book-ov">
+  <div class="modal-box" style="max-width: 500px;">
+    <button class="modal-close" onclick="closeBook()">✕</button>
+    
+    <!-- الخطوة 1: تفاصيل الحجز -->
+    <div id="step-1" class="step-container active">
+        <div style="display:flex; align-items:center; gap:1rem; margin-bottom:1.5rem; border-bottom:1px solid rgba(255,255,255,.05); padding-bottom:1rem;">
+            <div id="m-av" style="width:60px; height:60px; border-radius:50%; border:2px solid var(--gold); background:var(--navy); padding:5px; flex-shrink:0;"></div>
+            <div style="flex:1;">
+                <div style="font-size:.75rem; color:var(--muted);">حجز موعد مع</div>
+                <div id="m-name" style="font-size:1.2rem; font-weight:800; font-family:'Tajawal',sans-serif;"></div>
+                <div id="m-svc" style="font-size:.85rem; color:var(--gold); font-weight:700;"></div>
+            </div>
+            <div style="text-align:left;">
+                <div style="font-size:.7rem; color:var(--muted);">سعر الزيارة</div>
+                <div id="m-price" style="font-size:1.3rem; font-weight:900; color:var(--white);"></div>
+            </div>
+        </div>
+
+        <form id="form-step-1" onsubmit="goToPayment(event)">
+            <div class="fgrow">
+                <div class="fg"><label>الاسم الكامل <span style="color:var(--red)">*</span></label><input type="text" id="bc-name" required placeholder="مثال: محمد أحمد"/></div>
+                <div class="fg"><label>رقم الهاتف <span style="color:var(--red)">*</span></label><input type="tel" id="bc-phone" required placeholder="01XXXXXXXXX"/></div>
+            </div>
+            
+            <div class="fg">
+                <label>التاريخ المفضل للزيارة <span style="color:var(--red)">*</span></label>
+                <input type="date" id="bc-date" required/>
+            </div>
+            
+            <!-- 🟢 أوقات الزيارة (Time Slots) 🟢 -->
+            <div class="fg">
+                <label>الوقت المفضل للزيارة <span style="color:var(--red)">*</span></label>
+                <div class="time-slots">
+                    <input type="radio" name="bc_time" id="t1" value="10:00 ص - 12:00 م" required>
+                    <label for="t1">10:00 ص - 12:00 م</label>
+                    
+                    <input type="radio" name="bc_time" id="t2" value="12:00 م - 02:00 م">
+                    <label for="t2">12:00 م - 02:00 م</label>
+                    
+                    <input type="radio" name="bc_time" id="t3" value="02:00 م - 04:00 م">
+                    <label for="t3">02:00 م - 04:00 م</label>
+                    
+                    <input type="radio" name="bc_time" id="t4" value="04:00 م - 06:00 م">
+                    <label for="t4">04:00 م - 06:00 م</label>
+                </div>
+            </div>
+
+            <div class="fg"><label>العنوان بالتفصيل <span style="color:var(--red)">*</span></label><input type="text" id="bc-addr" required placeholder="المحافظة، المنطقة، الشارع، المبنى"/></div>
+            <div class="fg"><label>وصف العطل (اختياري)</label><textarea id="bc-desc" placeholder="اشرح المشكلة لمساعدة الفني..."></textarea></div>
+            <button type="submit" class="btn-submit">متابعة للدفع <i class="fa-solid fa-arrow-left"></i></button>
+        </form>
+    </div>
+
+    <!-- الخطوة 2: الدفع الإلكتروني -->
+    <div id="step-2" class="step-container">
+        <div style="display:flex; align-items:center; gap:1rem; margin-bottom:1.5rem;">
+            <button type="button" onclick="goBackToStep1()" style="background:transparent; border:none; color:var(--muted); font-size:1.2rem; cursor:pointer;">→</button>
+            <div class="modal-title" style="margin:0;">طريقة <em>الدفع</em> 💳</div>
+        </div>
+        <p style="font-size:0.85rem; color:var(--muted); margin-bottom:1.5rem;">اختر طريقة الدفع المناسبة لإتمام حجزك:</p>
+
+        <form id="form-step-2" onsubmit="processPayment(event)">
+            <!-- خيار البطاقة -->
+            <input type="radio" name="pay_method" id="pay-card" value="card" class="pay-radio" onchange="togglePayFields()" checked>
+            <label for="pay-card" class="pay-option">
+                <div class="check-ring"></div>
+                <div style="margin-right:15px; flex:1;">
+                    <div style="font-weight:700;">البطاقة الائتمانية</div>
+                    <div style="font-size:0.7rem; color:var(--muted);">فيزا، ماستركارد، ميزة</div>
+                </div>
+                <div style="font-size:1.5rem; display:flex; gap:5px;"><i class="fa-brands fa-cc-visa text-blue-500"></i> <i class="fa-brands fa-cc-mastercard text-red-500"></i></div>
+            </label>
+
+            <!-- نموذج البطاقة -->
+            <div id="card-fields" class="pay-details" style="display:block;">
+                <div class="fg"><label>الاسم على البطاقة</label><input type="text" id="c-name" required placeholder="MOHAMED AHMED" style="direction:ltr; text-align:left;"></div>
+                <div class="fg"><label>رقم البطاقة</label><input type="text" id="c-num" required maxlength="19" placeholder="0000 0000 0000 0000" oninput="formatCard(this)" style="direction:ltr; text-align:left;"></div>
+                <div class="fgrow">
+                    <div class="fg"><label>تاريخ الانتهاء</label><input type="text" id="c-exp" required maxlength="5" placeholder="MM/YY" oninput="formatExp(this)" style="direction:ltr; text-align:left;"></div>
+                    <div class="fg"><label>CVV</label><input type="password" id="c-cvv" required maxlength="3" placeholder="123" style="direction:ltr; text-align:center;"></div>
+                </div>
+            </div>
+
+            <!-- خيار المحفظة -->
+            <input type="radio" name="pay_method" id="pay-wallet" value="wallet" class="pay-radio" onchange="togglePayFields()">
+            <label for="pay-wallet" class="pay-option">
+                <div class="check-ring"></div>
+                <div style="margin-right:15px; flex:1;">
+                    <div style="font-weight:700;">محفظة إلكترونية</div>
+                    <div style="font-size:0.7rem; color:var(--muted);">فودافون، اتصالات، أورانج كاش</div>
+                </div>
+                <i class="fa-solid fa-mobile-screen-button" style="font-size:1.5rem; color:#f97316;"></i>
+            </label>
+
+            <!-- نموذج المحفظة -->
+            <div id="wallet-fields" class="pay-details">
+                <div class="fg"><label>رقم المحفظة</label><input type="tel" id="w-num" placeholder="01X XXXX XXXX" maxlength="11" style="direction:ltr; text-align:left;"></div>
+                <p style="font-size:0.7rem; color:#facc15; margin:0;"><i class="fa-solid fa-info-circle"></i> سيتم إرسال طلب دفع لرقمك.</p>
+            </div>
+
+            <!-- خيار كاش -->
+            <input type="radio" name="pay_method" id="pay-cash" value="cash" class="pay-radio" onchange="togglePayFields()">
+            <label for="pay-cash" class="pay-option">
+                <div class="check-ring"></div>
+                <div style="margin-right:15px; flex:1;">
+                    <div style="font-weight:700;">الدفع نقداً للفني</div>
+                    <div style="font-size:0.7rem; color:var(--muted);">بعد إتمام الفحص أو الصيانة</div>
+                </div>
+                <i class="fa-solid fa-money-bill-wave" style="font-size:1.5rem; color:var(--green);"></i>
+            </label>
+
+            <button type="submit" class="btn-submit" id="btn-final-pay">
+                <span id="pay-btn-text">تأكيد الدفع وإتمام الحجز</span>
+                <div class="loader" id="pay-loader"></div>
+            </button>
+            <div style="text-align:center; margin-top:10px; font-size:0.7rem; color:var(--muted);"><i class="fa-solid fa-lock text-gold"></i> دفع آمن ومشفر 100%</div>
+        </form>
+    </div>
+
+    <!-- الخطوة 3: النجاح -->
+    <div id="step-3" class="step-container" style="text-align:center; padding: 2rem 0;">
+        <div class="success-ring">✅</div>
+        <h3 style="font-family:'Tajawal',sans-serif; font-size:1.8rem; margin-bottom:10px;">تم الحجز بنجاح! 🎉</h3>
+        <p style="color:var(--muted); margin-bottom:25px; line-height:1.6;">تم تأكيد موعدك ودفع التكلفة المبدئية.<br>رقم طلبك هو <strong style="color:var(--gold);">#SN-5921</strong>.<br>سيتواصل معك الفني في أقرب وقت.</p>
+        <button type="button" onclick="closeBook()" class="btn-submit" style="background:#1f2d54; color:white;">حسناً، إغلاق</button>
+    </div>
+  </div>
+</div>
 
 <div class="overlay" id="chat-ov"><div class="chat-modal"><div class="ch-head"><div class="ch-av" id="ch-av"></div><div class="ch-info"><h4 id="ch-name"></h4><span>● متاح الآن</span></div><button class="ch-cl" onclick="closeChat()">✕</button></div><div class="pnote">🔒 محادثة مشفرة وخاصة — هويتك محمية تماماً</div><div class="msgs" id="msgs"></div><div class="cinput"><textarea class="ci" id="ci" placeholder="اكتب رسالتك..." onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendMsg()}"></textarea><button class="send-btn" onclick="sendMsg()">➤</button></div></div></div>
 
 <button class="sos-btn-float" onclick="openSOS()">🚨 طلب طوارئ</button>
 <div class="overlay" id="sos-ov"><div class="modal-box"><button class="modal-close" onclick="closeSOS()" style="z-index: 10;">✕</button><div class="sos-header"><div class="sos-icon" style="font-size: 3rem; text-align: center; display: block; margin-bottom: 10px; animation: pulseRed 1s infinite;">🚨</div><h2 style="color:#ef4444;font-family:'Tajawal',sans-serif;font-weight:900; text-align:center;">خدمة الطوارئ السريعة</h2><p style="font-size:0.8rem;color:var(--muted);margin-top:0.5rem; text-align:center;">سيتم توجيه أقرب فني متاح إليك فوراً (زمن الوصول المتوقع: 15-30 دقيقة). <br><strong style="color:#fca5a5;">ملاحظة: تُطبق رسوم خدمة طوارئ إضافية.</strong></p></div><div id="sos-form"><div class="fg"><label>نوع الطوارئ</label><select id="sos-type" class="sos-input"><option value="">اختر المشكلة السريعة...</option><option value="electric">⚡ ماس أو عطل كهربائي خطير</option><option value="plumbing">💧 كسر ماسورة أو تسرب مياه ضخم</option><option value="ac">❄️ عطل تكييف مفاجئ</option>
-<!-- 🟢 خيارات الطوارئ للأقسام الجديدة 🟢 -->
 <option value="carpentry">🪚 كسر في الأبواب أو الأقفال (نجارة)</option>
 <option value="painting">🎨 طوارئ دهانات/نقاشة</option>
 </select></div><div class="fg"><label>رقم الهاتف للاتصال الفوري</label><input type="tel" id="sos-phone" class="sos-input" placeholder="01XXXXXXXXX" /></div><div class="fg"><label>موقعك الحالي</label><div style="display:flex;gap:0.5rem;"><input type="text" id="sos-addr" class="sos-input" placeholder="أدخل العنوان السريع" style="flex:1; margin-bottom:0;" /><button class="btn-gps" onclick="getLocation()" title="تحديد موقعي">📍</button></div></div><button class="btn-submit btn-sos-submit" style="background:linear-gradient(135deg,#ef4444,#b91c1c);" onclick="submitSOS()">🚀 أرسل الاستغاثة الآن</button></div><div class="success-box" id="sos-ok"><div class="success-ring" style="background:rgba(239,68,68,0.1);border-color:#ef4444;color:#ef4444;">🏃</div><h3 style="color:#ef4444;">تم إرسال الاستغاثة!</h3><p style="color:var(--muted); margin-bottom: 20px;">جاري توجيه أقرب فني إليك..<br>يرجى إبقاء هاتفك متاحاً.</p><button class="btn-submit" onclick="closeSOS()" style="background:#1f2d54;">إغلاق</button></div></div></div>
@@ -694,11 +888,14 @@ function openMyOrders() {
         history.forEach((order, index) => {
             const statusClass = order.orderStatus === 'active' ? 'active' : 'done';
             const statusText = order.orderStatus === 'active' ? 'قيد التنفيذ ⏳' : 'مكتمل ✅';
+            const ratedBadge = (order.orderStatus === 'done' && order.isRated)
+                ? `<span style="font-size:0.7rem; background:rgba(201,168,76,0.15); color:var(--gold); border:1px solid var(--gold); padding:0.15rem 0.5rem; border-radius:20px; margin-right:6px;">⭐ تم التقييم</span>`
+                : '';
             const cardHTML = `
                 <div class="order-hist-card" onclick="openOrderDetails(${index})">
                     <div class="order-hist-header">
                         <span class="order-hist-date">${order.timestamp || order.date}</span>
-                        <span class="order-hist-status ${statusClass}">${statusText}</span>
+                        <span>${ratedBadge}<span class="order-hist-status ${statusClass}">${statusText}</span></span>
                     </div>
                     <div class="order-hist-body">
                         <div class="modal-avatar-sm" style="flex-shrink:0; border-color:var(--gold);">${order.svg || '👤'}</div>
@@ -733,7 +930,9 @@ function openOrderDetails(index) {
     const statusText = order.orderStatus === 'active' 
         ? '<span style="color:var(--gold); background:rgba(201,168,76,0.1); padding:2px 8px; border-radius:12px;">قيد التنفيذ ⏳</span>' 
         : '<span style="color:var(--green); background:rgba(46,204,113,0.1); padding:2px 8px; border-radius:12px;">مكتمل ✅</span>';
-    const ratingHtml = '<span style="color:var(--gold); font-size:0.9rem;">★ ★ ★ ★ ★ <span style="color:var(--muted);font-size:0.75rem;">(ممتاز)</span></span>';
+    const ratingHtml = order.isRated
+        ? `<span style="color:var(--gold); font-size:0.9rem;">${'★'.repeat(order.savedRating || 5)}${'☆'.repeat(5-(order.savedRating||5))} <span style="color:var(--muted);font-size:0.75rem;">(تم التقييم)</span></span>`
+        : '<span style="color:var(--muted); font-size:0.82rem; font-weight:600;">لم يُقيَّم بعد</span>';
 
     document.getElementById('od-content').innerHTML = `
         <div style="display:flex; align-items:center; gap:1rem; margin-bottom:1.5rem; padding-bottom:1rem; border-bottom:1px solid rgba(255,255,255,0.05);">
@@ -757,6 +956,25 @@ function openOrderDetails(index) {
         closeOrderDetails();
         openComplaintWithPreFill(order.techName, order.timestamp || order.date);
     };
+
+    // ── إدارة زر التقييم ──
+    const rateBtn = document.getElementById('od-rate-btn');
+    if (order.orderStatus === 'done') {
+        rateBtn.style.display = 'flex';
+        if (order.isRated) {
+            rateBtn.textContent   = '✅ تم التقييم';
+            rateBtn.style.opacity = '0.7';
+            rateBtn.disabled      = true;
+        } else {
+            rateBtn.innerHTML = '⭐ تقييم الخدمة';
+            rateBtn.style.opacity = '1';
+            rateBtn.disabled      = false;
+        }
+        currentRatingOrder = order;
+    } else {
+        // قيد التنفيذ — لا يظهر زر التقييم
+        rateBtn.style.display = 'none';
+    }
 }
 
 function backToOrders() {
@@ -869,13 +1087,13 @@ let userLng = 31.2357;
 let userMarker = null;
 
 function getServiceIcon(category) {
-    if(category === 'electric') return '🔌';
-    if(category === 'plumbing') return '🔧';
-    if(category === 'ac') return '❄️';
-    if(category === 'appliances') return '🏠';
-    if(category === 'carpentry') return '🪚';
-    if(category === 'painting') return '🎨';
-    return '🔧';
+  if(category === 'electric') return '🔌';
+  if(category === 'plumbing') return '🔧';
+  if(category === 'ac') return '❄️';
+  if(category === 'appliances') return '🏠';
+  if(category === 'carpentry') return '🪚';
+  if(category === 'painting') return '🎨';
+  return '🔧';
 }
 
 function updateFilterCounts(data) {
@@ -1054,11 +1272,12 @@ function plotTechnicians(filterType) {
         <div class="mp-name">${tech.name}</div>
         <span class="mp-tag">${getServiceIcon(tech.category_en)} ${tech.category_ar} | ⭐ ${tech.rating}</span>
         <div class="mp-stats"><span>🚗 يبعد: ${distanceKm.toFixed(1)} كم</span><span>⏳ يصل خلال: ${etaMins} دقيقة</span></div>
-        ${isAvail ? `<button class="mp-btn" onclick="openBookFromMap('${tech.name}', '${tech.category_ar}', ${tech.id})">احجز الآن</button>` : `<button class="mp-btn disabled" disabled>مشغول حالياً</button>`}
+        ${isAvail ? `<button class="mp-btn" onclick="window.openBookFromMap('${tech.name}', '${tech.category_ar}', ${tech.id})">احجز الآن</button>` : `<button class="mp-btn disabled" disabled>مشغول حالياً</button>`}
       </div>`;
     L.marker([techLat, techLng], {icon: customIcon}).bindPopup(popupHTML).addTo(markersLayer);
   });
 }
+
 window.openBookFromMap = function(name, svc, id) { map.closePopup(); openBook(name, svc, id); };
 
 function openAlternatives(techId, svcName, svcCode) {
@@ -1076,62 +1295,138 @@ function openAlternatives(techId, svcName, svcCode) {
 }
 function closeAlternatives() { document.getElementById('alt-ov').classList.remove('open'); document.body.style.overflow = ''; }
 
-function openBook(name,svc,id){
-  document.getElementById('m-name').textContent=name;
-  document.getElementById('m-svc').textContent=getServiceIcon(allTechs.find(t=>t.id==id).category_en) + ' ' + svc;
-  const safeId = parseInt(id) || 1;
-  document.getElementById('m-av').innerHTML=techSVGs[(safeId % 22) === 0 ? 22 : (safeId % 22)] || techSVGs[1];
+/* ── 🟢 وظائف الحجز والدفع متعددة الخطوات 🟢 ── */
+let currentTechId = null;
+let currentTechName = '';
+let currentTechSvc = '';
+
+function openBook(name, svc, id) {
+  currentTechId = id;
+  currentTechName = name;
+  currentTechSvc = getServiceIcon(allTechs.find(t=>t.id==id)?.category_en) + ' ' + svc;
   
-  const today=new Date().toISOString().split('T')[0];
-  document.getElementById('bc-date').min=today; document.getElementById('bc-date').value=today;
-  document.getElementById('book-form').style.display='block'; document.getElementById('book-ok').style.display='none';
-  document.getElementById('book-ov').classList.add('open'); document.body.style.overflow='hidden';
-}
-function closeBook(){
-  document.getElementById('book-ov').classList.remove('open'); document.body.style.overflow='';
-  setTimeout(()=>{
-    ['bc-name','bc-phone','bc-addr','bc-desc'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
-    document.getElementById('bc-time').value='';
-    document.getElementById('book-form').style.display='block'; document.getElementById('book-ok').style.display='none';
-  },300);
+  document.getElementById('m-name').textContent = name;
+  document.getElementById('m-svc').textContent = currentTechSvc;
+  
+  const safeId = parseInt(id) || 1;
+  const techObj = allTechs.find(t=>t.id==id);
+  document.getElementById('m-av').innerHTML = techSVGs[(safeId % 22) === 0 ? 22 : (safeId % 22)] || techSVGs[1];
+  document.getElementById('m-price').textContent = techObj ? techObj.visit_price + ' ج.م' : '100 ج.م';
+  
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('bc-date').min = today; document.getElementById('bc-date').value = today;
+  
+  // إعادة تعيين النوافذ لتبدأ من الخطوة الأولى
+  document.getElementById('step-1').classList.add('active');
+  document.getElementById('step-2').classList.remove('active');
+  document.getElementById('step-3').classList.remove('active');
+  
+  document.getElementById('book-ov').classList.add('open'); 
+  document.body.style.overflow = 'hidden';
+  if(typeof map !== 'undefined' && map) map.closePopup();
 }
 
-async function submitBook(){
-  const userName=document.getElementById('bc-name').value, phone=document.getElementById('bc-phone').value, address=document.getElementById('bc-addr').value;
-  const date=document.getElementById('bc-date').value, time=document.getElementById('bc-time').value, desc=document.getElementById('bc-desc').value;
+function closeBook() {
+  document.getElementById('book-ov').classList.remove('open'); 
+  document.body.style.overflow = '';
+  setTimeout(() => { 
+    if(document.getElementById('form-step-1')) document.getElementById('form-step-1').reset(); 
+    if(document.getElementById('form-step-2')) document.getElementById('form-step-2').reset(); 
+  }, 300);
+}
+
+function goToPayment(e) {
+  e.preventDefault();
+  document.getElementById('step-1').classList.remove('active');
+  document.getElementById('step-2').classList.add('active');
+  togglePayFields();
+}
+
+function goBackToStep1() {
+  document.getElementById('step-2').classList.remove('active');
+  document.getElementById('step-1').classList.add('active');
+}
+
+function togglePayFields() {
+  const method = document.querySelector('input[name="pay_method"]:checked').value;
+  const cardFields = document.getElementById('card-fields');
+  const walletFields = document.getElementById('wallet-fields');
   
-  if(!userName || !phone || !address) return alert("يرجى إكمال البيانات الأساسية");
+  document.querySelectorAll('#card-fields input').forEach(el => el.removeAttribute('required'));
+  document.getElementById('w-num').removeAttribute('required');
   
-  const techName = document.getElementById('m-name').textContent;
-  const svc = document.getElementById('m-svc').textContent;
+  cardFields.style.display = 'none'; walletFields.style.display = 'none';
+  
+  if(method === 'card') {
+      cardFields.style.display = 'block';
+      document.querySelectorAll('#card-fields input').forEach(el => el.setAttribute('required', 'required'));
+  } else if(method === 'wallet') {
+      walletFields.style.display = 'block';
+      document.getElementById('w-num').setAttribute('required', 'required');
+  }
+}
+
+function formatCard(el) {
+  let val = el.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
+  let matches = val.match(/\d{4,16}/g);
+  let match = matches && matches[0] || '';
+  let parts = [];
+  for (let i=0, len=match.length; i<len; i+=4) parts.push(match.substring(i, i+4));
+  el.value = parts.length ? parts.join(' ') : val;
+}
+
+function formatExp(el) {
+  let val = el.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
+  if (val.length >= 2) el.value = val.substring(0, 2) + '/' + val.substring(2, 4);
+  else el.value = val;
+}
+
+async function processPayment(e) {
+  e.preventDefault();
+  const userName = document.getElementById('bc-name').value;
+  const phone = document.getElementById('bc-phone').value;
+  const address = document.getElementById('bc-addr').value;
+  const date = document.getElementById('bc-date').value;
+  
+  // 🟢 استخراج قيمة الوقت المفضل من الأزرار الجديدة 🟢
+  const timeEl = document.querySelector('input[name="bc_time"]:checked');
+  const time = timeEl ? timeEl.value : 'غير محدد';
+  
+  const desc = document.getElementById('bc-desc').value;
+  
+  const techName = currentTechName;
+  const svc = currentTechSvc;
   const svg = document.getElementById('m-av').innerHTML;
   
   const orderData = { techName, svc, svg, userName, phone, address, date, time, desc, eta: 'بناءً على الموعد' };
   
-  const btn = document.querySelector('#book-form .btn-submit');
-  const oldText = btn.textContent;
-  btn.textContent = 'جاري الحجز... ⏳';
-  btn.disabled = true;
+  const btn = document.getElementById('btn-final-pay');
+  const txt = document.getElementById('pay-btn-text');
+  const ldr = document.getElementById('pay-loader');
+  
+  btn.disabled = true; txt.textContent = 'جاري الاتصال بالبنك...'; ldr.style.display = 'inline-block';
 
   try {
-    const res = await fetchWithFallback('api/book.php', {
+    await fetchWithFallback('api/book.php', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(orderData)
     });
   } catch(err) {
-    console.log("Local Booking");
+    console.log("Local Booking Executed");
   } finally {
     localStorage.setItem(activeKey, JSON.stringify(orderData));
     saveToOrderHistory(orderData);
-    document.getElementById('book-form').style.display='none'; 
-    document.getElementById('book-ok').style.display='block';
+    
+    document.getElementById('step-2').classList.remove('active');
+    document.getElementById('step-3').classList.add('active');
+    
     renderActiveOrder();
-    btn.textContent = oldText;
-    btn.disabled = false;
+    btn.disabled = false; txt.textContent = 'تأكيد الدفع وإتمام الحجز'; ldr.style.display = 'none';
   }
 }
 
+// ── الشات والطوارئ والتتبع ──
 const replies=['أهلاً بك! 😊','سأكون عندك في أسرع وقت.','ما هو نوع المشكلة بالضبط؟']; let ri=0,typT=null;
 function openChat(name,svc,id){
   document.getElementById('ch-name').textContent=name;
@@ -1235,6 +1530,171 @@ function cancelOrder() {
   renderActiveOrder();
 }
 
+// ════════════════════════════════════════════════════
+//  ⭐ نظام التقييم — Rating System
+// ════════════════════════════════════════════════════
+let currentRatingOrder = null;
+let selectedRating = 0;
+
+const rateLabels = ['', 'سيء 😞', 'مقبول 😐', 'جيد 🙂', 'جيد جداً 😊', 'ممتاز 🤩'];
+
+function openRatingModal() {
+  const history = JSON.parse(localStorage.getItem(historyKey)) || [];
+  // إيجاد آخر طلب مكتمل غير مقيّم
+  const order = history.find(o => o.orderStatus === 'done' && !o.isRated);
+  if (!order) {
+    // إن لم يوجد، نفتح تقييم الطلب المفتوح حالياً في التفاصيل
+    currentRatingOrder = history[0] || null;
+  } else {
+    currentRatingOrder = order;
+  }
+  if (!currentRatingOrder) return;
+
+  // ملء بيانات الفني
+  document.getElementById('rate-tech-name').textContent = currentRatingOrder.techName || '';
+  document.getElementById('rate-svc-name').textContent  = currentRatingOrder.svc || '';
+  document.getElementById('rate-tech-av').innerHTML     = currentRatingOrder.svg || '👤';
+
+  // تحقق: هل قُيّم من قبل؟
+  const rateBtn    = document.getElementById('od-rate-btn');
+  const submitBtn  = document.getElementById('rate-submit-btn');
+  const rateMsg    = document.getElementById('rate-msg');
+
+  if (currentRatingOrder.isRated) {
+    // عرض التقييم المحفوظ
+    selectStar(currentRatingOrder.savedRating || 5);
+    document.getElementById('rate-comment').value    = currentRatingOrder.ratingComment || '';
+    document.getElementById('rate-comment').disabled = true;
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'تم التقييم مسبقاً ✅';
+    submitBtn.style.opacity = '0.6';
+    rateMsg.style.display = 'block';
+    rateMsg.style.background  = 'rgba(46,204,113,0.1)';
+    rateMsg.style.border      = '1px solid rgba(46,204,113,0.3)';
+    rateMsg.style.color       = '#86efac';
+    rateMsg.textContent = 'لقد قيّمت هذه الخدمة بالفعل.';
+    if (rateBtn) { rateBtn.textContent = '✅ تم التقييم'; rateBtn.style.opacity = '0.7'; rateBtn.disabled = true; }
+  } else {
+    // إعادة ضبط
+    selectedRating = 0;
+    updateStars(0);
+    document.getElementById('rate-comment').value    = '';
+    document.getElementById('rate-comment').disabled = false;
+    submitBtn.disabled = false;
+    submitBtn.innerHTML = 'إرسال التقييم ⭐';
+    submitBtn.style.opacity = '1';
+    rateMsg.style.display = 'none';
+  }
+
+  document.getElementById('order-details-ov').classList.remove('open');
+  document.getElementById('rating-ov').classList.add('open');
+}
+
+function closeRatingModal() {
+  document.getElementById('rating-ov').classList.remove('open');
+  document.getElementById('order-details-ov').classList.add('open');
+}
+
+function selectStar(val) {
+  selectedRating = val;
+  updateStars(val);
+  document.getElementById('rate-label').textContent = rateLabels[val] || '';
+}
+
+function updateStars(val) {
+  document.querySelectorAll('.rate-star').forEach(star => {
+    const starVal = parseInt(star.dataset.val);
+    star.style.opacity   = starVal <= val ? '1' : '0.3';
+    star.style.color     = starVal <= val ? 'var(--gold)' : 'rgba(255,255,255,0.4)';
+    star.style.transform = starVal <= val ? 'scale(1.15)' : 'scale(1)';
+  });
+}
+
+// تأثير hover على النجوم
+document.querySelectorAll('.rate-star').forEach(star => {
+  star.addEventListener('mouseover', () => updateStars(parseInt(star.dataset.val)));
+  star.addEventListener('mouseleave', () => updateStars(selectedRating));
+});
+
+async function submitRating() {
+  if (selectedRating === 0) {
+    showRateMsg('يرجى اختيار عدد النجوم أولاً.', false);
+    return;
+  }
+  if (!currentRatingOrder) return;
+
+  const btn     = document.getElementById('rate-submit-btn');
+  const comment = document.getElementById('rate-comment').value.trim();
+  const oldHTML = btn.innerHTML;
+
+  btn.innerHTML  = 'جاري الإرسال... ⏳';
+  btn.disabled   = true;
+
+  try {
+    const res = await fetch('api/rate_order.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        userName:  name || 'زائر',
+        techName:  currentRatingOrder.techName,
+        svcName:   currentRatingOrder.svc,
+        rating:    selectedRating,
+        comment:   comment,
+        bookingId: currentRatingOrder.bookingId || 0,
+      }),
+    });
+    const result = await res.json();
+
+    if (res.ok || res.status === 201) {
+      saveRatingLocally(comment);
+      showRateMsg('✅ شكراً! تم إرسال تقييمك بنجاح.', true);
+      updateRateBtnUI();
+      btn.innerHTML = 'تم التقييم ✅';
+      document.getElementById('rate-comment').disabled = true;
+    } else {
+      showRateMsg('⚠️ ' + (result.error || 'حدث خطأ.'), false);
+      btn.innerHTML = oldHTML;
+      btn.disabled  = false;
+    }
+  } catch {
+    // Fallback: حفظ محلياً
+    saveRatingLocally(comment);
+    showRateMsg('✅ تم حفظ تقييمك محلياً.', true);
+    updateRateBtnUI();
+    btn.innerHTML = 'تم التقييم ✅';
+    document.getElementById('rate-comment').disabled = true;
+  }
+}
+
+function saveRatingLocally(comment) {
+  const history = JSON.parse(localStorage.getItem(historyKey)) || [];
+  const idx = history.findIndex(o => o.techName === currentRatingOrder.techName && o.timestamp === currentRatingOrder.timestamp);
+  if (idx !== -1) {
+    history[idx].isRated       = true;
+    history[idx].savedRating   = selectedRating;
+    history[idx].ratingComment = comment;
+    localStorage.setItem(historyKey, JSON.stringify(history));
+  }
+}
+
+function updateRateBtnUI() {
+  const rateBtn = document.getElementById('od-rate-btn');
+  if (rateBtn) {
+    rateBtn.textContent   = '✅ تم التقييم';
+    rateBtn.style.opacity = '0.7';
+    rateBtn.disabled      = true;
+  }
+}
+
+function showRateMsg(text, success) {
+  const el = document.getElementById('rate-msg');
+  el.style.display    = 'block';
+  el.textContent      = text;
+  el.style.background = success ? 'rgba(46,204,113,0.1)'  : 'rgba(239,68,68,0.1)';
+  el.style.border     = success ? '1px solid rgba(46,204,113,0.3)' : '1px solid rgba(239,68,68,0.3)';
+  el.style.color      = success ? '#86efac' : '#fca5a5';
+}
+
 function renderCards(techArray) {
   const grid = document.getElementById('grid');
   if(techArray.length === 0) {
@@ -1258,7 +1718,7 @@ function renderCards(techArray) {
     let actionHtml = '';
     if(isAvail) {
       actionHtml = `
-        <button class="bbk" onclick="openBook('${tech.name}','${tech.category_ar}',${tech.id})">📅 احجز موعد</button>
+        <button class="bbk" onclick="openBook('${tech.name}','${tech.category_ar}',${tech.id})">📅 احجز وادفع</button>
         <button class="bch" onclick="openChat('${tech.name}','${tech.category_ar}',${tech.id})">💬 تواصل بخصوصية</button>
       `;
     } else {

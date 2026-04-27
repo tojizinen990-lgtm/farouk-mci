@@ -316,10 +316,10 @@ async function handleLogin(e) {
 // ── معالجة إنشاء الحساب (عبر API) ──
 async function handleRegister(e) {
   e.preventDefault();
-  const fname = document.getElementById('reg-fname').value;
-  const lname = document.getElementById('reg-lname').value;
-  const phone = document.getElementById('reg-phone').value;
-  const email = document.getElementById('reg-email').value;
+  const fname = document.getElementById('reg-fname').value.trim();
+  const lname = document.getElementById('reg-lname').value.trim();
+  const phone = document.getElementById('reg-phone').value.trim();
+  const email = document.getElementById('reg-email').value.trim();
   const pass = document.getElementById('reg-pass').value;
   const pass2 = document.getElementById('reg-pass2').value;
   const msgBox = document.getElementById('reg-msg');
@@ -327,6 +327,26 @@ async function handleRegister(e) {
 
   msgBox.style.display = 'none';
 
+  // ── Client-side Validation ──
+  if (!fname) {
+    msgBox.className = 'msg-box msg-error';
+    msgBox.textContent = 'يرجى إدخال الاسم الأول.';
+    msgBox.style.display = 'block';
+    return;
+  }
+  const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRe.test(email)) {
+    msgBox.className = 'msg-box msg-error';
+    msgBox.textContent = 'صيغة البريد الإلكتروني غير صحيحة.';
+    msgBox.style.display = 'block';
+    return;
+  }
+  if (pass.length < 6) {
+    msgBox.className = 'msg-box msg-error';
+    msgBox.textContent = 'كلمة المرور يجب أن تكون 6 أحرف على الأقل.';
+    msgBox.style.display = 'block';
+    return;
+  }
   if(pass !== pass2) {
     msgBox.className = 'msg-box msg-error';
     msgBox.textContent = 'كلمتا المرور غير متطابقتين.';
@@ -351,7 +371,6 @@ async function handleRegister(e) {
       msgBox.className = 'msg-box msg-success';
       msgBox.textContent = 'تم إنشاء الحساب بنجاح! يمكنك تسجيل الدخول الآن.';
       msgBox.style.display = 'block';
-      
       e.target.reset();
       setTimeout(() => { switchTab('login'); }, 2000);
     } else {
